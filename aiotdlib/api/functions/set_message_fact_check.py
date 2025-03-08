@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetMessageFactCheck(BaseObject):
     """
     Changes the fact-check of a message. Can be only used if messageProperties.can_set_fact_check == true
@@ -28,7 +27,7 @@ class SetMessageFactCheck(BaseObject):
     :type text: :class:`FormattedText`, optional
     """
 
-    ID: typing.Literal["setMessageFactCheck"] = Field("setMessageFactCheck", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setMessageFactCheck"] = field(default="setMessageFactCheck", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    text: typing.Optional[FormattedText] = None
+    text: typing.Optional[FormattedText] = field(default=None)

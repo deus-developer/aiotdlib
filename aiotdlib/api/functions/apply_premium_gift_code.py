@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ApplyPremiumGiftCode(BaseObject):
     """
     Applies a Telegram Premium gift code
@@ -20,5 +20,5 @@ class ApplyPremiumGiftCode(BaseObject):
     :type code: :class:`String`
     """
 
-    ID: typing.Literal["applyPremiumGiftCode"] = Field("applyPremiumGiftCode", validation_alias="@type", alias="@type")
+    ID: typing.Literal["applyPremiumGiftCode"] = field(default="applyPremiumGiftCode", metadata={"alias": "@type"})
     code: String

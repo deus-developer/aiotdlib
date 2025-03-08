@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BlockList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBlockedMessageSenders(BaseObject):
     """
     Returns users and chats that were blocked by the current user
@@ -28,8 +27,8 @@ class GetBlockedMessageSenders(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getBlockedMessageSenders"] = Field(
-        "getBlockedMessageSenders", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getBlockedMessageSenders"] = field(
+        default="getBlockedMessageSenders", metadata={"alias": "@type"}
     )
     block_list: BlockList
     offset: Int32

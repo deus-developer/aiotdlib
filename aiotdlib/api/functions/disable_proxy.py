@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DisableProxy(BaseObject):
     """
     Disables the currently enabled proxy. Can be called before authorization
     """
 
-    ID: typing.Literal["disableProxy"] = Field("disableProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["disableProxy"] = field(default="disableProxy", metadata={"alias": "@type"})

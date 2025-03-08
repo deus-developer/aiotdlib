@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStoryInteractions(BaseObject):
     """
     Returns interactions with a story. The method can be called only for stories posted on behalf of the current user
@@ -32,11 +32,11 @@ class GetStoryInteractions(BaseObject):
     :type prefer_with_reaction: :class:`Bool`
     """
 
-    ID: typing.Literal["getStoryInteractions"] = Field("getStoryInteractions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStoryInteractions"] = field(default="getStoryInteractions", metadata={"alias": "@type"})
     story_id: Int32
     offset: String
     limit: Int32
-    query: String = ""
-    only_contacts: Bool = False
-    prefer_forwards: Bool = False
-    prefer_with_reaction: Bool = False
+    query: String = field(default="")
+    only_contacts: Bool = field(default=False)
+    prefer_forwards: Bool = field(default=False)
+    prefer_with_reaction: Bool = field(default=False)

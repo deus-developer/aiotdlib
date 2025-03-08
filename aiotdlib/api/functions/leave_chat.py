@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LeaveChat(BaseObject):
     """
     Removes the current user from chat members. Private and secret chats can't be left using this method
@@ -20,5 +20,5 @@ class LeaveChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["leaveChat"] = Field("leaveChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["leaveChat"] = field(default="leaveChat", metadata={"alias": "@type"})
     chat_id: Int53

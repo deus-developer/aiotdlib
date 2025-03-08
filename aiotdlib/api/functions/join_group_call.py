@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class JoinGroupCall(BaseObject):
     """
     Joins an active group call. Returns join response payload for tgcalls
@@ -36,11 +35,11 @@ class JoinGroupCall(BaseObject):
     :type participant_id: :class:`MessageSender`, optional
     """
 
-    ID: typing.Literal["joinGroupCall"] = Field("joinGroupCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["joinGroupCall"] = field(default="joinGroupCall", metadata={"alias": "@type"})
     group_call_id: Int32
     audio_source_id: Int32
     payload: String
-    is_muted: Bool = False
-    is_my_video_enabled: Bool = False
-    invite_hash: String = ""
-    participant_id: typing.Optional[MessageSender] = None
+    is_muted: Bool = field(default=False)
+    is_my_video_enabled: Bool = field(default=False)
+    invite_hash: String = field(default="")
+    participant_id: typing.Optional[MessageSender] = field(default=None)

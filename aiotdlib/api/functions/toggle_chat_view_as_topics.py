@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatViewAsTopics(BaseObject):
     """
     Changes the view_as_topics setting of a forum chat or Saved Messages
@@ -22,8 +22,6 @@ class ToggleChatViewAsTopics(BaseObject):
     :type view_as_topics: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatViewAsTopics"] = Field(
-        "toggleChatViewAsTopics", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["toggleChatViewAsTopics"] = field(default="toggleChatViewAsTopics", metadata={"alias": "@type"})
     chat_id: Int53
     view_as_topics: Bool

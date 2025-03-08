@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddCustomServerLanguagePack(BaseObject):
     """
     Adds a custom server language pack to the list of installed language packs in current localization target. Can be called before authorization
@@ -20,7 +20,7 @@ class AddCustomServerLanguagePack(BaseObject):
     :type language_pack_id: :class:`String`
     """
 
-    ID: typing.Literal["addCustomServerLanguagePack"] = Field(
-        "addCustomServerLanguagePack", validation_alias="@type", alias="@type"
+    ID: typing.Literal["addCustomServerLanguagePack"] = field(
+        default="addCustomServerLanguagePack", metadata={"alias": "@type"}
     )
     language_pack_id: String

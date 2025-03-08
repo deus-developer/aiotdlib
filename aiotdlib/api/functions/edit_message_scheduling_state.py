@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSchedulingState,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditMessageSchedulingState(BaseObject):
     """
     Edits the time when a scheduled message will be sent. Scheduling state of all messages in the same album or forwarded together with the message will be also changed
@@ -28,9 +27,9 @@ class EditMessageSchedulingState(BaseObject):
     :type scheduling_state: :class:`MessageSchedulingState`, optional
     """
 
-    ID: typing.Literal["editMessageSchedulingState"] = Field(
-        "editMessageSchedulingState", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editMessageSchedulingState"] = field(
+        default="editMessageSchedulingState", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53
-    scheduling_state: typing.Optional[MessageSchedulingState] = None
+    scheduling_state: typing.Optional[MessageSchedulingState] = field(default=None)

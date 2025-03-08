@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AnswerCallbackQuery(BaseObject):
     """
     Sets the result of a callback query; for bots only
@@ -28,9 +28,9 @@ class AnswerCallbackQuery(BaseObject):
     :type show_alert: :class:`Bool`
     """
 
-    ID: typing.Literal["answerCallbackQuery"] = Field("answerCallbackQuery", validation_alias="@type", alias="@type")
+    ID: typing.Literal["answerCallbackQuery"] = field(default="answerCallbackQuery", metadata={"alias": "@type"})
     callback_query_id: Int64
     text: String
     url: String
     cache_time: Int32
-    show_alert: Bool = False
+    show_alert: Bool = field(default=False)

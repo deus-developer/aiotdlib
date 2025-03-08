@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CanSendStory(BaseObject):
     """
     Checks whether the current user can send a story on behalf of a chat; requires can_post_stories right for supergroup and channel chats
@@ -20,5 +20,5 @@ class CanSendStory(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["canSendStory"] = Field("canSendStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["canSendStory"] = field(default="canSendStory", metadata={"alias": "@type"})
     chat_id: Int53

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatNotificationSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatNotificationSettings(BaseObject):
     """
     Changes the notification settings of a chat. Notification settings of a chat with the current user (Saved Messages) can't be changed
@@ -26,8 +25,8 @@ class SetChatNotificationSettings(BaseObject):
     :type notification_settings: :class:`ChatNotificationSettings`
     """
 
-    ID: typing.Literal["setChatNotificationSettings"] = Field(
-        "setChatNotificationSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatNotificationSettings"] = field(
+        default="setChatNotificationSettings", metadata={"alias": "@type"}
     )
     chat_id: Int53
     notification_settings: ChatNotificationSettings

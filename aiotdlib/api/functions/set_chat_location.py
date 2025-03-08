@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatLocation,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatLocation(BaseObject):
     """
     Changes the location of a chat. Available only for some location-based supergroups, use supergroupFullInfo.can_set_location to check whether the method is allowed to use
@@ -26,6 +25,6 @@ class SetChatLocation(BaseObject):
     :type location: :class:`ChatLocation`
     """
 
-    ID: typing.Literal["setChatLocation"] = Field("setChatLocation", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatLocation"] = field(default="setChatLocation", metadata={"alias": "@type"})
     chat_id: Int53
     location: ChatLocation

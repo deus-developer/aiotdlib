@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     CollectibleItemType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCollectibleItemInfo(BaseObject):
     """
     Returns information about a given collectible item that was purchased at https://fragment.com
@@ -24,7 +23,5 @@ class GetCollectibleItemInfo(BaseObject):
     :type type_: :class:`CollectibleItemType`
     """
 
-    ID: typing.Literal["getCollectibleItemInfo"] = Field(
-        "getCollectibleItemInfo", validation_alias="@type", alias="@type"
-    )
-    type_: CollectibleItemType = Field(..., alias="type")
+    ID: typing.Literal["getCollectibleItemInfo"] = field(default="getCollectibleItemInfo", metadata={"alias": "@type"})
+    type_: CollectibleItemType = field(default=MISSING, metadata={"alias": "type"})

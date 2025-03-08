@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPinnedSavedMessagesTopics(BaseObject):
     """
     Changes the order of pinned Saved Messages topics
@@ -20,7 +20,7 @@ class SetPinnedSavedMessagesTopics(BaseObject):
     :type saved_messages_topic_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["setPinnedSavedMessagesTopics"] = Field(
-        "setPinnedSavedMessagesTopics", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setPinnedSavedMessagesTopics"] = field(
+        default="setPinnedSavedMessagesTopics", metadata={"alias": "@type"}
     )
     saved_messages_topic_ids: Vector[Int53]

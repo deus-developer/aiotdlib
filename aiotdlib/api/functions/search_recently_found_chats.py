@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchRecentlyFoundChats(BaseObject):
     """
     Searches for the specified query in the title and username of up to 50 recently found chats; this is an offline request
@@ -22,8 +22,8 @@ class SearchRecentlyFoundChats(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchRecentlyFoundChats"] = Field(
-        "searchRecentlyFoundChats", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchRecentlyFoundChats"] = field(
+        default="searchRecentlyFoundChats", metadata={"alias": "@type"}
     )
     query: String
     limit: Int32

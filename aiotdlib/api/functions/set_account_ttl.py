@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     AccountTtl,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetAccountTtl(BaseObject):
     """
     Changes the period of inactivity after which the account of the current user will automatically be deleted
@@ -24,5 +23,5 @@ class SetAccountTtl(BaseObject):
     :type ttl: :class:`AccountTtl`
     """
 
-    ID: typing.Literal["setAccountTtl"] = Field("setAccountTtl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setAccountTtl"] = field(default="setAccountTtl", metadata={"alias": "@type"})
     ttl: AccountTtl

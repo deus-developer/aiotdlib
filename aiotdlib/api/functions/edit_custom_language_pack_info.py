@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     LanguagePackInfo,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditCustomLanguagePackInfo(BaseObject):
     """
     Edits information about a custom local language pack in the current localization target. Can be called before authorization
@@ -24,7 +23,7 @@ class EditCustomLanguagePackInfo(BaseObject):
     :type info: :class:`LanguagePackInfo`
     """
 
-    ID: typing.Literal["editCustomLanguagePackInfo"] = Field(
-        "editCustomLanguagePackInfo", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editCustomLanguagePackInfo"] = field(
+        default="editCustomLanguagePackInfo", metadata={"alias": "@type"}
     )
     info: LanguagePackInfo

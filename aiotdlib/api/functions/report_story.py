@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportStory(BaseObject):
     """
     Reports a story to the Telegram moderators
@@ -26,8 +26,8 @@ class ReportStory(BaseObject):
     :type text: :class:`String`
     """
 
-    ID: typing.Literal["reportStory"] = Field("reportStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["reportStory"] = field(default="reportStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32
     option_id: Bytes
-    text: String = Field("", max_length=1024)
+    text: String = field(default="", metadata={"max_length": 1024})

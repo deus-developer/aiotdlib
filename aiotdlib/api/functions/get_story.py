@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStory(BaseObject):
     """
     Returns a story
@@ -24,7 +24,7 @@ class GetStory(BaseObject):
     :type only_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getStory"] = Field("getStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStory"] = field(default="getStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32
-    only_local: Bool = False
+    only_local: Bool = field(default=False)

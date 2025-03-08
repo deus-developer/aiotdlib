@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditBusinessMessageCaption(BaseObject):
     """
     Edits the caption of a message sent on behalf of a business account; for bots only
@@ -35,12 +34,12 @@ class EditBusinessMessageCaption(BaseObject):
     :type caption: :class:`FormattedText`, optional
     """
 
-    ID: typing.Literal["editBusinessMessageCaption"] = Field(
-        "editBusinessMessageCaption", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editBusinessMessageCaption"] = field(
+        default="editBusinessMessageCaption", metadata={"alias": "@type"}
     )
     business_connection_id: String
     chat_id: Int53
     message_id: Int53
-    show_caption_above_media: Bool = False
-    reply_markup: typing.Optional[ReplyMarkup] = None
-    caption: typing.Optional[FormattedText] = None
+    show_caption_above_media: Bool = field(default=False)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)
+    caption: typing.Optional[FormattedText] = field(default=None)

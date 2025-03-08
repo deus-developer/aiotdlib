@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckPhoneNumberCode(BaseObject):
     """
     Check the authentication code and completes the request for which the code was sent if appropriate
@@ -20,5 +20,5 @@ class CheckPhoneNumberCode(BaseObject):
     :type code: :class:`String`
     """
 
-    ID: typing.Literal["checkPhoneNumberCode"] = Field("checkPhoneNumberCode", validation_alias="@type", alias="@type")
+    ID: typing.Literal["checkPhoneNumberCode"] = field(default="checkPhoneNumberCode", metadata={"alias": "@type"})
     code: String

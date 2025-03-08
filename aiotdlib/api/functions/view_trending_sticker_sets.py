@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ViewTrendingStickerSets(BaseObject):
     """
     Informs the server that some trending sticker sets have been viewed by the user
@@ -20,7 +20,7 @@ class ViewTrendingStickerSets(BaseObject):
     :type sticker_set_ids: :class:`Vector[Int64]`
     """
 
-    ID: typing.Literal["viewTrendingStickerSets"] = Field(
-        "viewTrendingStickerSets", validation_alias="@type", alias="@type"
+    ID: typing.Literal["viewTrendingStickerSets"] = field(
+        default="viewTrendingStickerSets", metadata={"alias": "@type"}
     )
     sticker_set_ids: Vector[Int64]

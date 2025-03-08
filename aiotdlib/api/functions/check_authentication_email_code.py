@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     EmailAddressAuthentication,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckAuthenticationEmailCode(BaseObject):
     """
     Checks the authentication of an email address. Works only when the current authorization state is authorizationStateWaitEmailCode
@@ -24,7 +23,7 @@ class CheckAuthenticationEmailCode(BaseObject):
     :type code: :class:`EmailAddressAuthentication`
     """
 
-    ID: typing.Literal["checkAuthenticationEmailCode"] = Field(
-        "checkAuthenticationEmailCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkAuthenticationEmailCode"] = field(
+        default="checkAuthenticationEmailCode", metadata={"alias": "@type"}
     )
     code: EmailAddressAuthentication

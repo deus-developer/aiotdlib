@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetInstalledBackgrounds(BaseObject):
     """
     Returns backgrounds installed by the user
@@ -20,7 +20,7 @@ class GetInstalledBackgrounds(BaseObject):
     :type for_dark_theme: :class:`Bool`
     """
 
-    ID: typing.Literal["getInstalledBackgrounds"] = Field(
-        "getInstalledBackgrounds", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getInstalledBackgrounds"] = field(
+        default="getInstalledBackgrounds", metadata={"alias": "@type"}
     )
-    for_dark_theme: Bool = False
+    for_dark_theme: Bool = field(default=False)

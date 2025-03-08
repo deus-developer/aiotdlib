@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetSupergroupUsername(BaseObject):
     """
     Changes the editable username of a supergroup or channel, requires owner privileges in the supergroup or channel
@@ -22,8 +22,6 @@ class SetSupergroupUsername(BaseObject):
     :type username: :class:`String`
     """
 
-    ID: typing.Literal["setSupergroupUsername"] = Field(
-        "setSupergroupUsername", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setSupergroupUsername"] = field(default="setSupergroupUsername", metadata={"alias": "@type"})
     supergroup_id: Int53
     username: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RecoverPassword(BaseObject):
     """
     Recovers the 2-step verification password using a recovery code sent to an email address that was previously set up
@@ -24,7 +24,7 @@ class RecoverPassword(BaseObject):
     :type new_hint: :class:`String`
     """
 
-    ID: typing.Literal["recoverPassword"] = Field("recoverPassword", validation_alias="@type", alias="@type")
+    ID: typing.Literal["recoverPassword"] = field(default="recoverPassword", metadata={"alias": "@type"})
     recovery_code: String
-    new_password: String = ""
-    new_hint: String = ""
+    new_password: String = field(default="")
+    new_hint: String = field(default="")

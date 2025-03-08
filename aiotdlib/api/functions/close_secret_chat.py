@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CloseSecretChat(BaseObject):
     """
     Closes a secret chat, effectively transferring its state to secretChatStateClosed
@@ -20,5 +20,5 @@ class CloseSecretChat(BaseObject):
     :type secret_chat_id: :class:`Int32`
     """
 
-    ID: typing.Literal["closeSecretChat"] = Field("closeSecretChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["closeSecretChat"] = field(default="closeSecretChat", metadata={"alias": "@type"})
     secret_chat_id: Int32

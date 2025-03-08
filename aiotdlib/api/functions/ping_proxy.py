@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class PingProxy(BaseObject):
     """
     Computes time needed to receive a response from a Telegram server through a proxy. Can be called before authorization
@@ -20,5 +20,5 @@ class PingProxy(BaseObject):
     :type proxy_id: :class:`Int32`
     """
 
-    ID: typing.Literal["pingProxy"] = Field("pingProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["pingProxy"] = field(default="pingProxy", metadata={"alias": "@type"})
     proxy_id: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleForumTopicIsPinned(BaseObject):
     """
     Changes the pinned state of a forum topic; requires can_manage_topics right in the supergroup. There can be up to getOption("pinned_forum_topic_count_max") pinned forum topics
@@ -24,9 +24,9 @@ class ToggleForumTopicIsPinned(BaseObject):
     :type is_pinned: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleForumTopicIsPinned"] = Field(
-        "toggleForumTopicIsPinned", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleForumTopicIsPinned"] = field(
+        default="toggleForumTopicIsPinned", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_thread_id: Int53
-    is_pinned: Bool = False
+    is_pinned: Bool = field(default=False)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarSubscriptions(BaseObject):
     """
     Returns the list of Telegram Star subscriptions for the current user
@@ -22,6 +22,6 @@ class GetStarSubscriptions(BaseObject):
     :type only_expiring: :class:`Bool`
     """
 
-    ID: typing.Literal["getStarSubscriptions"] = Field("getStarSubscriptions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStarSubscriptions"] = field(default="getStarSubscriptions", metadata={"alias": "@type"})
     offset: String
-    only_expiring: Bool = False
+    only_expiring: Bool = field(default=False)

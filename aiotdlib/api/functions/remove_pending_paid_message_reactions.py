@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemovePendingPaidMessageReactions(BaseObject):
     """
     Removes all pending paid reactions on a message
@@ -22,8 +22,8 @@ class RemovePendingPaidMessageReactions(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["removePendingPaidMessageReactions"] = Field(
-        "removePendingPaidMessageReactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removePendingPaidMessageReactions"] = field(
+        default="removePendingPaidMessageReactions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EnableProxy(BaseObject):
     """
     Enables a proxy. Only one proxy can be enabled at a time. Can be called before authorization
@@ -20,5 +20,5 @@ class EnableProxy(BaseObject):
     :type proxy_id: :class:`Int32`
     """
 
-    ID: typing.Literal["enableProxy"] = Field("enableProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["enableProxy"] = field(default="enableProxy", metadata={"alias": "@type"})
     proxy_id: Int32

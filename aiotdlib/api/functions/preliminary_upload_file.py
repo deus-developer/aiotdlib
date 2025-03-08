@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FileType,
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class PreliminaryUploadFile(BaseObject):
     """
     Preliminary uploads a file to the cloud before sending it in a message, which can be useful for uploading of being recorded voice and video notes. In all other cases there is no need to preliminary upload a file. Updates updateFile will be used to notify about upload progress. The upload will not be completed until the file is sent in a message
@@ -29,9 +28,7 @@ class PreliminaryUploadFile(BaseObject):
     :type file_type: :class:`FileType`, optional
     """
 
-    ID: typing.Literal["preliminaryUploadFile"] = Field(
-        "preliminaryUploadFile", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["preliminaryUploadFile"] = field(default="preliminaryUploadFile", metadata={"alias": "@type"})
     file: InputFile
     priority: Int32
-    file_type: typing.Optional[FileType] = None
+    file_type: typing.Optional[FileType] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatDescription(BaseObject):
     """
     Changes information about a chat. Available for basic groups, supergroups, and channels. Requires can_change_info member right
@@ -22,6 +22,6 @@ class SetChatDescription(BaseObject):
     :type description: :class:`String`
     """
 
-    ID: typing.Literal["setChatDescription"] = Field("setChatDescription", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatDescription"] = field(default="setChatDescription", metadata={"alias": "@type"})
     chat_id: Int53
-    description: String = Field("", max_length=255)
+    description: String = field(default="", metadata={"max_length": 255})

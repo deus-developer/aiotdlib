@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessagePublicForwards(BaseObject):
     """
     Returns forwarded copies of a channel message to different public channels and public reposts as a story. Can be used only if messageProperties.can_get_statistics == true. For optimal performance, the number of returned messages and stories is chosen by TDLib
@@ -26,8 +26,8 @@ class GetMessagePublicForwards(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getMessagePublicForwards"] = Field(
-        "getMessagePublicForwards", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getMessagePublicForwards"] = field(
+        default="getMessagePublicForwards", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

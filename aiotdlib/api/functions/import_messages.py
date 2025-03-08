@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ImportMessages(BaseObject):
     """
     Imports messages exported from another app
@@ -28,7 +27,7 @@ class ImportMessages(BaseObject):
     :type attached_files: :class:`Vector[InputFile]`
     """
 
-    ID: typing.Literal["importMessages"] = Field("importMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["importMessages"] = field(default="importMessages", metadata={"alias": "@type"})
     chat_id: Int53
     message_file: InputFile
     attached_files: Vector[InputFile]

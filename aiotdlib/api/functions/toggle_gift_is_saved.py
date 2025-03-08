@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGiftIsSaved(BaseObject):
     """
     Toggles whether a gift is shown on the current user's or the channel's profile page; requires can_post_messages administrator right in the chat
@@ -22,6 +22,6 @@ class ToggleGiftIsSaved(BaseObject):
     :type is_saved: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGiftIsSaved"] = Field("toggleGiftIsSaved", validation_alias="@type", alias="@type")
+    ID: typing.Literal["toggleGiftIsSaved"] = field(default="toggleGiftIsSaved", metadata={"alias": "@type"})
     received_gift_id: String
-    is_saved: Bool = False
+    is_saved: Bool = field(default=False)

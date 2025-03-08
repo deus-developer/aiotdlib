@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStickerSetName(BaseObject):
     """
     Returns name of a sticker set by its identifier
@@ -20,5 +20,5 @@ class GetStickerSetName(BaseObject):
     :type set_id: :class:`Int64`
     """
 
-    ID: typing.Literal["getStickerSetName"] = Field("getStickerSetName", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStickerSetName"] = field(default="getStickerSetName", metadata={"alias": "@type"})
     set_id: Int64

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     GiveawayParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LaunchPrepaidGiveaway(BaseObject):
     """
     Launches a prepaid giveaway
@@ -30,10 +29,8 @@ class LaunchPrepaidGiveaway(BaseObject):
     :type star_count: :class:`Int53`
     """
 
-    ID: typing.Literal["launchPrepaidGiveaway"] = Field(
-        "launchPrepaidGiveaway", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["launchPrepaidGiveaway"] = field(default="launchPrepaidGiveaway", metadata={"alias": "@type"})
     giveaway_id: Int64
     parameters: GiveawayParameters
     winner_count: Int32
-    star_count: Int53 = 0
+    star_count: Int53 = field(default=0)

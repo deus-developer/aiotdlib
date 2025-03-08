@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStoryAvailableReactions(BaseObject):
     """
     Returns reactions, which can be chosen for a story
@@ -20,7 +20,7 @@ class GetStoryAvailableReactions(BaseObject):
     :type row_size: :class:`Int32`
     """
 
-    ID: typing.Literal["getStoryAvailableReactions"] = Field(
-        "getStoryAvailableReactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getStoryAvailableReactions"] = field(
+        default="getStoryAvailableReactions", metadata={"alias": "@type"}
     )
     row_size: Int32

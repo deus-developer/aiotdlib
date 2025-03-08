@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecoveryEmailAddress(BaseObject):
     """
     Returns a 2-step verification recovery email address that was previously set up. This method can be used to verify a password provided by the user
@@ -20,7 +20,7 @@ class GetRecoveryEmailAddress(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["getRecoveryEmailAddress"] = Field(
-        "getRecoveryEmailAddress", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getRecoveryEmailAddress"] = field(
+        default="getRecoveryEmailAddress", metadata={"alias": "@type"}
     )
     password: String

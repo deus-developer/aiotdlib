@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGroupCallParticipantIsMuted(BaseObject):
     """
     Toggles whether a participant of an active group call is muted, unmuted, or allowed to unmute themselves
@@ -28,9 +27,9 @@ class ToggleGroupCallParticipantIsMuted(BaseObject):
     :type is_muted: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGroupCallParticipantIsMuted"] = Field(
-        "toggleGroupCallParticipantIsMuted", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleGroupCallParticipantIsMuted"] = field(
+        default="toggleGroupCallParticipantIsMuted", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     participant_id: MessageSender
-    is_muted: Bool = False
+    is_muted: Bool = field(default=False)

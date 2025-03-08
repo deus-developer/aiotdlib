@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGroupCallIsMyVideoEnabled(BaseObject):
     """
     Toggles whether current user's video is enabled
@@ -22,8 +22,8 @@ class ToggleGroupCallIsMyVideoEnabled(BaseObject):
     :type is_my_video_enabled: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGroupCallIsMyVideoEnabled"] = Field(
-        "toggleGroupCallIsMyVideoEnabled", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleGroupCallIsMyVideoEnabled"] = field(
+        default="toggleGroupCallIsMyVideoEnabled", metadata={"alias": "@type"}
     )
     group_call_id: Int32
-    is_my_video_enabled: Bool = False
+    is_my_video_enabled: Bool = field(default=False)

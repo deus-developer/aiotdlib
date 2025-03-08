@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLoginUrl(BaseObject):
     """
     Returns an HTTP URL which can be used to automatically authorize the user on a website after clicking an inline button of type inlineKeyboardButtonTypeLoginUrl. Use the method getLoginUrlInfo to find whether a prior user confirmation is needed. If an error is returned, then the button must be handled as an ordinary URL button
@@ -26,8 +26,8 @@ class GetLoginUrl(BaseObject):
     :type allow_write_access: :class:`Bool`
     """
 
-    ID: typing.Literal["getLoginUrl"] = Field("getLoginUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getLoginUrl"] = field(default="getLoginUrl", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     button_id: Int53
-    allow_write_access: Bool = False
+    allow_write_access: Bool = field(default=False)

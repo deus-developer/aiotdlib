@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStickerOutline(BaseObject):
     """
     Returns outline of a sticker; this is an offline request. Returns a 404 error if the outline isn't known
@@ -24,7 +24,7 @@ class GetStickerOutline(BaseObject):
     :type for_clicked_animated_emoji_message: :class:`Bool`
     """
 
-    ID: typing.Literal["getStickerOutline"] = Field("getStickerOutline", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStickerOutline"] = field(default="getStickerOutline", metadata={"alias": "@type"})
     sticker_file_id: Int32
-    for_animated_emoji: Bool = False
-    for_clicked_animated_emoji_message: Bool = False
+    for_animated_emoji: Bool = field(default=False)
+    for_clicked_animated_emoji_message: Bool = field(default=False)

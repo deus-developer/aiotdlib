@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddChatMember(BaseObject):
     """
     Adds a new member to a chat; requires can_invite_users member right. Members can't be added to private or secret chats. Returns information about members that weren't added
@@ -24,7 +24,7 @@ class AddChatMember(BaseObject):
     :type forward_limit: :class:`Int32`
     """
 
-    ID: typing.Literal["addChatMember"] = Field("addChatMember", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addChatMember"] = field(default="addChatMember", metadata={"alias": "@type"})
     chat_id: Int53
     user_id: Int53
     forward_limit: Int32

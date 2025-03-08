@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     ForumTopicIcon,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateForumTopic(BaseObject):
     """
     Creates a topic in a forum supergroup chat; requires can_manage_topics administrator or can_create_topics member right in the supergroup
@@ -28,7 +27,7 @@ class CreateForumTopic(BaseObject):
     :type icon: :class:`ForumTopicIcon`
     """
 
-    ID: typing.Literal["createForumTopic"] = Field("createForumTopic", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createForumTopic"] = field(default="createForumTopic", metadata={"alias": "@type"})
     chat_id: Int53
-    name: String = Field(..., min_length=1, max_length=128)
+    name: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 128})
     icon: ForumTopicIcon

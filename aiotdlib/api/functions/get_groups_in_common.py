@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGroupsInCommon(BaseObject):
     """
     Returns a list of common group chats with a given user. Chats are sorted by their type and creation date
@@ -24,7 +24,7 @@ class GetGroupsInCommon(BaseObject):
     :type offset_chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getGroupsInCommon"] = Field("getGroupsInCommon", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getGroupsInCommon"] = field(default="getGroupsInCommon", metadata={"alias": "@type"})
     user_id: Int53
     limit: Int32
-    offset_chat_id: Int53 = 0
+    offset_chat_id: Int53 = field(default=0)

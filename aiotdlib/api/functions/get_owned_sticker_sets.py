@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetOwnedStickerSets(BaseObject):
     """
     Returns sticker sets owned by the current user
@@ -22,6 +22,6 @@ class GetOwnedStickerSets(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getOwnedStickerSets"] = Field("getOwnedStickerSets", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getOwnedStickerSets"] = field(default="getOwnedStickerSets", metadata={"alias": "@type"})
     offset_sticker_set_id: Int64
     limit: Int32

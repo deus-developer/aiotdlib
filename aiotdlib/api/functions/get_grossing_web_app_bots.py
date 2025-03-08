@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGrossingWebAppBots(BaseObject):
     """
     Returns the most grossing Web App bots
@@ -22,8 +22,6 @@ class GetGrossingWebAppBots(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getGrossingWebAppBots"] = Field(
-        "getGrossingWebAppBots", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getGrossingWebAppBots"] = field(default="getGrossingWebAppBots", metadata={"alias": "@type"})
     offset: String
     limit: Int32

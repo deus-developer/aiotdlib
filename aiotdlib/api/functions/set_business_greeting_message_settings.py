@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BusinessGreetingMessageSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessGreetingMessageSettings(BaseObject):
     """
     Changes the business greeting message settings of the current user. Requires Telegram Business subscription
@@ -24,7 +23,7 @@ class SetBusinessGreetingMessageSettings(BaseObject):
     :type greeting_message_settings: :class:`BusinessGreetingMessageSettings`, optional
     """
 
-    ID: typing.Literal["setBusinessGreetingMessageSettings"] = Field(
-        "setBusinessGreetingMessageSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setBusinessGreetingMessageSettings"] = field(
+        default="setBusinessGreetingMessageSettings", metadata={"alias": "@type"}
     )
-    greeting_message_settings: typing.Optional[BusinessGreetingMessageSettings] = None
+    greeting_message_settings: typing.Optional[BusinessGreetingMessageSettings] = field(default=None)

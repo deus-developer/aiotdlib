@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BackgroundType,
     InputBackground,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatBackground(BaseObject):
     """
     Sets the background in a specific chat. Supported only in private and secret chats with non-deleted users, and in chats with sufficient boost level and can_change_info administrator right
@@ -33,9 +32,9 @@ class SetChatBackground(BaseObject):
     :type type_: :class:`BackgroundType`, optional
     """
 
-    ID: typing.Literal["setChatBackground"] = Field("setChatBackground", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatBackground"] = field(default="setChatBackground", metadata={"alias": "@type"})
     chat_id: Int53
     dark_theme_dimming: Int32
-    only_for_self: Bool = False
-    background: typing.Optional[InputBackground] = None
-    type_: typing.Optional[BackgroundType] = Field(None, alias="type")
+    only_for_self: Bool = field(default=False)
+    background: typing.Optional[InputBackground] = field(default=None)
+    type_: typing.Optional[BackgroundType] = field(default=None, metadata={"alias": "type"})

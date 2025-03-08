@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateChatFolderInviteLink(BaseObject):
     """
     Creates a new invite link for a chat folder. A link can be created for a chat folder if it has only pinned and included chats
@@ -24,9 +24,9 @@ class CreateChatFolderInviteLink(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["createChatFolderInviteLink"] = Field(
-        "createChatFolderInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["createChatFolderInviteLink"] = field(
+        default="createChatFolderInviteLink", metadata={"alias": "@type"}
     )
     chat_folder_id: Int32
     chat_ids: Vector[Int53]
-    name: String = Field("", max_length=32)
+    name: String = field(default="", metadata={"max_length": 32})

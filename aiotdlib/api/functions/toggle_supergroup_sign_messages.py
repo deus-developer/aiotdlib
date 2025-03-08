@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupSignMessages(BaseObject):
     """
     Toggles whether sender signature or link to the account is added to sent messages in a channel; requires can_change_info member right
@@ -24,8 +24,8 @@ class ToggleSupergroupSignMessages(BaseObject):
     :type show_message_sender: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupSignMessages"] = Field(
-        "toggleSupergroupSignMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupSignMessages"] = field(
+        default="toggleSupergroupSignMessages", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     sign_messages: Bool

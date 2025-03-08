@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarRevenueStatistics(BaseObject):
     """
     Returns detailed Telegram Star revenue statistics
@@ -26,8 +25,8 @@ class GetStarRevenueStatistics(BaseObject):
     :type is_dark: :class:`Bool`
     """
 
-    ID: typing.Literal["getStarRevenueStatistics"] = Field(
-        "getStarRevenueStatistics", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getStarRevenueStatistics"] = field(
+        default="getStarRevenueStatistics", metadata={"alias": "@type"}
     )
     owner_id: MessageSender
-    is_dark: Bool = False
+    is_dark: Bool = field(default=False)

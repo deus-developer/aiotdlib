@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleForumTopicIsClosed(BaseObject):
     """
     Toggles whether a topic is closed in a forum supergroup chat; requires can_manage_topics right in the supergroup unless the user is creator of the topic
@@ -24,9 +24,9 @@ class ToggleForumTopicIsClosed(BaseObject):
     :type is_closed: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleForumTopicIsClosed"] = Field(
-        "toggleForumTopicIsClosed", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleForumTopicIsClosed"] = field(
+        default="toggleForumTopicIsClosed", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_thread_id: Int53
-    is_closed: Bool = False
+    is_closed: Bool = field(default=False)

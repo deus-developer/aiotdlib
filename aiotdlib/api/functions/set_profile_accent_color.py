@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetProfileAccentColor(BaseObject):
     """
     Changes accent color and background custom emoji for profile of the current user; for Telegram Premium users only
@@ -22,8 +22,6 @@ class SetProfileAccentColor(BaseObject):
     :type profile_background_custom_emoji_id: :class:`Int64`, optional
     """
 
-    ID: typing.Literal["setProfileAccentColor"] = Field(
-        "setProfileAccentColor", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setProfileAccentColor"] = field(default="setProfileAccentColor", metadata={"alias": "@type"})
     profile_accent_color_id: Int32
-    profile_background_custom_emoji_id: typing.Optional[Int64] = 0
+    profile_background_custom_emoji_id: typing.Optional[Int64] = field(default=0)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatFolder(BaseObject):
     """
     Deletes existing chat folder
@@ -22,6 +22,6 @@ class DeleteChatFolder(BaseObject):
     :type leave_chat_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["deleteChatFolder"] = Field("deleteChatFolder", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteChatFolder"] = field(default="deleteChatFolder", metadata={"alias": "@type"})
     chat_folder_id: Int32
     leave_chat_ids: Vector[Int53]

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUserProfilePhotos(BaseObject):
     """
     Returns the profile photos of a user. Personal and public photo aren't returned
@@ -24,7 +24,7 @@ class GetUserProfilePhotos(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getUserProfilePhotos"] = Field("getUserProfilePhotos", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getUserProfilePhotos"] = field(default="getUserProfilePhotos", metadata={"alias": "@type"})
     user_id: Int53
     offset: Int32
     limit: Int32

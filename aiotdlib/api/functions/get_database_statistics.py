@@ -6,17 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetDatabaseStatistics(BaseObject):
     """
     Returns database statistics
     """
 
-    ID: typing.Literal["getDatabaseStatistics"] = Field(
-        "getDatabaseStatistics", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getDatabaseStatistics"] = field(default="getDatabaseStatistics", metadata={"alias": "@type"})

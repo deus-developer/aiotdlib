@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import MISSING, dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RegisterUser(BaseObject):
     """
     Finishes user registration. Works only when the current authorization state is authorizationStateWaitRegistration
@@ -24,7 +24,7 @@ class RegisterUser(BaseObject):
     :type disable_notification: :class:`Bool`
     """
 
-    ID: typing.Literal["registerUser"] = Field("registerUser", validation_alias="@type", alias="@type")
-    first_name: String = Field(..., min_length=1, max_length=64)
-    last_name: String = Field("", max_length=64)
-    disable_notification: Bool = False
+    ID: typing.Literal["registerUser"] = field(default="registerUser", metadata={"alias": "@type"})
+    first_name: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 64})
+    last_name: String = field(default="", metadata={"max_length": 64})
+    disable_notification: Bool = field(default=False)

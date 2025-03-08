@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetUsername(BaseObject):
     """
     Changes the editable username of the current user
@@ -20,5 +20,5 @@ class SetUsername(BaseObject):
     :type username: :class:`String`
     """
 
-    ID: typing.Literal["setUsername"] = Field("setUsername", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setUsername"] = field(default="setUsername", metadata={"alias": "@type"})
     username: String

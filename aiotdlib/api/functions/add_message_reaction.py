@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddMessageReaction(BaseObject):
     """
     Adds a reaction or a tag to a message. Use getMessageAvailableReactions to receive the list of available reactions for the message
@@ -32,9 +31,9 @@ class AddMessageReaction(BaseObject):
     :type update_recent_reactions: :class:`Bool`
     """
 
-    ID: typing.Literal["addMessageReaction"] = Field("addMessageReaction", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addMessageReaction"] = field(default="addMessageReaction", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     reaction_type: ReactionType
-    is_big: Bool = False
-    update_recent_reactions: Bool = False
+    is_big: Bool = field(default=False)
+    update_recent_reactions: Bool = field(default=False)

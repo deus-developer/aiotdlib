@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleBotCanManageEmojiStatus(BaseObject):
     """
     Toggles whether the bot can manage emoji status of the current user
@@ -22,8 +22,8 @@ class ToggleBotCanManageEmojiStatus(BaseObject):
     :type can_manage_emoji_status: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleBotCanManageEmojiStatus"] = Field(
-        "toggleBotCanManageEmojiStatus", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleBotCanManageEmojiStatus"] = field(
+        default="toggleBotCanManageEmojiStatus", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
-    can_manage_emoji_status: Bool = False
+    can_manage_emoji_status: Bool = field(default=False)

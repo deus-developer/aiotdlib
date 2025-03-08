@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Location,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCurrentWeather(BaseObject):
     """
     Returns the current weather in the given location
@@ -24,5 +23,5 @@ class GetCurrentWeather(BaseObject):
     :type location: :class:`Location`
     """
 
-    ID: typing.Literal["getCurrentWeather"] = Field("getCurrentWeather", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getCurrentWeather"] = field(default="getCurrentWeather", metadata={"alias": "@type"})
     location: Location

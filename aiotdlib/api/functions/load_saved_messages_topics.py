@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LoadSavedMessagesTopics(BaseObject):
     """
     Loads more Saved Messages topics. The loaded topics will be sent through updateSavedMessagesTopic. Topics are sorted by their topic.order in descending order. Returns a 404 error if all topics have been loaded
@@ -20,7 +20,7 @@ class LoadSavedMessagesTopics(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["loadSavedMessagesTopics"] = Field(
-        "loadSavedMessagesTopics", validation_alias="@type", alias="@type"
+    ID: typing.Literal["loadSavedMessagesTopics"] = field(
+        default="loadSavedMessagesTopics", metadata={"alias": "@type"}
     )
     limit: Int32

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchSavedMessages(BaseObject):
     """
     Searches for messages tagged by the given reaction and with the given words in the Saved Messages chat; for Telegram Premium users only. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
@@ -34,10 +33,10 @@ class SearchSavedMessages(BaseObject):
     :type tag: :class:`ReactionType`, optional
     """
 
-    ID: typing.Literal["searchSavedMessages"] = Field("searchSavedMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchSavedMessages"] = field(default="searchSavedMessages", metadata={"alias": "@type"})
     query: String
     from_message_id: Int53
     offset: Int32
     limit: Int32
-    saved_messages_topic_id: Int53 = 0
-    tag: typing.Optional[ReactionType] = None
+    saved_messages_topic_id: Int53 = field(default=0)
+    tag: typing.Optional[ReactionType] = field(default=None)

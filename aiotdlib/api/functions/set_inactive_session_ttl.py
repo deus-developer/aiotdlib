@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetInactiveSessionTtl(BaseObject):
     """
     Changes the period of inactivity after which sessions will automatically be terminated
@@ -20,7 +20,5 @@ class SetInactiveSessionTtl(BaseObject):
     :type inactive_session_ttl_days: :class:`Int32`
     """
 
-    ID: typing.Literal["setInactiveSessionTtl"] = Field(
-        "setInactiveSessionTtl", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setInactiveSessionTtl"] = field(default="setInactiveSessionTtl", metadata={"alias": "@type"})
     inactive_session_ttl_days: Int32

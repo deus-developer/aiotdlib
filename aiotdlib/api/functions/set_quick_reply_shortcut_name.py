@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetQuickReplyShortcutName(BaseObject):
     """
     Changes name of a quick reply shortcut
@@ -22,8 +22,8 @@ class SetQuickReplyShortcutName(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["setQuickReplyShortcutName"] = Field(
-        "setQuickReplyShortcutName", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setQuickReplyShortcutName"] = field(
+        default="setQuickReplyShortcutName", metadata={"alias": "@type"}
     )
     shortcut_id: Int32
     name: String

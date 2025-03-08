@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClearRecentlyFoundChats(BaseObject):
     """
     Clears the list of recently found chats
     """
 
-    ID: typing.Literal["clearRecentlyFoundChats"] = Field(
-        "clearRecentlyFoundChats", validation_alias="@type", alias="@type"
+    ID: typing.Literal["clearRecentlyFoundChats"] = field(
+        default="clearRecentlyFoundChats", metadata={"alias": "@type"}
     )

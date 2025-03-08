@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageLink(BaseObject):
     """
     Returns an HTTPS link to a message in a chat. Available only if messageProperties.can_get_link, or if messageProperties.can_get_media_timestamp_links and a media timestamp link is generated. This is an offline request
@@ -28,9 +28,9 @@ class GetMessageLink(BaseObject):
     :type in_message_thread: :class:`Bool`
     """
 
-    ID: typing.Literal["getMessageLink"] = Field("getMessageLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageLink"] = field(default="getMessageLink", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    media_timestamp: Int32 = 0
-    for_album: Bool = False
-    in_message_thread: Bool = False
+    media_timestamp: Int32 = field(default=0)
+    for_album: Bool = field(default=False)
+    in_message_thread: Bool = field(default=False)

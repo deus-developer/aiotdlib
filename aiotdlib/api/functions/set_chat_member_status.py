@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatMemberStatus,
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatMemberStatus(BaseObject):
     """
     Changes the status of a chat member; requires can_invite_users member right to add a chat member, can_promote_members administrator right to change administrator rights of the member, and can_restrict_members administrator right to change restrictions of a user. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters needs to be passed
@@ -29,7 +28,7 @@ class SetChatMemberStatus(BaseObject):
     :type status: :class:`ChatMemberStatus`
     """
 
-    ID: typing.Literal["setChatMemberStatus"] = Field("setChatMemberStatus", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatMemberStatus"] = field(default="setChatMemberStatus", metadata={"alias": "@type"})
     chat_id: Int53
     member_id: MessageSender
     status: ChatMemberStatus

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageLocally(BaseObject):
     """
     Returns information about a message, if it is available without sending network request. Returns a 404 error if message isn't available locally. This is an offline request
@@ -22,6 +22,6 @@ class GetMessageLocally(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMessageLocally"] = Field("getMessageLocally", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageLocally"] = field(default="getMessageLocally", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetFileMimeType(BaseObject):
     """
     Returns the MIME type of a file, guessed by its extension. Returns an empty string on failure. Can be called synchronously
@@ -20,5 +20,5 @@ class GetFileMimeType(BaseObject):
     :type file_name: :class:`String`
     """
 
-    ID: typing.Literal["getFileMimeType"] = Field("getFileMimeType", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getFileMimeType"] = field(default="getFileMimeType", metadata={"alias": "@type"})
     file_name: String

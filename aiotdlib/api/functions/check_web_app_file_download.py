@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckWebAppFileDownload(BaseObject):
     """
     Checks whether a file can be downloaded and saved locally by Web App request
@@ -24,8 +24,8 @@ class CheckWebAppFileDownload(BaseObject):
     :type url: :class:`String`
     """
 
-    ID: typing.Literal["checkWebAppFileDownload"] = Field(
-        "checkWebAppFileDownload", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkWebAppFileDownload"] = field(
+        default="checkWebAppFileDownload", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     file_name: String

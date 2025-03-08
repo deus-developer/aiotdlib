@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecentlyOpenedChats(BaseObject):
     """
     Returns recently opened chats; this is an offline request. Returns chats in the order of last opening
@@ -20,7 +20,5 @@ class GetRecentlyOpenedChats(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getRecentlyOpenedChats"] = Field(
-        "getRecentlyOpenedChats", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getRecentlyOpenedChats"] = field(default="getRecentlyOpenedChats", metadata={"alias": "@type"})
     limit: Int32

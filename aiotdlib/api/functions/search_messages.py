@@ -6,18 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatList,
     SearchMessagesChatTypeFilter,
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchMessages(BaseObject):
     """
     Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
@@ -40,12 +39,12 @@ class SearchMessages(BaseObject):
     :type chat_type_filter: :class:`SearchMessagesChatTypeFilter`, optional
     """
 
-    ID: typing.Literal["searchMessages"] = Field("searchMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchMessages"] = field(default="searchMessages", metadata={"alias": "@type"})
     query: String
     offset: String
     limit: Int32
-    min_date: Int32 = 0
-    max_date: Int32 = 0
-    chat_list: typing.Optional[ChatList] = None
-    filter_: typing.Optional[SearchMessagesFilter] = Field(None, alias="filter")
-    chat_type_filter: typing.Optional[SearchMessagesChatTypeFilter] = None
+    min_date: Int32 = field(default=0)
+    max_date: Int32 = field(default=0)
+    chat_list: typing.Optional[ChatList] = field(default=None)
+    filter_: typing.Optional[SearchMessagesFilter] = field(default=None, metadata={"alias": "filter"})
+    chat_type_filter: typing.Optional[SearchMessagesChatTypeFilter] = field(default=None)

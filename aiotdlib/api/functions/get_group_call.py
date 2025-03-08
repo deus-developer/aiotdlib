@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGroupCall(BaseObject):
     """
     Returns information about a group call
@@ -20,5 +20,5 @@ class GetGroupCall(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["getGroupCall"] = Field("getGroupCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getGroupCall"] = field(default="getGroupCall", metadata={"alias": "@type"})
     group_call_id: Int32

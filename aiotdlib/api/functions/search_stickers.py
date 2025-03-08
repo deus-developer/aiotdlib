@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchStickers(BaseObject):
     """
     Searches for stickers from public sticker sets that correspond to any of the given emoji
@@ -30,14 +29,14 @@ class SearchStickers(BaseObject):
     :type limit: :class:`Int32`
     :param query: Query to search for; may be empty to search for emoji only
     :type query: :class:`String`
-    :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown
+    :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown, defaults to list()
     :type input_language_codes: :class:`Vector[String]`
     """
 
-    ID: typing.Literal["searchStickers"] = Field("searchStickers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchStickers"] = field(default="searchStickers", metadata={"alias": "@type"})
     sticker_type: StickerType
     emojis: String
     offset: Int32
     limit: Int32
-    query: String = ""
-    input_language_codes: Vector[String] = []
+    query: String = field(default="")
+    input_language_codes: Vector[String] = field(default_factory=list)

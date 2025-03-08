@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetNewChatPrivacySettings(BaseObject):
     """
     Returns privacy settings for new chat creation
     """
 
-    ID: typing.Literal["getNewChatPrivacySettings"] = Field(
-        "getNewChatPrivacySettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getNewChatPrivacySettings"] = field(
+        default="getNewChatPrivacySettings", metadata={"alias": "@type"}
     )

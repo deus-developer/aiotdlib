@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CleanFileName(BaseObject):
     """
     Removes potentially dangerous characters from the name of a file. Returns an empty string on failure. Can be called synchronously
@@ -20,5 +20,5 @@ class CleanFileName(BaseObject):
     :type file_name: :class:`String`
     """
 
-    ID: typing.Literal["cleanFileName"] = Field("cleanFileName", validation_alias="@type", alias="@type")
+    ID: typing.Literal["cleanFileName"] = field(default="cleanFileName", metadata={"alias": "@type"})
     file_name: String

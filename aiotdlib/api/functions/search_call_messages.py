@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchCallMessages(BaseObject):
     """
     Searches for call messages. Returns the results in reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib
@@ -24,7 +24,7 @@ class SearchCallMessages(BaseObject):
     :type only_missed: :class:`Bool`
     """
 
-    ID: typing.Literal["searchCallMessages"] = Field("searchCallMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchCallMessages"] = field(default="searchCallMessages", metadata={"alias": "@type"})
     offset: String
     limit: Int32
-    only_missed: Bool = False
+    only_missed: Bool = field(default=False)

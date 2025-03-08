@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     NetworkStatisticsEntry,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddNetworkStatistics(BaseObject):
     """
     Adds the specified data to data usage statistics. Can be called before authorization
@@ -24,5 +23,5 @@ class AddNetworkStatistics(BaseObject):
     :type entry: :class:`NetworkStatisticsEntry`
     """
 
-    ID: typing.Literal["addNetworkStatistics"] = Field("addNetworkStatistics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addNetworkStatistics"] = field(default="addNetworkStatistics", metadata={"alias": "@type"})
     entry: NetworkStatisticsEntry

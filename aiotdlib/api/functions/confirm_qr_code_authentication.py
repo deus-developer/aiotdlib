@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ConfirmQrCodeAuthentication(BaseObject):
     """
     Confirms QR code authentication on another device. Returns created session on success
@@ -20,7 +20,7 @@ class ConfirmQrCodeAuthentication(BaseObject):
     :type link: :class:`String`
     """
 
-    ID: typing.Literal["confirmQrCodeAuthentication"] = Field(
-        "confirmQrCodeAuthentication", validation_alias="@type", alias="@type"
+    ID: typing.Literal["confirmQrCodeAuthentication"] = field(
+        default="confirmQrCodeAuthentication", metadata={"alias": "@type"}
     )
     link: String

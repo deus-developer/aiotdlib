@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatMessagePosition(BaseObject):
     """
     Returns approximate 1-based position of a message among messages, which can be found by the specified filter in the chat. Cannot be used in secret chats
@@ -32,11 +31,9 @@ class GetChatMessagePosition(BaseObject):
     :type saved_messages_topic_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatMessagePosition"] = Field(
-        "getChatMessagePosition", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getChatMessagePosition"] = field(default="getChatMessagePosition", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    filter_: SearchMessagesFilter = Field(..., alias="filter")
-    message_thread_id: Int53 = 0
-    saved_messages_topic_id: Int53 = 0
+    filter_: SearchMessagesFilter = field(default=MISSING, metadata={"alias": "filter"})
+    message_thread_id: Int53 = field(default=0)
+    saved_messages_topic_id: Int53 = field(default=0)

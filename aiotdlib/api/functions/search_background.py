@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchBackground(BaseObject):
     """
     Searches for a background by its name
@@ -20,5 +20,5 @@ class SearchBackground(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["searchBackground"] = Field("searchBackground", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchBackground"] = field(default="searchBackground", metadata={"alias": "@type"})
     name: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLanguagePackString(BaseObject):
     """
     Returns a string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the string is not found. Can be called synchronously
@@ -26,9 +26,7 @@ class GetLanguagePackString(BaseObject):
     :type key: :class:`String`
     """
 
-    ID: typing.Literal["getLanguagePackString"] = Field(
-        "getLanguagePackString", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getLanguagePackString"] = field(default="getLanguagePackString", metadata={"alias": "@type"})
     language_pack_database_path: String
     localization_target: String
     language_pack_id: String

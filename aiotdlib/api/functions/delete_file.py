@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteFile(BaseObject):
     """
     Deletes a file from the TDLib file cache
@@ -20,5 +20,5 @@ class DeleteFile(BaseObject):
     :type file_id: :class:`Int32`
     """
 
-    ID: typing.Literal["deleteFile"] = Field("deleteFile", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteFile"] = field(default="deleteFile", metadata={"alias": "@type"})
     file_id: Int32

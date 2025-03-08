@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPassportAuthorizationFormAvailableElements(BaseObject):
     """
     Returns already available Telegram Passport elements suitable for completing a Telegram Passport authorization form. Result can be received only once for each authorization form
@@ -22,8 +22,8 @@ class GetPassportAuthorizationFormAvailableElements(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["getPassportAuthorizationFormAvailableElements"] = Field(
-        "getPassportAuthorizationFormAvailableElements", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getPassportAuthorizationFormAvailableElements"] = field(
+        default="getPassportAuthorizationFormAvailableElements", metadata={"alias": "@type"}
     )
     authorization_form_id: Int32
     password: String

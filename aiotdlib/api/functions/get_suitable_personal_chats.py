@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSuitablePersonalChats(BaseObject):
     """
     Returns a list of channel chats, which can be used as a personal chat
     """
 
-    ID: typing.Literal["getSuitablePersonalChats"] = Field(
-        "getSuitablePersonalChats", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getSuitablePersonalChats"] = field(
+        default="getSuitablePersonalChats", metadata={"alias": "@type"}
     )

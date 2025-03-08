@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchPublicChat(BaseObject):
     """
     Searches a public chat by its username. Currently, only private chats, supergroups and channels can be public. Returns the chat if found; otherwise, an error is returned
@@ -20,5 +20,5 @@ class SearchPublicChat(BaseObject):
     :type username: :class:`String`
     """
 
-    ID: typing.Literal["searchPublicChat"] = Field("searchPublicChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchPublicChat"] = field(default="searchPublicChat", metadata={"alias": "@type"})
     username: String

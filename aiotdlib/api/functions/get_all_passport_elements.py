@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetAllPassportElements(BaseObject):
     """
     Returns all available Telegram Passport elements
@@ -20,7 +20,5 @@ class GetAllPassportElements(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["getAllPassportElements"] = Field(
-        "getAllPassportElements", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getAllPassportElements"] = field(default="getAllPassportElements", metadata={"alias": "@type"})
     password: String

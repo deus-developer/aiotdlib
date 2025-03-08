@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputStoryContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditBotMediaPreview(BaseObject):
     """
     Replaces media preview in the list of media previews of a bot. Returns the new preview after edit is completed server-side
@@ -30,7 +29,7 @@ class EditBotMediaPreview(BaseObject):
     :type content: :class:`InputStoryContent`
     """
 
-    ID: typing.Literal["editBotMediaPreview"] = Field("editBotMediaPreview", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editBotMediaPreview"] = field(default="editBotMediaPreview", metadata={"alias": "@type"})
     bot_user_id: Int53
     language_code: String
     file_id: Int32

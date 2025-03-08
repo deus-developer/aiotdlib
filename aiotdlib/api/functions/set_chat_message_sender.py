@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatMessageSender(BaseObject):
     """
     Selects a message sender to send messages in a chat
@@ -26,6 +25,6 @@ class SetChatMessageSender(BaseObject):
     :type message_sender_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["setChatMessageSender"] = Field("setChatMessageSender", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatMessageSender"] = field(default="setChatMessageSender", metadata={"alias": "@type"})
     chat_id: Int53
     message_sender_id: MessageSender

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendBotStartMessage(BaseObject):
     """
     Invites a bot to a chat (if it is not yet a member) and sends it the /start command; requires can_invite_users member right. Bots can't be invited to a private chat other than the chat with the bot. Bots can't be invited to channels (although they can be added as admins) and secret chats. Returns the sent message
@@ -24,7 +24,7 @@ class SendBotStartMessage(BaseObject):
     :type parameter: :class:`String`
     """
 
-    ID: typing.Literal["sendBotStartMessage"] = Field("sendBotStartMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendBotStartMessage"] = field(default="sendBotStartMessage", metadata={"alias": "@type"})
     bot_user_id: Int53
     chat_id: Int53
     parameter: String

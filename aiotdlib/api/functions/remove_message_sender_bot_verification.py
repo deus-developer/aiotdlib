@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveMessageSenderBotVerification(BaseObject):
     """
     Removes the verification status of a user or a chat by an owned bot
@@ -26,8 +25,8 @@ class RemoveMessageSenderBotVerification(BaseObject):
     :type verified_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["removeMessageSenderBotVerification"] = Field(
-        "removeMessageSenderBotVerification", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeMessageSenderBotVerification"] = field(
+        default="removeMessageSenderBotVerification", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     verified_id: MessageSender

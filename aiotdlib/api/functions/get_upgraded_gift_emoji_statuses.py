@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUpgradedGiftEmojiStatuses(BaseObject):
     """
     Returns available upgraded gift emoji statuses for self status
     """
 
-    ID: typing.Literal["getUpgradedGiftEmojiStatuses"] = Field(
-        "getUpgradedGiftEmojiStatuses", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getUpgradedGiftEmojiStatuses"] = field(
+        default="getUpgradedGiftEmojiStatuses", metadata={"alias": "@type"}
     )

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderChatFolders(BaseObject):
     """
     Changes the order of chat folders
@@ -22,6 +22,6 @@ class ReorderChatFolders(BaseObject):
     :type main_chat_list_position: :class:`Int32`
     """
 
-    ID: typing.Literal["reorderChatFolders"] = Field("reorderChatFolders", validation_alias="@type", alias="@type")
+    ID: typing.Literal["reorderChatFolders"] = field(default="reorderChatFolders", metadata={"alias": "@type"})
     chat_folder_ids: Vector[Int32]
     main_chat_list_position: Int32

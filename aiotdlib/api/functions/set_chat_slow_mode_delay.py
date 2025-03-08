@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatSlowModeDelay(BaseObject):
     """
     Changes the slow mode delay of a chat. Available only for supergroups; requires can_restrict_members right
@@ -22,6 +22,6 @@ class SetChatSlowModeDelay(BaseObject):
     :type slow_mode_delay: :class:`Int32`
     """
 
-    ID: typing.Literal["setChatSlowModeDelay"] = Field("setChatSlowModeDelay", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatSlowModeDelay"] = field(default="setChatSlowModeDelay", metadata={"alias": "@type"})
     chat_id: Int53
     slow_mode_delay: Int32

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StarSubscriptionPricing,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateChatSubscriptionInviteLink(BaseObject):
     """
     Creates a new subscription invite link for a channel chat. Requires can_invite_users right in the chat
@@ -28,9 +27,9 @@ class CreateChatSubscriptionInviteLink(BaseObject):
     :type subscription_pricing: :class:`StarSubscriptionPricing`
     """
 
-    ID: typing.Literal["createChatSubscriptionInviteLink"] = Field(
-        "createChatSubscriptionInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["createChatSubscriptionInviteLink"] = field(
+        default="createChatSubscriptionInviteLink", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    name: String = Field("", max_length=32)
-    subscription_pricing: StarSubscriptionPricing = 0
+    name: String = field(default="", metadata={"max_length": 32})
+    subscription_pricing: StarSubscriptionPricing = field(default=0)

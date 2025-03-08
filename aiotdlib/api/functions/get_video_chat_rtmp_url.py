@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetVideoChatRtmpUrl(BaseObject):
     """
     Returns RTMP URL for streaming to the chat; requires can_manage_video_chats administrator right
@@ -20,5 +20,5 @@ class GetVideoChatRtmpUrl(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getVideoChatRtmpUrl"] = Field("getVideoChatRtmpUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getVideoChatRtmpUrl"] = field(default="getVideoChatRtmpUrl", metadata={"alias": "@type"})
     chat_id: Int53

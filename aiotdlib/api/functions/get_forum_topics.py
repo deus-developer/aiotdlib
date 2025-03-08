@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetForumTopics(BaseObject):
     """
     Returns found forum topics in a forum chat. This is a temporary method for getting information about topic list from the server
@@ -30,10 +30,10 @@ class GetForumTopics(BaseObject):
     :type offset_message_thread_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getForumTopics"] = Field("getForumTopics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getForumTopics"] = field(default="getForumTopics", metadata={"alias": "@type"})
     chat_id: Int53
     query: String
     offset_date: Int32
     limit: Int32
-    offset_message_id: Int53 = 0
-    offset_message_thread_id: Int53 = 0
+    offset_message_id: Int53 = field(default=0)
+    offset_message_thread_id: Int53 = field(default=0)

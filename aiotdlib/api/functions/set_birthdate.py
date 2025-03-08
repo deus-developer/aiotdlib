@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Birthdate,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBirthdate(BaseObject):
     """
     Changes the birthdate of the current user
@@ -24,5 +23,5 @@ class SetBirthdate(BaseObject):
     :type birthdate: :class:`Birthdate`, optional
     """
 
-    ID: typing.Literal["setBirthdate"] = Field("setBirthdate", validation_alias="@type", alias="@type")
-    birthdate: typing.Optional[Birthdate] = None
+    ID: typing.Literal["setBirthdate"] = field(default="setBirthdate", metadata={"alias": "@type"})
+    birthdate: typing.Optional[Birthdate] = field(default=None)

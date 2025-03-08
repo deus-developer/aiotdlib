@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteAllCallMessages(BaseObject):
     """
     Deletes all call messages
@@ -20,7 +20,5 @@ class DeleteAllCallMessages(BaseObject):
     :type revoke: :class:`Bool`
     """
 
-    ID: typing.Literal["deleteAllCallMessages"] = Field(
-        "deleteAllCallMessages", validation_alias="@type", alias="@type"
-    )
-    revoke: Bool = False
+    ID: typing.Literal["deleteAllCallMessages"] = field(default="deleteAllCallMessages", metadata={"alias": "@type"})
+    revoke: Bool = field(default=False)

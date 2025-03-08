@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleBusinessConnectedBotChatIsPaused(BaseObject):
     """
     Pauses or resumes the connected business bot in a specific chat
@@ -22,8 +22,8 @@ class ToggleBusinessConnectedBotChatIsPaused(BaseObject):
     :type is_paused: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleBusinessConnectedBotChatIsPaused"] = Field(
-        "toggleBusinessConnectedBotChatIsPaused", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleBusinessConnectedBotChatIsPaused"] = field(
+        default="toggleBusinessConnectedBotChatIsPaused", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    is_paused: Bool = False
+    is_paused: Bool = field(default=False)

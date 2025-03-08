@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StoryPrivacySettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStoryPrivacySettings(BaseObject):
     """
     Changes privacy settings of a story. The method can be called only for stories posted on behalf of the current user and if story.can_be_edited == true
@@ -26,8 +25,8 @@ class SetStoryPrivacySettings(BaseObject):
     :type privacy_settings: :class:`StoryPrivacySettings`
     """
 
-    ID: typing.Literal["setStoryPrivacySettings"] = Field(
-        "setStoryPrivacySettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setStoryPrivacySettings"] = field(
+        default="setStoryPrivacySettings", metadata={"alias": "@type"}
     )
     story_id: Int32
     privacy_settings: StoryPrivacySettings

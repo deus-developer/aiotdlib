@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchPublicStoriesByTag(BaseObject):
     """
     Searches for public stories containing the given hashtag or cashtag. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit
@@ -26,8 +26,8 @@ class SearchPublicStoriesByTag(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchPublicStoriesByTag"] = Field(
-        "searchPublicStoriesByTag", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchPublicStoriesByTag"] = field(
+        default="searchPublicStoriesByTag", metadata={"alias": "@type"}
     )
     story_sender_chat_id: Int53
     tag: String

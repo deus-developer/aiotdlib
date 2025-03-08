@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchChatRecentLocationMessages(BaseObject):
     """
     Returns information about the recent locations of chat members that were sent to the chat. Returns up to 1 location message per user
@@ -22,8 +22,8 @@ class SearchChatRecentLocationMessages(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchChatRecentLocationMessages"] = Field(
-        "searchChatRecentLocationMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchChatRecentLocationMessages"] = field(
+        default="searchChatRecentLocationMessages", metadata={"alias": "@type"}
     )
     chat_id: Int53
     limit: Int32

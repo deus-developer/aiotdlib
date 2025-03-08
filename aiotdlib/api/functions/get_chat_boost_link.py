@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatBoostLink(BaseObject):
     """
     Returns an HTTPS link to boost the specified supergroup or channel chat
@@ -20,5 +20,5 @@ class GetChatBoostLink(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatBoostLink"] = Field("getChatBoostLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatBoostLink"] = field(default="getChatBoostLink", metadata={"alias": "@type"})
     chat_id: Int53

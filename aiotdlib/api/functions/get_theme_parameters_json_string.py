@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ThemeParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetThemeParametersJsonString(BaseObject):
     """
     Converts a themeParameters object to corresponding JSON-serialized string. Can be called synchronously
@@ -24,7 +23,7 @@ class GetThemeParametersJsonString(BaseObject):
     :type theme: :class:`ThemeParameters`
     """
 
-    ID: typing.Literal["getThemeParametersJsonString"] = Field(
-        "getThemeParametersJsonString", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getThemeParametersJsonString"] = field(
+        default="getThemeParametersJsonString", metadata={"alias": "@type"}
     )
     theme: ThemeParameters

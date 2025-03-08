@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReadAllChatReactions(BaseObject):
     """
     Marks all reactions in a chat or a forum topic as read
@@ -20,5 +20,5 @@ class ReadAllChatReactions(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["readAllChatReactions"] = Field("readAllChatReactions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["readAllChatReactions"] = field(default="readAllChatReactions", metadata={"alias": "@type"})
     chat_id: Int53

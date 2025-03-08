@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatBoosts(BaseObject):
     """
     Returns the list of boosts applied to a chat; requires administrator rights in the chat
@@ -26,8 +26,8 @@ class GetChatBoosts(BaseObject):
     :type only_gift_codes: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatBoosts"] = Field("getChatBoosts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatBoosts"] = field(default="getChatBoosts", metadata={"alias": "@type"})
     chat_id: Int53
     offset: String
     limit: Int32
-    only_gift_codes: Bool = False
+    only_gift_codes: Bool = field(default=False)

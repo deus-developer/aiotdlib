@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatMember(BaseObject):
     """
     Returns information about a single member of a chat
@@ -26,6 +25,6 @@ class GetChatMember(BaseObject):
     :type member_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["getChatMember"] = Field("getChatMember", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatMember"] = field(default="getChatMember", metadata={"alias": "@type"})
     chat_id: Int53
     member_id: MessageSender

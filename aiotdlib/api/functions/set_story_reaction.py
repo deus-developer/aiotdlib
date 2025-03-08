@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStoryReaction(BaseObject):
     """
     Changes chosen reaction on a story that has already been sent
@@ -30,8 +29,8 @@ class SetStoryReaction(BaseObject):
     :type reaction_type: :class:`ReactionType`, optional
     """
 
-    ID: typing.Literal["setStoryReaction"] = Field("setStoryReaction", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setStoryReaction"] = field(default="setStoryReaction", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32
-    update_recent_reactions: Bool = False
-    reaction_type: typing.Optional[ReactionType] = None
+    update_recent_reactions: Bool = field(default=False)
+    reaction_type: typing.Optional[ReactionType] = field(default=None)

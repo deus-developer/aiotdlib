@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     DeviceToken,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RegisterDevice(BaseObject):
     """
     Registers the currently used device for receiving push notifications. Returns a globally unique identifier of the push notification subscription
@@ -26,6 +25,6 @@ class RegisterDevice(BaseObject):
     :type other_user_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["registerDevice"] = Field("registerDevice", validation_alias="@type", alias="@type")
+    ID: typing.Literal["registerDevice"] = field(default="registerDevice", metadata={"alias": "@type"})
     device_token: DeviceToken
     other_user_ids: Vector[Int53]

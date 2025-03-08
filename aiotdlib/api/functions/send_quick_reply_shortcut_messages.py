@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendQuickReplyShortcutMessages(BaseObject):
     """
     Sends messages from a quick reply shortcut. Requires Telegram Business subscription
@@ -24,8 +24,8 @@ class SendQuickReplyShortcutMessages(BaseObject):
     :type sending_id: :class:`Int32`
     """
 
-    ID: typing.Literal["sendQuickReplyShortcutMessages"] = Field(
-        "sendQuickReplyShortcutMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendQuickReplyShortcutMessages"] = field(
+        default="sendQuickReplyShortcutMessages", metadata={"alias": "@type"}
     )
     chat_id: Int53
     shortcut_id: Int32

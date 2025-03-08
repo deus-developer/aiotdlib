@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPollAnswer(BaseObject):
     """
     Changes the user answer to a poll. A poll in quiz mode can be answered only once
@@ -24,7 +24,7 @@ class SetPollAnswer(BaseObject):
     :type option_ids: :class:`Vector[Int32]`
     """
 
-    ID: typing.Literal["setPollAnswer"] = Field("setPollAnswer", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setPollAnswer"] = field(default="setPollAnswer", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     option_ids: Vector[Int32]

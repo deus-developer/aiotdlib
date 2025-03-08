@@ -6,17 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetAuthorizationState(BaseObject):
     """
     Returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization
     """
 
-    ID: typing.Literal["getAuthorizationState"] = Field(
-        "getAuthorizationState", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getAuthorizationState"] = field(default="getAuthorizationState", metadata={"alias": "@type"})

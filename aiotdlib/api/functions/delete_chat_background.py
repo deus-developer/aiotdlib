@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatBackground(BaseObject):
     """
     Deletes background in a specific chat
@@ -22,6 +22,6 @@ class DeleteChatBackground(BaseObject):
     :type restore_previous: :class:`Bool`
     """
 
-    ID: typing.Literal["deleteChatBackground"] = Field("deleteChatBackground", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteChatBackground"] = field(default="deleteChatBackground", metadata={"alias": "@type"})
     chat_id: Int53
-    restore_previous: Bool = False
+    restore_previous: Bool = field(default=False)

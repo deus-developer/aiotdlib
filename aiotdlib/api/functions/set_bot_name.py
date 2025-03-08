@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBotName(BaseObject):
     """
     Sets the name of a bot. Can be called only if userTypeBot.can_be_edited == true
@@ -24,7 +24,7 @@ class SetBotName(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["setBotName"] = Field("setBotName", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setBotName"] = field(default="setBotName", metadata={"alias": "@type"})
     bot_user_id: Int53
-    language_code: String = ""
-    name: String = Field("", max_length=64)
+    language_code: String = field(default="")
+    name: String = field(default="", metadata={"max_length": 64})

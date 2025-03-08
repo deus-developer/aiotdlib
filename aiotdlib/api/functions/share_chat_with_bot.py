@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ShareChatWithBot(BaseObject):
     """
     Shares a chat after pressing a keyboardButtonTypeRequestChat button with the bot
@@ -28,9 +28,9 @@ class ShareChatWithBot(BaseObject):
     :type only_check: :class:`Bool`
     """
 
-    ID: typing.Literal["shareChatWithBot"] = Field("shareChatWithBot", validation_alias="@type", alias="@type")
+    ID: typing.Literal["shareChatWithBot"] = field(default="shareChatWithBot", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     button_id: Int32
     shared_chat_id: Int53
-    only_check: Bool = False
+    only_check: Bool = field(default=False)

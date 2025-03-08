@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSource,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ViewMessages(BaseObject):
     """
     Informs TDLib that messages are being viewed by the user. Sponsored messages must be marked as viewed only when the entire text of the message is shown on the screen (excluding the button). Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels)
@@ -30,8 +29,8 @@ class ViewMessages(BaseObject):
     :type source: :class:`MessageSource`, optional
     """
 
-    ID: typing.Literal["viewMessages"] = Field("viewMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["viewMessages"] = field(default="viewMessages", metadata={"alias": "@type"})
     chat_id: Int53
     message_ids: Vector[Int53]
-    force_read: Bool = False
-    source: typing.Optional[MessageSource] = None
+    force_read: Bool = field(default=False)
+    source: typing.Optional[MessageSource] = field(default=None)

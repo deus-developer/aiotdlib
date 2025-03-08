@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatFolder(BaseObject):
     """
     Returns information about a chat folder by its identifier
@@ -20,5 +20,5 @@ class GetChatFolder(BaseObject):
     :type chat_folder_id: :class:`Int32`
     """
 
-    ID: typing.Literal["getChatFolder"] = Field("getChatFolder", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatFolder"] = field(default="getChatFolder", metadata={"alias": "@type"})
     chat_folder_id: Int32

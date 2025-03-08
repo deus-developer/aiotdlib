@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetCustomEmojiStickerSetThumbnail(BaseObject):
     """
     Sets a custom emoji sticker set thumbnail
@@ -22,8 +22,8 @@ class SetCustomEmojiStickerSetThumbnail(BaseObject):
     :type custom_emoji_id: :class:`Int64`
     """
 
-    ID: typing.Literal["setCustomEmojiStickerSetThumbnail"] = Field(
-        "setCustomEmojiStickerSetThumbnail", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setCustomEmojiStickerSetThumbnail"] = field(
+        default="setCustomEmojiStickerSetThumbnail", metadata={"alias": "@type"}
     )
     name: String
     custom_emoji_id: Int64

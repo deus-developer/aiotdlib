@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateVideoChat(BaseObject):
     """
     Creates a video chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires can_manage_video_chats administrator right
@@ -26,8 +26,8 @@ class CreateVideoChat(BaseObject):
     :type is_rtmp_stream: :class:`Bool`
     """
 
-    ID: typing.Literal["createVideoChat"] = Field("createVideoChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createVideoChat"] = field(default="createVideoChat", metadata={"alias": "@type"})
     chat_id: Int53
     start_date: Int32
-    title: String = ""
-    is_rtmp_stream: Bool = False
+    title: String = field(default="")
+    is_rtmp_stream: Bool = field(default=False)

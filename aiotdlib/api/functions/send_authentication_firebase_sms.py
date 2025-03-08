@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendAuthenticationFirebaseSms(BaseObject):
     """
     Sends Firebase Authentication SMS to the phone number of the user. Works only when the current authorization state is authorizationStateWaitCode and the server returned code of the type authenticationCodeTypeFirebaseAndroid or authenticationCodeTypeFirebaseIos
@@ -20,7 +20,7 @@ class SendAuthenticationFirebaseSms(BaseObject):
     :type token: :class:`String`
     """
 
-    ID: typing.Literal["sendAuthenticationFirebaseSms"] = Field(
-        "sendAuthenticationFirebaseSms", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendAuthenticationFirebaseSms"] = field(
+        default="sendAuthenticationFirebaseSms", metadata={"alias": "@type"}
     )
     token: String

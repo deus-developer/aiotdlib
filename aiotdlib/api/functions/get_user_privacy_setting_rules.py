@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     UserPrivacySetting,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUserPrivacySettingRules(BaseObject):
     """
     Returns the current privacy settings
@@ -24,7 +23,7 @@ class GetUserPrivacySettingRules(BaseObject):
     :type setting: :class:`UserPrivacySetting`
     """
 
-    ID: typing.Literal["getUserPrivacySettingRules"] = Field(
-        "getUserPrivacySettingRules", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getUserPrivacySettingRules"] = field(
+        default="getUserPrivacySettingRules", metadata={"alias": "@type"}
     )
     setting: UserPrivacySetting

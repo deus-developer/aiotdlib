@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     PhoneNumberAuthenticationSettings,
     PhoneNumberCodeType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendPhoneNumberCode(BaseObject):
     """
     Sends a code to the specified phone number. Aborts previous phone number verification if there was one. On success, returns information about the sent code
@@ -29,7 +28,7 @@ class SendPhoneNumberCode(BaseObject):
     :type settings: :class:`PhoneNumberAuthenticationSettings`, optional
     """
 
-    ID: typing.Literal["sendPhoneNumberCode"] = Field("sendPhoneNumberCode", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendPhoneNumberCode"] = field(default="sendPhoneNumberCode", metadata={"alias": "@type"})
     phone_number: String
-    type_: PhoneNumberCodeType = Field(..., alias="type")
-    settings: typing.Optional[PhoneNumberAuthenticationSettings] = None
+    type_: PhoneNumberCodeType = field(default=MISSING, metadata={"alias": "type"})
+    settings: typing.Optional[PhoneNumberAuthenticationSettings] = field(default=None)

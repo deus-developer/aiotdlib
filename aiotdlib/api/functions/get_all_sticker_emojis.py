@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetAllStickerEmojis(BaseObject):
     """
     Returns unique emoji that correspond to stickers to be found by the getStickers(sticker_type, query, 1000000, chat_id)
@@ -30,8 +29,8 @@ class GetAllStickerEmojis(BaseObject):
     :type return_only_main_emoji: :class:`Bool`
     """
 
-    ID: typing.Literal["getAllStickerEmojis"] = Field("getAllStickerEmojis", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getAllStickerEmojis"] = field(default="getAllStickerEmojis", metadata={"alias": "@type"})
     sticker_type: StickerType
     query: String
     chat_id: Int53
-    return_only_main_emoji: Bool = False
+    return_only_main_emoji: Bool = field(default=False)

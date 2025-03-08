@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetSavedMessagesTagLabel(BaseObject):
     """
     Changes label of a Saved Messages tag; for Telegram Premium users only
@@ -26,8 +25,8 @@ class SetSavedMessagesTagLabel(BaseObject):
     :type label: :class:`String`
     """
 
-    ID: typing.Literal["setSavedMessagesTagLabel"] = Field(
-        "setSavedMessagesTagLabel", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setSavedMessagesTagLabel"] = field(
+        default="setSavedMessagesTagLabel", metadata={"alias": "@type"}
     )
     tag: ReactionType
-    label: String = Field("", max_length=12)
+    label: String = field(default="", metadata={"max_length": 12})

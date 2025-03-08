@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetMessageReactions(BaseObject):
     """
     Sets reactions on a message; for bots only
@@ -30,8 +29,8 @@ class SetMessageReactions(BaseObject):
     :type is_big: :class:`Bool`
     """
 
-    ID: typing.Literal["setMessageReactions"] = Field("setMessageReactions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setMessageReactions"] = field(default="setMessageReactions", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     reaction_types: Vector[ReactionType]
-    is_big: Bool = False
+    is_big: Bool = field(default=False)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatInviteLinkMember,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatInviteLinkMembers(BaseObject):
     """
     Returns chat members joined a chat via an invite link. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
@@ -32,11 +31,11 @@ class GetChatInviteLinkMembers(BaseObject):
     :type offset_member: :class:`ChatInviteLinkMember`, optional
     """
 
-    ID: typing.Literal["getChatInviteLinkMembers"] = Field(
-        "getChatInviteLinkMembers", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatInviteLinkMembers"] = field(
+        default="getChatInviteLinkMembers", metadata={"alias": "@type"}
     )
     chat_id: Int53
     invite_link: String
     limit: Int32
-    only_with_expired_subscription: Bool = False
-    offset_member: typing.Optional[ChatInviteLinkMember] = None
+    only_with_expired_subscription: Bool = field(default=False)
+    offset_member: typing.Optional[ChatInviteLinkMember] = field(default=None)

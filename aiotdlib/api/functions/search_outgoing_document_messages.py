@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchOutgoingDocumentMessages(BaseObject):
     """
     Searches for outgoing messages with content of the type messageDocument in all chats except secret chats. Returns the results in reverse chronological order
@@ -22,8 +22,8 @@ class SearchOutgoingDocumentMessages(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchOutgoingDocumentMessages"] = Field(
-        "searchOutgoingDocumentMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchOutgoingDocumentMessages"] = field(
+        default="searchOutgoingDocumentMessages", metadata={"alias": "@type"}
     )
     query: String
     limit: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatStatistics(BaseObject):
     """
     Returns detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.can_get_statistics == true
@@ -22,6 +22,6 @@ class GetChatStatistics(BaseObject):
     :type is_dark: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatStatistics"] = Field("getChatStatistics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatStatistics"] = field(default="getChatStatistics", metadata={"alias": "@type"})
     chat_id: Int53
-    is_dark: Bool = False
+    is_dark: Bool = field(default=False)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchWebApp(BaseObject):
     """
     Returns information about a Web App by its short name. Returns a 404 error if the Web App is not found
@@ -22,6 +22,6 @@ class SearchWebApp(BaseObject):
     :type web_app_short_name: :class:`String`
     """
 
-    ID: typing.Literal["searchWebApp"] = Field("searchWebApp", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchWebApp"] = field(default="searchWebApp", metadata={"alias": "@type"})
     bot_user_id: Int53
     web_app_short_name: String

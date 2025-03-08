@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatMessagesBySender(BaseObject):
     """
     Deletes all messages sent by the specified message sender in a chat. Supported only for supergroups; requires can_delete_messages administrator right
@@ -26,8 +25,8 @@ class DeleteChatMessagesBySender(BaseObject):
     :type sender_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["deleteChatMessagesBySender"] = Field(
-        "deleteChatMessagesBySender", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteChatMessagesBySender"] = field(
+        default="deleteChatMessagesBySender", metadata={"alias": "@type"}
     )
     chat_id: Int53
     sender_id: MessageSender

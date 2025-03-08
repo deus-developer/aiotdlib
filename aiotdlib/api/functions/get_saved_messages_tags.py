@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSavedMessagesTags(BaseObject):
     """
     Returns tags used in Saved Messages or a Saved Messages topic
@@ -20,5 +20,5 @@ class GetSavedMessagesTags(BaseObject):
     :type saved_messages_topic_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getSavedMessagesTags"] = Field("getSavedMessagesTags", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getSavedMessagesTags"] = field(default="getSavedMessagesTags", metadata={"alias": "@type"})
     saved_messages_topic_id: Int53

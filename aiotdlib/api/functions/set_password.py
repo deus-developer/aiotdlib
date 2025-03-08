@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPassword(BaseObject):
     """
     Changes the 2-step verification password for the current user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed
@@ -28,9 +28,9 @@ class SetPassword(BaseObject):
     :type new_recovery_email_address: :class:`String`
     """
 
-    ID: typing.Literal["setPassword"] = Field("setPassword", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setPassword"] = field(default="setPassword", metadata={"alias": "@type"})
     old_password: String
-    new_password: String = ""
-    new_hint: String = ""
-    set_recovery_email_address: Bool = False
-    new_recovery_email_address: String = ""
+    new_password: String = field(default="")
+    new_hint: String = field(default="")
+    set_recovery_email_address: Bool = field(default=False)
+    new_recovery_email_address: String = field(default="")

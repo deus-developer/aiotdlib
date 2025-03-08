@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchInstalledStickerSets(BaseObject):
     """
     Searches for installed sticker sets by looking for specified query in their title and name
@@ -28,8 +27,8 @@ class SearchInstalledStickerSets(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchInstalledStickerSets"] = Field(
-        "searchInstalledStickerSets", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchInstalledStickerSets"] = field(
+        default="searchInstalledStickerSets", metadata={"alias": "@type"}
     )
     sticker_type: StickerType
     query: String

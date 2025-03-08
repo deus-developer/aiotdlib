@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatFolder,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatFolderChatCount(BaseObject):
     """
     Returns approximate number of chats in a being created chat folder. Main and archive chat lists must be fully preloaded for this function to work correctly
@@ -24,7 +23,5 @@ class GetChatFolderChatCount(BaseObject):
     :type folder: :class:`ChatFolder`
     """
 
-    ID: typing.Literal["getChatFolderChatCount"] = Field(
-        "getChatFolderChatCount", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getChatFolderChatCount"] = field(default="getChatFolderChatCount", metadata={"alias": "@type"})
     folder: ChatFolder

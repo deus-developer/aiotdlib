@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RefundStarPayment(BaseObject):
     """
     Refunds a previously done payment in Telegram Stars; for bots only
@@ -22,6 +22,6 @@ class RefundStarPayment(BaseObject):
     :type telegram_payment_charge_id: :class:`String`
     """
 
-    ID: typing.Literal["refundStarPayment"] = Field("refundStarPayment", validation_alias="@type", alias="@type")
+    ID: typing.Literal["refundStarPayment"] = field(default="refundStarPayment", metadata={"alias": "@type"})
     user_id: Int53
     telegram_payment_charge_id: String

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Contact,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ImportContacts(BaseObject):
     """
     Adds new contacts or edits existing contacts by their phone numbers; contacts' user identifiers are ignored
@@ -24,5 +23,5 @@ class ImportContacts(BaseObject):
     :type contacts: :class:`Vector[Contact]`
     """
 
-    ID: typing.Literal["importContacts"] = Field("importContacts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["importContacts"] = field(default="importContacts", metadata={"alias": "@type"})
     contacts: Vector[Contact]

@@ -1,32 +1,16 @@
 from __future__ import annotations
 
+import keyword
 import re
 import typing
 
-from pydantic import BaseModel
-from pydantic import field_validator
-from pydantic import model_validator
+from pydantic import BaseModel, field_validator, model_validator
 
-from .utils import lower_first
-from .utils import snake_case
-from .utils import upper_first
+from .utils import lower_first, snake_case, upper_first
 
 vector_type_regex = re.compile(r"[Vv]ector<(?P<type>.*)>")
 list_type_regex = re.compile(r".*[Vv]ector\[(?P<type>\w+)].*")
-core_types = [
-    'int',
-    'int32',
-    'int53',
-    'int64',
-    'long',
-    'double',
-    'float',
-    'string',
-    'str',
-    'bool',
-    'bytes',
-    'vector'
-]
+core_types = ["int", "int32", "int53", "int64", "long", "double", "float", "string", "str", "bool", "bytes", "vector"]
 
 
 class BaseType(BaseModel):
@@ -39,22 +23,36 @@ class BaseType(BaseModel):
     @property
     def lf_name(self) -> str:
         """
-        lf - abbreviation of Lower_First
+        Lf - abbreviation of Lower_First
         """
         return lower_first(self.name)
 
     @property
     def uf_name(self) -> str:
         """
-        uf - abbreviation of Upper_First
+        Uf - abbreviation of Upper_First
         """
         return upper_first(self.name)
+
+
+def is_name_reserved(name: str) -> bool:
+    if keyword.iskeyword(name):
+        return True
+
+    if keyword.issoftkeyword(name):
+        return True
+
+    if name in ["json", "filter", "type", "hash", "class", "format"]:
+        return True
+
+    return False
 
 
 class Parameter(BaseModel):
     # Optional constraints
     nullable: bool = False
     default_value: typing.Optional[str] = None
+    default_factory: typing.Optional[str] = None
     min_length: typing.Optional[int] = None
     max_length: typing.Optional[int] = None
 
@@ -63,22 +61,22 @@ class Parameter(BaseModel):
     alias: typing.Optional[str] = None
     doc: str = ""
 
-    @field_validator('name')
+    @field_validator("name")
     @classmethod
     def check_name(cls, name):
-        if name in ['json', 'filter', 'type', 'hash', 'class']:
+        if is_name_reserved(name):
             return f"{name}_"
 
         return name
 
-    @model_validator(mode='after')
-    def assign_alias(self) -> 'Parameter':
-        if (alias := self.name.rstrip('_')) in ['json', 'filter', 'type', 'hash']:
+    @model_validator(mode="after")
+    def assign_alias(self) -> "Parameter":
+        if (alias := self.name.rstrip("_")) and is_name_reserved(alias):
             self.alias = alias
 
         return self
 
-    @field_validator('type', mode="before")
+    @field_validator("type", mode="before")
     @classmethod
     def convert_tl_type(cls, tl_type: str) -> str:
         if not tl_type:
@@ -123,7 +121,7 @@ class Parameter(BaseModel):
             return None
 
         if self.is_vector_type:
-            inner_vector_type = list_type_regex.match(self.type).group('type')
+            inner_vector_type = list_type_regex.match(self.type).group("type")
 
             if inner_vector_type.lower() in core_types:
                 return None
@@ -136,7 +134,7 @@ class Parameter(BaseModel):
     def optional_type(self):
         # Workaround for nullable vector types items https://github.com/tdlib/td/issues/1016#issuecomment-618959102
         if self.is_vector_type:
-            return re.sub(r"(.*Vector\[)(\w+)(].*)", r'\1typing.Optional[\2]\3', self.type)
+            return re.sub(r"(.*Vector\[)(\w+)(].*)", r"\1typing.Optional[\2]\3", self.type)
 
         return f"typing.Optional[{self.type}]"
 
@@ -164,7 +162,7 @@ class BaseEntity(BaseType):
 
     @property
     def has_shadow_names(self) -> bool:
-        return any(p.name[-1] == '_' for p in self.parameters)
+        return any(p.name[-1] == "_" for p in self.parameters)
 
     @property
     def is_function(self) -> bool:
@@ -208,32 +206,22 @@ class Constructor(ConstructorShort):
         cross_deps = [c.name for c in self.cross_deps]
 
         for p in self.parameters:
-            if bool(p.import_type) and not bool(p.import_type) in cross_deps:
+            if bool(p.import_type) and bool(p.import_type) not in cross_deps:
                 deps.add(Dependency(name=snake_case(p.import_type), type=p.import_type))
 
         for subclass in self.subclasses:
             for p in subclass.parameters:
                 if (
-                        bool(p.import_type)
-                        and p.import_type != self.uf_name
-                        and upper_first(p.import_type) not in cross_deps
+                    bool(p.import_type)
+                    and p.import_type != self.uf_name
+                    and upper_first(p.import_type) not in cross_deps
                 ):
-                    deps.add(
-                        Dependency(
-                            name=snake_case(p.import_type),
-                            type=p.import_type
-                        )
-                    )
+                    deps.add(Dependency(name=snake_case(p.import_type), type=p.import_type))
 
         for dep in self.cross_deps:
             for p in dep.parameters:
                 if bool(p.import_type) and p.import_type != self.uf_name:
-                    deps.add(
-                        Dependency(
-                            name=snake_case(p.import_type),
-                            type=p.import_type
-                        )
-                    )
+                    deps.add(Dependency(name=snake_case(p.import_type), type=p.import_type))
 
         return list(sorted(deps, key=lambda x: x.name))
 
@@ -241,7 +229,7 @@ class Constructor(ConstructorShort):
 class Function(BaseEntity):
     return_type: typing.Union[str, Constructor]
 
-    @field_validator('return_type', mode="before")
+    @field_validator("return_type", mode="before")
     @classmethod
     def _convert_return_type(cls, return_type: typing.Union[str, Constructor]) -> typing.Union[str, Constructor]:
         if not return_type:
@@ -265,12 +253,7 @@ class Function(BaseEntity):
 
         for p in self.parameters:
             if p.import_type is not None:
-                deps.add(
-                    Dependency(
-                        name=snake_case(p.import_type),
-                        type=p.import_type
-                    )
-                )
+                deps.add(Dependency(name=snake_case(p.import_type), type=p.import_type))
 
         return list(sorted(deps, key=lambda x: x.name))
 

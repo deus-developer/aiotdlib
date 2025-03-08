@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetTemporaryPasswordState(BaseObject):
     """
     Returns information about the current temporary password
     """
 
-    ID: typing.Literal["getTemporaryPasswordState"] = Field(
-        "getTemporaryPasswordState", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getTemporaryPasswordState"] = field(
+        default="getTemporaryPasswordState", metadata={"alias": "@type"}
     )

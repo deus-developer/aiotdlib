@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetThemedChatEmojiStatuses(BaseObject):
     """
     Returns up to 8 emoji statuses, which must be shown in the emoji status list for chats
     """
 
-    ID: typing.Literal["getThemedChatEmojiStatuses"] = Field(
-        "getThemedChatEmojiStatuses", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getThemedChatEmojiStatuses"] = field(
+        default="getThemedChatEmojiStatuses", metadata={"alias": "@type"}
     )

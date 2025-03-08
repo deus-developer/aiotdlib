@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchPublicMessagesByTag(BaseObject):
     """
     Searches for public channel posts containing the given hashtag or cashtag. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
@@ -24,8 +24,8 @@ class SearchPublicMessagesByTag(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchPublicMessagesByTag"] = Field(
-        "searchPublicMessagesByTag", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchPublicMessagesByTag"] = field(
+        default="searchPublicMessagesByTag", metadata={"alias": "@type"}
     )
     tag: String
     offset: String

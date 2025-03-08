@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderInstalledStickerSets(BaseObject):
     """
     Changes the order of installed sticker sets
@@ -26,8 +25,8 @@ class ReorderInstalledStickerSets(BaseObject):
     :type sticker_set_ids: :class:`Vector[Int64]`
     """
 
-    ID: typing.Literal["reorderInstalledStickerSets"] = Field(
-        "reorderInstalledStickerSets", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reorderInstalledStickerSets"] = field(
+        default="reorderInstalledStickerSets", metadata={"alias": "@type"}
     )
     sticker_type: StickerType
     sticker_set_ids: Vector[Int64]

@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetImportedContactCount(BaseObject):
     """
     Returns the total number of imported contacts
     """
 
-    ID: typing.Literal["getImportedContactCount"] = Field(
-        "getImportedContactCount", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getImportedContactCount"] = field(
+        default="getImportedContactCount", metadata={"alias": "@type"}
     )

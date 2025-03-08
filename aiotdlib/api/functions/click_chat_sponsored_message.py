@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClickChatSponsoredMessage(BaseObject):
     """
     Informs TDLib that the user opened the sponsored chat via the button, the name, the chat photo, a mention in the sponsored message text, or the media in the sponsored message
@@ -26,10 +26,10 @@ class ClickChatSponsoredMessage(BaseObject):
     :type from_fullscreen: :class:`Bool`
     """
 
-    ID: typing.Literal["clickChatSponsoredMessage"] = Field(
-        "clickChatSponsoredMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["clickChatSponsoredMessage"] = field(
+        default="clickChatSponsoredMessage", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53
-    is_media_click: Bool = False
-    from_fullscreen: Bool = False
+    is_media_click: Bool = field(default=False)
+    from_fullscreen: Bool = field(default=False)

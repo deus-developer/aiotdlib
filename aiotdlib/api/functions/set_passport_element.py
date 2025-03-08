@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputPassportElement,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPassportElement(BaseObject):
     """
     Adds an element to the user's Telegram Passport. May return an error with a message "PHONE_VERIFICATION_NEEDED" or "EMAIL_VERIFICATION_NEEDED" if the chosen phone number or the chosen email address must be verified first
@@ -26,6 +25,6 @@ class SetPassportElement(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["setPassportElement"] = Field("setPassportElement", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setPassportElement"] = field(default="setPassportElement", metadata={"alias": "@type"})
     element: InputPassportElement
     password: String

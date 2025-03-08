@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCustomEmojiStickers(BaseObject):
     """
     Returns the list of custom emoji stickers by their identifiers. Stickers are returned in arbitrary order. Only found stickers are returned
@@ -20,7 +20,5 @@ class GetCustomEmojiStickers(BaseObject):
     :type custom_emoji_ids: :class:`Vector[Int64]`
     """
 
-    ID: typing.Literal["getCustomEmojiStickers"] = Field(
-        "getCustomEmojiStickers", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getCustomEmojiStickers"] = field(default="getCustomEmojiStickers", metadata={"alias": "@type"})
     custom_emoji_ids: Vector[Int64]

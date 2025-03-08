@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatListsToAddChat(BaseObject):
     """
     Returns chat lists to which the chat can be added. This is an offline request
@@ -20,7 +20,5 @@ class GetChatListsToAddChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatListsToAddChat"] = Field(
-        "getChatListsToAddChat", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getChatListsToAddChat"] = field(default="getChatListsToAddChat", metadata={"alias": "@type"})
     chat_id: Int53

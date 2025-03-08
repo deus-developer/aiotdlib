@@ -6,17 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecentEmojiStatuses(BaseObject):
     """
     Returns recent emoji statuses for self status
     """
 
-    ID: typing.Literal["getRecentEmojiStatuses"] = Field(
-        "getRecentEmojiStatuses", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getRecentEmojiStatuses"] = field(default="getRecentEmojiStatuses", metadata={"alias": "@type"})

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     InputMessageReplyTo,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendBusinessMessageAlbum(BaseObject):
     """
     Sends 2-10 messages grouped together into an album on behalf of a business account; for bots only. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages
@@ -37,13 +36,13 @@ class SendBusinessMessageAlbum(BaseObject):
     :type reply_to: :class:`InputMessageReplyTo`, optional
     """
 
-    ID: typing.Literal["sendBusinessMessageAlbum"] = Field(
-        "sendBusinessMessageAlbum", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendBusinessMessageAlbum"] = field(
+        default="sendBusinessMessageAlbum", metadata={"alias": "@type"}
     )
     business_connection_id: String
     chat_id: Int53
     effect_id: Int64
     input_message_contents: Vector[InputMessageContent]
-    disable_notification: Bool = False
-    protect_content: Bool = False
-    reply_to: typing.Optional[InputMessageReplyTo] = None
+    disable_notification: Bool = field(default=False)
+    protect_content: Bool = field(default=False)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CancelDownloadFile(BaseObject):
     """
     Stops the downloading of a file. If a file has already been downloaded, does nothing
@@ -22,6 +22,6 @@ class CancelDownloadFile(BaseObject):
     :type only_if_pending: :class:`Bool`
     """
 
-    ID: typing.Literal["cancelDownloadFile"] = Field("cancelDownloadFile", validation_alias="@type", alias="@type")
+    ID: typing.Literal["cancelDownloadFile"] = field(default="cancelDownloadFile", metadata={"alias": "@type"})
     file_id: Int32
-    only_if_pending: Bool = False
+    only_if_pending: Bool = field(default=False)

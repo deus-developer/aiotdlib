@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetSupergroupStickerSet(BaseObject):
     """
     Changes the sticker set of a supergroup; requires can_change_info administrator right
@@ -22,8 +22,8 @@ class SetSupergroupStickerSet(BaseObject):
     :type sticker_set_id: :class:`Int64`
     """
 
-    ID: typing.Literal["setSupergroupStickerSet"] = Field(
-        "setSupergroupStickerSet", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setSupergroupStickerSet"] = field(
+        default="setSupergroupStickerSet", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     sticker_set_id: Int64

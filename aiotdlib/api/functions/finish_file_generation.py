@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Error,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class FinishFileGeneration(BaseObject):
     """
     Finishes the file generation
@@ -26,6 +25,6 @@ class FinishFileGeneration(BaseObject):
     :type error: :class:`Error`, optional
     """
 
-    ID: typing.Literal["finishFileGeneration"] = Field("finishFileGeneration", validation_alias="@type", alias="@type")
+    ID: typing.Literal["finishFileGeneration"] = field(default="finishFileGeneration", metadata={"alias": "@type"})
     generation_id: Int64
-    error: typing.Optional[Error] = None
+    error: typing.Optional[Error] = field(default=None)

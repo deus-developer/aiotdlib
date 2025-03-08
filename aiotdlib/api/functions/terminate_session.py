@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TerminateSession(BaseObject):
     """
     Terminates a session of the current user
@@ -20,5 +20,5 @@ class TerminateSession(BaseObject):
     :type session_id: :class:`Int64`
     """
 
-    ID: typing.Literal["terminateSession"] = Field("terminateSession", validation_alias="@type", alias="@type")
+    ID: typing.Literal["terminateSession"] = field(default="terminateSession", metadata={"alias": "@type"})
     session_id: Int64

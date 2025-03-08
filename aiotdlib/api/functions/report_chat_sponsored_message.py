@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportChatSponsoredMessage(BaseObject):
     """
     Reports a sponsored message to Telegram moderators
@@ -24,8 +24,8 @@ class ReportChatSponsoredMessage(BaseObject):
     :type option_id: :class:`Bytes`
     """
 
-    ID: typing.Literal["reportChatSponsoredMessage"] = Field(
-        "reportChatSponsoredMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reportChatSponsoredMessage"] = field(
+        default="reportChatSponsoredMessage", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

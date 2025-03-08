@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatStoryInteractions(BaseObject):
     """
     Returns interactions with a story posted in a chat. Can be used only if story is posted on behalf of a chat and the user is an administrator in the chat
@@ -34,12 +33,12 @@ class GetChatStoryInteractions(BaseObject):
     :type reaction_type: :class:`ReactionType`, optional
     """
 
-    ID: typing.Literal["getChatStoryInteractions"] = Field(
-        "getChatStoryInteractions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatStoryInteractions"] = field(
+        default="getChatStoryInteractions", metadata={"alias": "@type"}
     )
     story_sender_chat_id: Int53
     story_id: Int32
     offset: String
     limit: Int32
-    prefer_forwards: Bool = False
-    reaction_type: typing.Optional[ReactionType] = None
+    prefer_forwards: Bool = field(default=False)
+    reaction_type: typing.Optional[ReactionType] = field(default=None)

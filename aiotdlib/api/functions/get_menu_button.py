@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMenuButton(BaseObject):
     """
     Returns menu button set by the bot for the given user; for bots only
@@ -20,5 +20,5 @@ class GetMenuButton(BaseObject):
     :type user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMenuButton"] = Field("getMenuButton", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMenuButton"] = field(default="getMenuButton", metadata={"alias": "@type"})
     user_id: Int53

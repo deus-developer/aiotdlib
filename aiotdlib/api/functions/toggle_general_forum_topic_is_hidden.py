@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGeneralForumTopicIsHidden(BaseObject):
     """
     Toggles whether a General topic is hidden in a forum supergroup chat; requires can_manage_topics right in the supergroup
@@ -22,8 +22,8 @@ class ToggleGeneralForumTopicIsHidden(BaseObject):
     :type is_hidden: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGeneralForumTopicIsHidden"] = Field(
-        "toggleGeneralForumTopicIsHidden", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleGeneralForumTopicIsHidden"] = field(
+        default="toggleGeneralForumTopicIsHidden", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    is_hidden: Bool = False
+    is_hidden: Bool = field(default=False)

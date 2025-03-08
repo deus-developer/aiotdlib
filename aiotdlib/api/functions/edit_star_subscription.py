@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditStarSubscription(BaseObject):
     """
     Cancels or re-enables Telegram Star subscription
@@ -22,6 +22,6 @@ class EditStarSubscription(BaseObject):
     :type is_canceled: :class:`Bool`
     """
 
-    ID: typing.Literal["editStarSubscription"] = Field("editStarSubscription", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editStarSubscription"] = field(default="editStarSubscription", metadata={"alias": "@type"})
     subscription_id: String
     is_canceled: Bool

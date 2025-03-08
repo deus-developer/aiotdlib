@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     SupergroupMembersFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSupergroupMembers(BaseObject):
     """
     Returns information about members or banned users in a supergroup or channel. Can be used only if supergroupFullInfo.can_get_members == true; additionally, administrator privileges may be required for some filters
@@ -30,8 +29,8 @@ class GetSupergroupMembers(BaseObject):
     :type filter_: :class:`SupergroupMembersFilter`, optional
     """
 
-    ID: typing.Literal["getSupergroupMembers"] = Field("getSupergroupMembers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getSupergroupMembers"] = field(default="getSupergroupMembers", metadata={"alias": "@type"})
     supergroup_id: Int53
     offset: Int32
     limit: Int32
-    filter_: typing.Optional[SupergroupMembersFilter] = Field(None, alias="filter")
+    filter_: typing.Optional[SupergroupMembersFilter] = field(default=None, metadata={"alias": "filter"})

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatTheme(BaseObject):
     """
     Changes the chat theme. Supported only in private and secret chats
@@ -22,6 +22,6 @@ class SetChatTheme(BaseObject):
     :type theme_name: :class:`String`
     """
 
-    ID: typing.Literal["setChatTheme"] = Field("setChatTheme", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatTheme"] = field(default="setChatTheme", metadata={"alias": "@type"})
     chat_id: Int53
     theme_name: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBusinessChatLinkInfo(BaseObject):
     """
     Returns information about a business chat link
@@ -20,7 +20,7 @@ class GetBusinessChatLinkInfo(BaseObject):
     :type link_name: :class:`String`
     """
 
-    ID: typing.Literal["getBusinessChatLinkInfo"] = Field(
-        "getBusinessChatLinkInfo", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getBusinessChatLinkInfo"] = field(
+        default="getBusinessChatLinkInfo", metadata={"alias": "@type"}
     )
     link_name: String

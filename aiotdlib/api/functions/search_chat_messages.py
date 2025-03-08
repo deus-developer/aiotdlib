@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchChatMessages(BaseObject):
     """
     Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit. A combination of query, sender_id, filter and message_thread_id search criteria is expected to be supported, only if it is required for Telegram official application implementation
@@ -41,13 +40,13 @@ class SearchChatMessages(BaseObject):
     :type filter_: :class:`SearchMessagesFilter`, optional
     """
 
-    ID: typing.Literal["searchChatMessages"] = Field("searchChatMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchChatMessages"] = field(default="searchChatMessages", metadata={"alias": "@type"})
     chat_id: Int53
     query: String
     from_message_id: Int53
     offset: Int32
     limit: Int32
-    message_thread_id: Int53 = 0
-    saved_messages_topic_id: Int53 = 0
-    sender_id: typing.Optional[MessageSender] = None
-    filter_: typing.Optional[SearchMessagesFilter] = Field(None, alias="filter")
+    message_thread_id: Int53 = field(default=0)
+    saved_messages_topic_id: Int53 = field(default=0)
+    sender_id: typing.Optional[MessageSender] = field(default=None)
+    filter_: typing.Optional[SearchMessagesFilter] = field(default=None, metadata={"alias": "filter"})

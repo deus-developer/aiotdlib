@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLogStream(BaseObject):
     """
     Returns information about currently used log stream for internal logging of TDLib. Can be called synchronously
     """
 
-    ID: typing.Literal["getLogStream"] = Field("getLogStream", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getLogStream"] = field(default="getLogStream", metadata={"alias": "@type"})

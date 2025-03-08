@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditMessageMedia(BaseObject):
     """
     Edits the media content of a message, including message caption. If only the caption needs to be edited, use editMessageCaption instead. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa. Returns the edited message after the edit is completed on the server side
@@ -31,8 +30,8 @@ class EditMessageMedia(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["editMessageMedia"] = Field("editMessageMedia", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editMessageMedia"] = field(default="editMessageMedia", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     input_message_content: InputMessageContent
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

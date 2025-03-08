@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBasicGroup(BaseObject):
     """
     Returns information about a basic group by its identifier. This is an offline request if the current user is not a bot
@@ -20,5 +20,5 @@ class GetBasicGroup(BaseObject):
     :type basic_group_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getBasicGroup"] = Field("getBasicGroup", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getBasicGroup"] = field(default="getBasicGroup", metadata={"alias": "@type"})
     basic_group_id: Int53

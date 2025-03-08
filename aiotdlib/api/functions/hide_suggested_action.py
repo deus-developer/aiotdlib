@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     SuggestedAction,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class HideSuggestedAction(BaseObject):
     """
     Hides a suggested action
@@ -24,5 +23,5 @@ class HideSuggestedAction(BaseObject):
     :type action: :class:`SuggestedAction`
     """
 
-    ID: typing.Literal["hideSuggestedAction"] = Field("hideSuggestedAction", validation_alias="@type", alias="@type")
+    ID: typing.Literal["hideSuggestedAction"] = field(default="hideSuggestedAction", metadata={"alias": "@type"})
     action: SuggestedAction

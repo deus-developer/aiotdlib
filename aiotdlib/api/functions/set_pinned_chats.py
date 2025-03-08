@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPinnedChats(BaseObject):
     """
     Changes the order of pinned chats
@@ -26,6 +25,6 @@ class SetPinnedChats(BaseObject):
     :type chat_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["setPinnedChats"] = Field("setPinnedChats", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setPinnedChats"] = field(default="setPinnedChats", metadata={"alias": "@type"})
     chat_list: ChatList
     chat_ids: Vector[Int53]

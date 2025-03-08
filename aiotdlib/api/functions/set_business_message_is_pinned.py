@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessMessageIsPinned(BaseObject):
     """
     Pins or unpins a message sent on behalf of a business account; for bots only
@@ -26,10 +26,10 @@ class SetBusinessMessageIsPinned(BaseObject):
     :type is_pinned: :class:`Bool`
     """
 
-    ID: typing.Literal["setBusinessMessageIsPinned"] = Field(
-        "setBusinessMessageIsPinned", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setBusinessMessageIsPinned"] = field(
+        default="setBusinessMessageIsPinned", metadata={"alias": "@type"}
     )
     business_connection_id: String
     chat_id: Int53
     message_id: Int53
-    is_pinned: Bool = False
+    is_pinned: Bool = field(default=False)

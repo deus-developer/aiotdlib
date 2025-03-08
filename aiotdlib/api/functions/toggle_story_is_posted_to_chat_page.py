@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleStoryIsPostedToChatPage(BaseObject):
     """
     Toggles whether a story is accessible after expiration. Can be called only if story.can_toggle_is_posted_to_chat_page == true
@@ -24,9 +24,9 @@ class ToggleStoryIsPostedToChatPage(BaseObject):
     :type is_posted_to_chat_page: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleStoryIsPostedToChatPage"] = Field(
-        "toggleStoryIsPostedToChatPage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleStoryIsPostedToChatPage"] = field(
+        default="toggleStoryIsPostedToChatPage", metadata={"alias": "@type"}
     )
     story_sender_chat_id: Int53
     story_id: Int32
-    is_posted_to_chat_page: Bool = False
+    is_posted_to_chat_page: Bool = field(default=False)

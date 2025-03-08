@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatAvailableMessageSenders(BaseObject):
     """
     Returns the list of message sender identifiers, which can be used to send messages in a chat
@@ -20,7 +20,7 @@ class GetChatAvailableMessageSenders(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatAvailableMessageSenders"] = Field(
-        "getChatAvailableMessageSenders", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatAvailableMessageSenders"] = field(
+        default="getChatAvailableMessageSenders", metadata={"alias": "@type"}
     )
     chat_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSecretChat(BaseObject):
     """
     Returns information about a secret chat by its identifier. This is an offline request
@@ -20,5 +20,5 @@ class GetSecretChat(BaseObject):
     :type secret_chat_id: :class:`Int32`
     """
 
-    ID: typing.Literal["getSecretChat"] = Field("getSecretChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getSecretChat"] = field(default="getSecretChat", metadata={"alias": "@type"})
     secret_chat_id: Int32

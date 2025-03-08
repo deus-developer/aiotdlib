@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     AffiliateProgramParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatAffiliateProgram(BaseObject):
     """
     Changes affiliate program for a bot
@@ -26,8 +25,8 @@ class SetChatAffiliateProgram(BaseObject):
     :type parameters: :class:`AffiliateProgramParameters`, optional
     """
 
-    ID: typing.Literal["setChatAffiliateProgram"] = Field(
-        "setChatAffiliateProgram", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatAffiliateProgram"] = field(
+        default="setChatAffiliateProgram", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    parameters: typing.Optional[AffiliateProgramParameters] = None
+    parameters: typing.Optional[AffiliateProgramParameters] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetForumTopicLink(BaseObject):
     """
     Returns an HTTPS link to a topic in a forum chat. This is an offline request
@@ -22,6 +22,6 @@ class GetForumTopicLink(BaseObject):
     :type message_thread_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getForumTopicLink"] = Field("getForumTopicLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getForumTopicLink"] = field(default="getForumTopicLink", metadata={"alias": "@type"})
     chat_id: Int53
     message_thread_id: Int53

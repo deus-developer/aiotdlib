@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatRevenueStatistics(BaseObject):
     """
     Returns detailed revenue statistics about a chat. Currently, this method can be used only for channels if supergroupFullInfo.can_get_revenue_statistics == true or bots if userFullInfo.bot_info.can_get_revenue_statistics == true
@@ -22,8 +22,8 @@ class GetChatRevenueStatistics(BaseObject):
     :type is_dark: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatRevenueStatistics"] = Field(
-        "getChatRevenueStatistics", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatRevenueStatistics"] = field(
+        default="getChatRevenueStatistics", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    is_dark: Bool = False
+    is_dark: Bool = field(default=False)

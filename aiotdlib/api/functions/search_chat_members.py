@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatMembersFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchChatMembers(BaseObject):
     """
     Searches for a specified query in the first name, last name and usernames of the members of a specified chat. Requires administrator rights if the chat is a channel
@@ -30,8 +29,8 @@ class SearchChatMembers(BaseObject):
     :type filter_: :class:`ChatMembersFilter`, optional
     """
 
-    ID: typing.Literal["searchChatMembers"] = Field("searchChatMembers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchChatMembers"] = field(default="searchChatMembers", metadata={"alias": "@type"})
     chat_id: Int53
     query: String
     limit: Int32
-    filter_: typing.Optional[ChatMembersFilter] = Field(None, alias="filter")
+    filter_: typing.Optional[ChatMembersFilter] = field(default=None, metadata={"alias": "filter"})

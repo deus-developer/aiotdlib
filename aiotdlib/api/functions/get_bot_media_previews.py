@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBotMediaPreviews(BaseObject):
     """
     Returns the list of media previews of a bot
@@ -20,5 +20,5 @@ class GetBotMediaPreviews(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getBotMediaPreviews"] = Field("getBotMediaPreviews", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getBotMediaPreviews"] = field(default="getBotMediaPreviews", metadata={"alias": "@type"})
     bot_user_id: Int53

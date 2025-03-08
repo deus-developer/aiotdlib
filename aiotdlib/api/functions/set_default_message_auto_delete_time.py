@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageAutoDeleteTime,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetDefaultMessageAutoDeleteTime(BaseObject):
     """
     Changes the default message auto-delete time for new chats
@@ -24,7 +23,7 @@ class SetDefaultMessageAutoDeleteTime(BaseObject):
     :type message_auto_delete_time: :class:`MessageAutoDeleteTime`
     """
 
-    ID: typing.Literal["setDefaultMessageAutoDeleteTime"] = Field(
-        "setDefaultMessageAutoDeleteTime", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setDefaultMessageAutoDeleteTime"] = field(
+        default="setDefaultMessageAutoDeleteTime", metadata={"alias": "@type"}
     )
-    message_auto_delete_time: MessageAutoDeleteTime = 0
+    message_auto_delete_time: MessageAutoDeleteTime = field(default=0)

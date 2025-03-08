@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecentStickers(BaseObject):
     """
     Returns a list of recently used stickers
@@ -20,5 +20,5 @@ class GetRecentStickers(BaseObject):
     :type is_attached: :class:`Bool`
     """
 
-    ID: typing.Literal["getRecentStickers"] = Field("getRecentStickers", validation_alias="@type", alias="@type")
-    is_attached: Bool = False
+    ID: typing.Literal["getRecentStickers"] = field(default="getRecentStickers", metadata={"alias": "@type"})
+    is_attached: Bool = field(default=False)

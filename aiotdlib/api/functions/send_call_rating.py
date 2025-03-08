@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     CallProblem,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendCallRating(BaseObject):
     """
     Sends a call rating
@@ -30,7 +29,7 @@ class SendCallRating(BaseObject):
     :type problems: :class:`Vector[CallProblem]`
     """
 
-    ID: typing.Literal["sendCallRating"] = Field("sendCallRating", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendCallRating"] = field(default="sendCallRating", metadata={"alias": "@type"})
     call_id: Int32
     rating: Int32
     comment: String

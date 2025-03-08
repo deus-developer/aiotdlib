@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatJoinRequest,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatJoinRequests(BaseObject):
     """
     Returns pending join requests in a chat
@@ -32,9 +31,9 @@ class GetChatJoinRequests(BaseObject):
     :type offset_request: :class:`ChatJoinRequest`, optional
     """
 
-    ID: typing.Literal["getChatJoinRequests"] = Field("getChatJoinRequests", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatJoinRequests"] = field(default="getChatJoinRequests", metadata={"alias": "@type"})
     chat_id: Int53
     query: String
     limit: Int32
-    invite_link: String = ""
-    offset_request: typing.Optional[ChatJoinRequest] = None
+    invite_link: String = field(default="")
+    offset_request: typing.Optional[ChatJoinRequest] = field(default=None)

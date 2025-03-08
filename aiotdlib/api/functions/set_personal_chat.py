@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetPersonalChat(BaseObject):
     """
     Changes the personal chat of the current user
@@ -20,5 +20,5 @@ class SetPersonalChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["setPersonalChat"] = Field("setPersonalChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setPersonalChat"] = field(default="setPersonalChat", metadata={"alias": "@type"})
     chat_id: Int53

@@ -19,5 +19,5 @@ def snake_case(s: str) -> str:
     if not s:
         return ""
 
-    s = re.sub(r'(.)([A-Z][a-z]+)', r'\1_\2', s)
-    return re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', s).lower()
+    s = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", s)
+    return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s).lower()

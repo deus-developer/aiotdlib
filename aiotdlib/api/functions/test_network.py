@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TestNetwork(BaseObject):
     """
     Sends a simple network request to the Telegram servers; for testing only. Can be called before authorization
     """
 
-    ID: typing.Literal["testNetwork"] = Field("testNetwork", validation_alias="@type", alias="@type")
+    ID: typing.Literal["testNetwork"] = field(default="testNetwork", metadata={"alias": "@type"})

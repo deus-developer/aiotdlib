@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGroupCallEnabledStartNotification(BaseObject):
     """
     Toggles whether the current user will receive a notification when the group call starts; scheduled group calls only
@@ -22,8 +22,8 @@ class ToggleGroupCallEnabledStartNotification(BaseObject):
     :type enabled_start_notification: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGroupCallEnabledStartNotification"] = Field(
-        "toggleGroupCallEnabledStartNotification", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleGroupCallEnabledStartNotification"] = field(
+        default="toggleGroupCallEnabledStartNotification", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     enabled_start_notification: Bool

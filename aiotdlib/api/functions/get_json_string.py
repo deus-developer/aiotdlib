@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     JsonValue,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetJsonString(BaseObject):
     """
     Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously
@@ -24,5 +23,5 @@ class GetJsonString(BaseObject):
     :type json_value: :class:`JsonValue`
     """
 
-    ID: typing.Literal["getJsonString"] = Field("getJsonString", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getJsonString"] = field(default="getJsonString", metadata={"alias": "@type"})
     json_value: JsonValue

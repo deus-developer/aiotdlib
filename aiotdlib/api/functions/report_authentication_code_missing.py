@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportAuthenticationCodeMissing(BaseObject):
     """
     Reports that authentication code wasn't delivered via SMS; for official mobile applications only. Works only when the current authorization state is authorizationStateWaitCode
@@ -20,7 +20,7 @@ class ReportAuthenticationCodeMissing(BaseObject):
     :type mobile_network_code: :class:`String`
     """
 
-    ID: typing.Literal["reportAuthenticationCodeMissing"] = Field(
-        "reportAuthenticationCodeMissing", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reportAuthenticationCodeMissing"] = field(
+        default="reportAuthenticationCodeMissing", metadata={"alias": "@type"}
     )
     mobile_network_code: String

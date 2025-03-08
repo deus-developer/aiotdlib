@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetFileGenerationProgress(BaseObject):
     """
     Informs TDLib on a file generation progress
@@ -24,9 +24,9 @@ class SetFileGenerationProgress(BaseObject):
     :type expected_size: :class:`Int53`, optional
     """
 
-    ID: typing.Literal["setFileGenerationProgress"] = Field(
-        "setFileGenerationProgress", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setFileGenerationProgress"] = field(
+        default="setFileGenerationProgress", metadata={"alias": "@type"}
     )
     generation_id: Int64
     local_prefix_size: Int53
-    expected_size: typing.Optional[Int53] = 0
+    expected_size: typing.Optional[Int53] = field(default=0)

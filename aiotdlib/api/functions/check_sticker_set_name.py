@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckStickerSetName(BaseObject):
     """
     Checks whether a name can be used for a new sticker set
@@ -20,5 +20,5 @@ class CheckStickerSetName(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["checkStickerSetName"] = Field("checkStickerSetName", validation_alias="@type", alias="@type")
+    ID: typing.Literal["checkStickerSetName"] = field(default="checkStickerSetName", metadata={"alias": "@type"})
     name: String

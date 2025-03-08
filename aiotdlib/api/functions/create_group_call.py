@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateGroupCall(BaseObject):
     """
     Creates a group call from a one-to-one call
@@ -20,5 +20,5 @@ class CreateGroupCall(BaseObject):
     :type call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["createGroupCall"] = Field("createGroupCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createGroupCall"] = field(default="createGroupCall", metadata={"alias": "@type"})
     call_id: Int32

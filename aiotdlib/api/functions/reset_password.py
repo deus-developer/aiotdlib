@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ResetPassword(BaseObject):
     """
     Removes 2-step verification password without previous password and access to recovery email address. The password can't be reset immediately and the request needs to be repeated after the specified time
     """
 
-    ID: typing.Literal["resetPassword"] = Field("resetPassword", validation_alias="@type", alias="@type")
+    ID: typing.Literal["resetPassword"] = field(default="resetPassword", metadata={"alias": "@type"})

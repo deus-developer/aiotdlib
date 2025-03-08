@@ -6,13 +6,27 @@
 
 import typing
 
+from base64 import (
+    urlsafe_b64decode,
+    urlsafe_b64encode,
+)
+
+from adaptix import (
+    dumper,
+    loader,
+    Retort,
+    validator,
+    name_mapping,
+    P
+)
+
 from .api import API
 from .errors import *
 from .functions import *
 from .types import *
 
 
-TDLibObject = typing.Annotated[typing.Union[
+TDLibObject = typing.Union[
     {% for entity in entities %}
     {%- if not entity.is_abstract %}
     {{ entity.uf_name }},
@@ -24,7 +38,7 @@ TDLibObject = typing.Annotated[typing.Union[
     {{ dep.uf_name }},
     {%- endfor %}
     {% endfor %}
-], Field(discriminator='ID', alias='@type')]
+]
 
 TDLibObjects: dict[str, TDLibObject] = {
     {% for entity in entities %}
@@ -37,3 +51,37 @@ TDLibObjects: dict[str, TDLibObject] = {
     {%- endfor %}
     {% endfor %}
 }
+
+def bytes_loader(value: Any) -> Bytes:
+    if isinstance(value, str):
+        return urlsafe_b64decode(value.encode())
+    return value
+
+
+def bytes_dumper(value: Bytes) -> Any:
+    if isinstance(value, bytes):
+        return urlsafe_b64encode(value).decode()
+    return value
+
+
+def alias_name_mapping(shape, fld):
+    return fld.metadata.get("alias", fld.id)
+
+
+retort = Retort(
+    strict_coercion=False,
+    recipe=[
+        validator(Double, lambda x: x > DOUBLE64_MIN_VALUE, "value must be greater than -2^63"),
+        validator(Double, lambda x: x < DOUBLE64_MAX_VALUE, "value must be less than 2^63"),
+        validator(Int32, lambda x: x > INT32_MIN_VALUE, "value must be greater than -2^31"),
+        validator(Int32, lambda x: x < INT32_MAX_VALUE, "value must be less than 2^31"),
+        validator(Int53, lambda x: x > INT53_MIN_VALUE, "value must be greater than -2^53"),
+        validator(Int53, lambda x: x < INT53_MAX_VALUE, "value must be less than 2^53"),
+        validator(Int64, lambda x: x > INT64_MIN_VALUE, "value must be greater than -2^63"),
+        validator(Int64, lambda x: x < INT64_MAX_VALUE, "value must be less than 2^63"),
+        validator(Int53, lambda x: INT53_MIN_VALUE <= x <= INT53_MAX_VALUE, "not int53"),
+        loader(Bytes, bytes_loader),
+        dumper(Bytes, bytes_dumper),
+        name_mapping(map=[(P.ANY, alias_name_mapping)]),
+    ],
+)

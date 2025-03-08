@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputInlineQueryResult,
     TargetChatTypes,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SavePreparedInlineMessage(BaseObject):
     """
     Saves an inline message to be sent by the given user; for bots only
@@ -29,8 +28,8 @@ class SavePreparedInlineMessage(BaseObject):
     :type chat_types: :class:`TargetChatTypes`
     """
 
-    ID: typing.Literal["savePreparedInlineMessage"] = Field(
-        "savePreparedInlineMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["savePreparedInlineMessage"] = field(
+        default="savePreparedInlineMessage", metadata={"alias": "@type"}
     )
     user_id: Int53
     result: InputInlineQueryResult

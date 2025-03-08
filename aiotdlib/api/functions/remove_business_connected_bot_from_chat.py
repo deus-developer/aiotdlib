@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveBusinessConnectedBotFromChat(BaseObject):
     """
     Removes the connected business bot from a specific chat by adding the chat to businessRecipients.excluded_chat_ids
@@ -20,7 +20,7 @@ class RemoveBusinessConnectedBotFromChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["removeBusinessConnectedBotFromChat"] = Field(
-        "removeBusinessConnectedBotFromChat", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeBusinessConnectedBotFromChat"] = field(
+        default="removeBusinessConnectedBotFromChat", metadata={"alias": "@type"}
     )
     chat_id: Int53

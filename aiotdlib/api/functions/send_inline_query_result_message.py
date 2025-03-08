@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageReplyTo,
     MessageSendOptions,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendInlineQueryResultMessage(BaseObject):
     """
     Sends the result of an inline query as a message. Returns the sent message. Always clears a chat draft message
@@ -37,13 +36,13 @@ class SendInlineQueryResultMessage(BaseObject):
     :type options: :class:`MessageSendOptions`, optional
     """
 
-    ID: typing.Literal["sendInlineQueryResultMessage"] = Field(
-        "sendInlineQueryResultMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendInlineQueryResultMessage"] = field(
+        default="sendInlineQueryResultMessage", metadata={"alias": "@type"}
     )
     chat_id: Int53
     query_id: Int64
     result_id: String
-    message_thread_id: Int53 = 0
-    hide_via_bot: Bool = False
-    reply_to: typing.Optional[InputMessageReplyTo] = None
-    options: typing.Optional[MessageSendOptions] = None
+    message_thread_id: Int53 = field(default=0)
+    hide_via_bot: Bool = field(default=False)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)
+    options: typing.Optional[MessageSendOptions] = field(default=None)

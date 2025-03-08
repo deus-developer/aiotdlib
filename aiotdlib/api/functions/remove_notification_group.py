@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveNotificationGroup(BaseObject):
     """
     Removes a group of active notifications. Needs to be called only if the notification group is removed by the current user
@@ -22,8 +22,8 @@ class RemoveNotificationGroup(BaseObject):
     :type max_notification_id: :class:`Int32`
     """
 
-    ID: typing.Literal["removeNotificationGroup"] = Field(
-        "removeNotificationGroup", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeNotificationGroup"] = field(
+        default="removeNotificationGroup", metadata={"alias": "@type"}
     )
     notification_group_id: Int32
     max_notification_id: Int32

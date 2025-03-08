@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageAddedReactions(BaseObject):
     """
     Returns reactions added for a message, along with their sender
@@ -32,11 +31,11 @@ class GetMessageAddedReactions(BaseObject):
     :type reaction_type: :class:`ReactionType`, optional
     """
 
-    ID: typing.Literal["getMessageAddedReactions"] = Field(
-        "getMessageAddedReactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getMessageAddedReactions"] = field(
+        default="getMessageAddedReactions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53
     offset: String
     limit: Int32
-    reaction_type: typing.Optional[ReactionType] = None
+    reaction_type: typing.Optional[ReactionType] = field(default=None)

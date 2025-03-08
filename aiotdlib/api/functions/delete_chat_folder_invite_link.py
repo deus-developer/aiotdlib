@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatFolderInviteLink(BaseObject):
     """
     Deletes an invite link for a chat folder
@@ -22,8 +22,8 @@ class DeleteChatFolderInviteLink(BaseObject):
     :type invite_link: :class:`String`
     """
 
-    ID: typing.Literal["deleteChatFolderInviteLink"] = Field(
-        "deleteChatFolderInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteChatFolderInviteLink"] = field(
+        default="deleteChatFolderInviteLink", metadata={"alias": "@type"}
     )
     chat_folder_id: Int32
     invite_link: String

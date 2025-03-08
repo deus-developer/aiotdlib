@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageLinkInfo(BaseObject):
     """
     Returns information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage
@@ -20,5 +20,5 @@ class GetMessageLinkInfo(BaseObject):
     :type url: :class:`String`
     """
 
-    ID: typing.Literal["getMessageLinkInfo"] = Field("getMessageLinkInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageLinkInfo"] = field(default="getMessageLinkInfo", metadata={"alias": "@type"})
     url: String

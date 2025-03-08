@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreatePrivateChat(BaseObject):
     """
     Returns an existing chat corresponding to a given user
@@ -22,6 +22,6 @@ class CreatePrivateChat(BaseObject):
     :type force: :class:`Bool`
     """
 
-    ID: typing.Literal["createPrivateChat"] = Field("createPrivateChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createPrivateChat"] = field(default="createPrivateChat", metadata={"alias": "@type"})
     user_id: Int53
-    force: Bool = False
+    force: Bool = field(default=False)

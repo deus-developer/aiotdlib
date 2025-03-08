@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     AutoDownloadSettings,
     NetworkType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetAutoDownloadSettings(BaseObject):
     """
     Sets auto-download settings
@@ -27,8 +26,8 @@ class SetAutoDownloadSettings(BaseObject):
     :type type_: :class:`NetworkType`
     """
 
-    ID: typing.Literal["setAutoDownloadSettings"] = Field(
-        "setAutoDownloadSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setAutoDownloadSettings"] = field(
+        default="setAutoDownloadSettings", metadata={"alias": "@type"}
     )
     settings: AutoDownloadSettings
-    type_: NetworkType = Field(..., alias="type")
+    type_: NetworkType = field(default=MISSING, metadata={"alias": "type"})

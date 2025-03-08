@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputBusinessStartPage,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessStartPage(BaseObject):
     """
     Changes the business start page of the current user. Requires Telegram Business subscription
@@ -24,5 +23,5 @@ class SetBusinessStartPage(BaseObject):
     :type start_page: :class:`InputBusinessStartPage`, optional
     """
 
-    ID: typing.Literal["setBusinessStartPage"] = Field("setBusinessStartPage", validation_alias="@type", alias="@type")
-    start_page: typing.Optional[InputBusinessStartPage] = None
+    ID: typing.Literal["setBusinessStartPage"] = field(default="setBusinessStartPage", metadata={"alias": "@type"})
+    start_page: typing.Optional[InputBusinessStartPage] = field(default=None)

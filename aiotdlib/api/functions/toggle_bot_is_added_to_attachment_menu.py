@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleBotIsAddedToAttachmentMenu(BaseObject):
     """
     Adds or removes a bot to attachment and side menu. Bot can be added to the menu, only if userTypeBot.can_be_added_to_attachment_menu == true
@@ -24,9 +24,9 @@ class ToggleBotIsAddedToAttachmentMenu(BaseObject):
     :type allow_write_access: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleBotIsAddedToAttachmentMenu"] = Field(
-        "toggleBotIsAddedToAttachmentMenu", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleBotIsAddedToAttachmentMenu"] = field(
+        default="toggleBotIsAddedToAttachmentMenu", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
-    is_added: Bool = False
-    allow_write_access: Bool = False
+    is_added: Bool = field(default=False)
+    allow_write_access: Bool = field(default=False)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Location,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMapThumbnailFile(BaseObject):
     """
     Returns information about a file with a map thumbnail in PNG format. Only map thumbnail files with size less than 1MB can be downloaded
@@ -34,10 +33,10 @@ class GetMapThumbnailFile(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMapThumbnailFile"] = Field("getMapThumbnailFile", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMapThumbnailFile"] = field(default="getMapThumbnailFile", metadata={"alias": "@type"})
     location: Location
     zoom: Int32
     width: Int32
     height: Int32
     scale: Int32
-    chat_id: Int53 = 0
+    chat_id: Int53 = field(default=0)

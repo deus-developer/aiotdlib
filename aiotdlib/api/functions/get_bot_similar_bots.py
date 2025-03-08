@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBotSimilarBots(BaseObject):
     """
     Returns a list of bots similar to the given bot
@@ -20,5 +20,5 @@ class GetBotSimilarBots(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getBotSimilarBots"] = Field("getBotSimilarBots", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getBotSimilarBots"] = field(default="getBotSimilarBots", metadata={"alias": "@type"})
     bot_user_id: Int53

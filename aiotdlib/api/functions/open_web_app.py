@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageReplyTo,
     WebAppOpenParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OpenWebApp(BaseObject):
     """
     Informs TDLib that a Web App is being opened from the attachment menu, a botMenuButton button, an internalLinkTypeAttachmentMenuBot link, or an inlineKeyboardButtonTypeWebApp button. For each bot, a confirmation alert about data sent to the bot must be shown once
@@ -35,10 +34,10 @@ class OpenWebApp(BaseObject):
     :type reply_to: :class:`InputMessageReplyTo`, optional
     """
 
-    ID: typing.Literal["openWebApp"] = Field("openWebApp", validation_alias="@type", alias="@type")
+    ID: typing.Literal["openWebApp"] = field(default="openWebApp", metadata={"alias": "@type"})
     chat_id: Int53
     bot_user_id: Int53
     url: String
     parameters: WebAppOpenParameters
-    message_thread_id: Int53 = 0
-    reply_to: typing.Optional[InputMessageReplyTo] = None
+    message_thread_id: Int53 = field(default=0)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)

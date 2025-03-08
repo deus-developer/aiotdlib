@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageEmbeddingCode(BaseObject):
     """
     Returns an HTML code for embedding the message. Available only if messageProperties.can_get_embedding_code
@@ -24,9 +24,9 @@ class GetMessageEmbeddingCode(BaseObject):
     :type for_album: :class:`Bool`
     """
 
-    ID: typing.Literal["getMessageEmbeddingCode"] = Field(
-        "getMessageEmbeddingCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getMessageEmbeddingCode"] = field(
+        default="getMessageEmbeddingCode", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53
-    for_album: Bool = False
+    for_album: Bool = field(default=False)

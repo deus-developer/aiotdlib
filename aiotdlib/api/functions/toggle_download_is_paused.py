@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleDownloadIsPaused(BaseObject):
     """
     Changes pause state of a file in the file download list
@@ -22,8 +22,6 @@ class ToggleDownloadIsPaused(BaseObject):
     :type is_paused: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleDownloadIsPaused"] = Field(
-        "toggleDownloadIsPaused", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["toggleDownloadIsPaused"] = field(default="toggleDownloadIsPaused", metadata={"alias": "@type"})
     file_id: Int32
-    is_paused: Bool = False
+    is_paused: Bool = field(default=False)

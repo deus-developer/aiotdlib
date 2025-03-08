@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatDefaultDisableNotification(BaseObject):
     """
     Changes the value of the default disable_notification parameter, used when a message is sent to a chat
@@ -22,8 +22,8 @@ class ToggleChatDefaultDisableNotification(BaseObject):
     :type default_disable_notification: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatDefaultDisableNotification"] = Field(
-        "toggleChatDefaultDisableNotification", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleChatDefaultDisableNotification"] = field(
+        default="toggleChatDefaultDisableNotification", metadata={"alias": "@type"}
     )
     chat_id: Int53
     default_disable_notification: Bool

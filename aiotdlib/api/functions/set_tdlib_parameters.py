@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetTdlibParameters(BaseObject):
     """
     Sets the parameters for TDLib initialization. Works only when the current authorization state is authorizationStateWaitTdlibParameters
@@ -46,18 +46,18 @@ class SetTdlibParameters(BaseObject):
     :type system_version: :class:`String`
     """
 
-    ID: typing.Literal["setTdlibParameters"] = Field("setTdlibParameters", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setTdlibParameters"] = field(default="setTdlibParameters", metadata={"alias": "@type"})
     database_encryption_key: Bytes
     api_id: Int32
     api_hash: String
     system_language_code: String
     device_model: String
     application_version: String
-    use_test_dc: Bool = False
-    database_directory: String = ""
-    files_directory: String = ""
-    use_file_database: Bool = False
-    use_chat_info_database: Bool = False
-    use_message_database: Bool = False
-    use_secret_chats: Bool = False
-    system_version: String = ""
+    use_test_dc: Bool = field(default=False)
+    database_directory: String = field(default="")
+    files_directory: String = field(default="")
+    use_file_database: Bool = field(default=False)
+    use_chat_info_database: Bool = field(default=False)
+    use_message_database: Bool = field(default=False)
+    use_secret_chats: Bool = field(default=False)
+    system_version: String = field(default="")

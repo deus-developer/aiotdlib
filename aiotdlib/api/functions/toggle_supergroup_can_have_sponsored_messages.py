@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupCanHaveSponsoredMessages(BaseObject):
     """
     Toggles whether sponsored messages are shown in the channel chat; requires owner privileges in the channel. The chat must have at least chatBoostFeatures.min_sponsored_message_disable_boost_level boost level to disable sponsored messages
@@ -22,8 +22,8 @@ class ToggleSupergroupCanHaveSponsoredMessages(BaseObject):
     :type can_have_sponsored_messages: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupCanHaveSponsoredMessages"] = Field(
-        "toggleSupergroupCanHaveSponsoredMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupCanHaveSponsoredMessages"] = field(
+        default="toggleSupergroupCanHaveSponsoredMessages", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     can_have_sponsored_messages: Bool

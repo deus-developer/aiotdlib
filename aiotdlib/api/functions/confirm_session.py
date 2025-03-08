@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ConfirmSession(BaseObject):
     """
     Confirms an unconfirmed session of the current user from another device
@@ -20,5 +20,5 @@ class ConfirmSession(BaseObject):
     :type session_id: :class:`Int64`
     """
 
-    ID: typing.Literal["confirmSession"] = Field("confirmSession", validation_alias="@type", alias="@type")
+    ID: typing.Literal["confirmSession"] = field(default="confirmSession", metadata={"alias": "@type"})
     session_id: Int64

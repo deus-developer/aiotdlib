@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ResendRecoveryEmailAddressCode(BaseObject):
     """
     Resends the 2-step verification recovery email address verification code
     """
 
-    ID: typing.Literal["resendRecoveryEmailAddressCode"] = Field(
-        "resendRecoveryEmailAddressCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["resendRecoveryEmailAddressCode"] = field(
+        default="resendRecoveryEmailAddressCode", metadata={"alias": "@type"}
     )

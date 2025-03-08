@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FileType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OptimizeStorage(BaseObject):
     """
     Optimizes storage usage, i.e. deletes some files and returns new storage usage statistics. Secret thumbnails can't be deleted
@@ -30,23 +29,23 @@ class OptimizeStorage(BaseObject):
     :type immunity_delay: :class:`Int32`
     :param chat_limit: Same as in getStorageStatistics. Affects only returned statistics
     :type chat_limit: :class:`Int32`
-    :param file_types: If non-empty, only files with the given types are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted
+    :param file_types: If non-empty, only files with the given types are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted, defaults to list()
     :type file_types: :class:`Vector[FileType]`
-    :param chat_ids: If non-empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
+    :param chat_ids: If non-empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos), defaults to list()
     :type chat_ids: :class:`Vector[Int53]`
-    :param exclude_chat_ids: If non-empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
+    :param exclude_chat_ids: If non-empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos), defaults to list()
     :type exclude_chat_ids: :class:`Vector[Int53]`
     :param return_deleted_file_statistics: Pass true if statistics about the files that were deleted must be returned instead of the whole storage usage statistics. Affects only returned statistics
     :type return_deleted_file_statistics: :class:`Bool`
     """
 
-    ID: typing.Literal["optimizeStorage"] = Field("optimizeStorage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["optimizeStorage"] = field(default="optimizeStorage", metadata={"alias": "@type"})
     size: Int53
     ttl: Int32
     count: Int32
     immunity_delay: Int32
     chat_limit: Int32
-    file_types: Vector[FileType] = []
-    chat_ids: Vector[Int53] = []
-    exclude_chat_ids: Vector[Int53] = []
-    return_deleted_file_statistics: Bool = False
+    file_types: Vector[FileType] = field(default_factory=list)
+    chat_ids: Vector[Int53] = field(default_factory=list)
+    exclude_chat_ids: Vector[Int53] = field(default_factory=list)
+    return_deleted_file_statistics: Bool = field(default=False)

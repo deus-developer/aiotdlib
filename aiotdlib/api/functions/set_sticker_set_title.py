@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStickerSetTitle(BaseObject):
     """
     Sets a sticker set title
@@ -22,6 +22,6 @@ class SetStickerSetTitle(BaseObject):
     :type title: :class:`String`
     """
 
-    ID: typing.Literal["setStickerSetTitle"] = Field("setStickerSetTitle", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setStickerSetTitle"] = field(default="setStickerSetTitle", metadata={"alias": "@type"})
     name: String
     title: String

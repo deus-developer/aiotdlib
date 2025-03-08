@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatPermissions,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatPermissions(BaseObject):
     """
     Changes the chat members permissions. Supported only for basic groups and supergroups. Requires can_restrict_members administrator right
@@ -26,6 +25,6 @@ class SetChatPermissions(BaseObject):
     :type permissions: :class:`ChatPermissions`
     """
 
-    ID: typing.Literal["setChatPermissions"] = Field("setChatPermissions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatPermissions"] = field(default="setChatPermissions", metadata={"alias": "@type"})
     chat_id: Int53
     permissions: ChatPermissions

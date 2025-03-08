@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPremiumGiftCodePaymentOptions(BaseObject):
     """
     Returns available options for Telegram Premium gift code or Telegram Premium giveaway creation
@@ -20,7 +20,7 @@ class GetPremiumGiftCodePaymentOptions(BaseObject):
     :type boosted_chat_id: :class:`Int53`, optional
     """
 
-    ID: typing.Literal["getPremiumGiftCodePaymentOptions"] = Field(
-        "getPremiumGiftCodePaymentOptions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getPremiumGiftCodePaymentOptions"] = field(
+        default="getPremiumGiftCodePaymentOptions", metadata={"alias": "@type"}
     )
-    boosted_chat_id: typing.Optional[Int53] = 0
+    boosted_chat_id: typing.Optional[Int53] = field(default=0)

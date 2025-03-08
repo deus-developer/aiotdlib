@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     PaidReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddPendingPaidMessageReaction(BaseObject):
     """
     Adds the paid message reaction to a message. Use getMessageAvailableReactions to check whether the reaction is available for the message
@@ -30,10 +29,10 @@ class AddPendingPaidMessageReaction(BaseObject):
     :type type_: :class:`PaidReactionType`, optional
     """
 
-    ID: typing.Literal["addPendingPaidMessageReaction"] = Field(
-        "addPendingPaidMessageReaction", validation_alias="@type", alias="@type"
+    ID: typing.Literal["addPendingPaidMessageReaction"] = field(
+        default="addPendingPaidMessageReaction", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53
     star_count: Int53
-    type_: typing.Optional[PaidReactionType] = Field(None, alias="type")
+    type_: typing.Optional[PaidReactionType] = field(default=None, metadata={"alias": "type"})

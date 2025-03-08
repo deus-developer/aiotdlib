@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BusinessConnectedBot,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessConnectedBot(BaseObject):
     """
     Adds or changes business bot that is connected to the current user account
@@ -24,7 +23,7 @@ class SetBusinessConnectedBot(BaseObject):
     :type bot: :class:`BusinessConnectedBot`
     """
 
-    ID: typing.Literal["setBusinessConnectedBot"] = Field(
-        "setBusinessConnectedBot", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setBusinessConnectedBot"] = field(
+        default="setBusinessConnectedBot", metadata={"alias": "@type"}
     )
     bot: BusinessConnectedBot

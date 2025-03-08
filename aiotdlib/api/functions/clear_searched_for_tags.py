@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClearSearchedForTags(BaseObject):
     """
     Clears the list of recently searched for hashtags or cashtags
@@ -20,5 +20,5 @@ class ClearSearchedForTags(BaseObject):
     :type clear_cashtags: :class:`Bool`
     """
 
-    ID: typing.Literal["clearSearchedForTags"] = Field("clearSearchedForTags", validation_alias="@type", alias="@type")
-    clear_cashtags: Bool = False
+    ID: typing.Literal["clearSearchedForTags"] = field(default="clearSearchedForTags", metadata={"alias": "@type"})
+    clear_cashtags: Bool = field(default=False)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     BackgroundType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBackgroundUrl(BaseObject):
     """
     Constructs a persistent HTTP URL for a background
@@ -26,6 +25,6 @@ class GetBackgroundUrl(BaseObject):
     :type type_: :class:`BackgroundType`
     """
 
-    ID: typing.Literal["getBackgroundUrl"] = Field("getBackgroundUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getBackgroundUrl"] = field(default="getBackgroundUrl", metadata={"alias": "@type"})
     name: String
-    type_: BackgroundType = Field(..., alias="type")
+    type_: BackgroundType = field(default=MISSING, metadata={"alias": "type"})

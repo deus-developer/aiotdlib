@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateSupergroupChat(BaseObject):
     """
     Returns an existing chat corresponding to a known supergroup or channel
@@ -22,6 +22,6 @@ class CreateSupergroupChat(BaseObject):
     :type force: :class:`Bool`
     """
 
-    ID: typing.Literal["createSupergroupChat"] = Field("createSupergroupChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createSupergroupChat"] = field(default="createSupergroupChat", metadata={"alias": "@type"})
     supergroup_id: Int53
-    force: Bool = False
+    force: Bool = field(default=False)

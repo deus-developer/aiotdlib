@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatPostedToChatPageStories(BaseObject):
     """
     Returns the list of stories that posted by the given chat to its chat page. If from_story_id == 0, then pinned stories are returned first. Then, stories are returned in reverse chronological order (i.e., in order of decreasing story_id). For optimal performance, the number of returned stories is chosen by TDLib
@@ -24,8 +24,8 @@ class GetChatPostedToChatPageStories(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getChatPostedToChatPageStories"] = Field(
-        "getChatPostedToChatPageStories", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatPostedToChatPageStories"] = field(
+        default="getChatPostedToChatPageStories", metadata={"alias": "@type"}
     )
     chat_id: Int53
     from_story_id: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatsForChatFolderInviteLink(BaseObject):
     """
     Returns identifiers of chats from a chat folder, suitable for adding to a chat folder invite link
@@ -20,7 +20,7 @@ class GetChatsForChatFolderInviteLink(BaseObject):
     :type chat_folder_id: :class:`Int32`
     """
 
-    ID: typing.Literal["getChatsForChatFolderInviteLink"] = Field(
-        "getChatsForChatFolderInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatsForChatFolderInviteLink"] = field(
+        default="getChatsForChatFolderInviteLink", metadata={"alias": "@type"}
     )
     chat_folder_id: Int32

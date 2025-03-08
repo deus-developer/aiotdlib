@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageReadDate(BaseObject):
     """
     Returns read date of a recent outgoing message in a private chat. The method can be called if messageProperties.can_get_read_date == true
@@ -22,6 +22,6 @@ class GetMessageReadDate(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMessageReadDate"] = Field("getMessageReadDate", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageReadDate"] = field(default="getMessageReadDate", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

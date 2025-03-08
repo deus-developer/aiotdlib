@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteSavedMessagesTopicHistory(BaseObject):
     """
     Deletes all messages in a Saved Messages topic
@@ -20,7 +20,7 @@ class DeleteSavedMessagesTopicHistory(BaseObject):
     :type saved_messages_topic_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteSavedMessagesTopicHistory"] = Field(
-        "deleteSavedMessagesTopicHistory", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteSavedMessagesTopicHistory"] = field(
+        default="deleteSavedMessagesTopicHistory", metadata={"alias": "@type"}
     )
     saved_messages_topic_id: Int53

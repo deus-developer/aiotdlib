@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatScheduledMessages(BaseObject):
     """
     Returns all scheduled messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message_id)
@@ -20,7 +20,7 @@ class GetChatScheduledMessages(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatScheduledMessages"] = Field(
-        "getChatScheduledMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatScheduledMessages"] = field(
+        default="getChatScheduledMessages", metadata={"alias": "@type"}
     )
     chat_id: Int53

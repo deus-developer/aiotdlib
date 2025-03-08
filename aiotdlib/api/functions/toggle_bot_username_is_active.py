@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleBotUsernameIsActive(BaseObject):
     """
     Changes active state for a username of a bot. The editable username can't be disabled. May return an error with a message "USERNAMES_ACTIVE_TOO_MUCH" if the maximum number of active usernames has been reached. Can be called only if userTypeBot.can_be_edited == true
@@ -24,9 +24,9 @@ class ToggleBotUsernameIsActive(BaseObject):
     :type is_active: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleBotUsernameIsActive"] = Field(
-        "toggleBotUsernameIsActive", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleBotUsernameIsActive"] = field(
+        default="toggleBotUsernameIsActive", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     username: String
-    is_active: Bool = False
+    is_active: Bool = field(default=False)

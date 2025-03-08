@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputBusinessChatLink,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateBusinessChatLink(BaseObject):
     """
     Creates a business chat link for the current account. Requires Telegram Business subscription. There can be up to getOption("business_chat_link_count_max") links created. Returns the created link
@@ -24,7 +23,5 @@ class CreateBusinessChatLink(BaseObject):
     :type link_info: :class:`InputBusinessChatLink`
     """
 
-    ID: typing.Literal["createBusinessChatLink"] = Field(
-        "createBusinessChatLink", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["createBusinessChatLink"] = field(default="createBusinessChatLink", metadata={"alias": "@type"})
     link_info: InputBusinessChatLink

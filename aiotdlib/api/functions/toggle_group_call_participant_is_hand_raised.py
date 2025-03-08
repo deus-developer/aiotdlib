@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleGroupCallParticipantIsHandRaised(BaseObject):
     """
     Toggles whether a group call participant hand is rased
@@ -28,9 +27,9 @@ class ToggleGroupCallParticipantIsHandRaised(BaseObject):
     :type is_hand_raised: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleGroupCallParticipantIsHandRaised"] = Field(
-        "toggleGroupCallParticipantIsHandRaised", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleGroupCallParticipantIsHandRaised"] = field(
+        default="toggleGroupCallParticipantIsHandRaised", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     participant_id: MessageSender
-    is_hand_raised: Bool = False
+    is_hand_raised: Bool = field(default=False)

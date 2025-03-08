@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetApplicationVerificationToken(BaseObject):
     """
     Application or reCAPTCHA verification has been completed. Can be called before authorization
@@ -22,8 +22,8 @@ class SetApplicationVerificationToken(BaseObject):
     :type token: :class:`String`
     """
 
-    ID: typing.Literal["setApplicationVerificationToken"] = Field(
-        "setApplicationVerificationToken", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setApplicationVerificationToken"] = field(
+        default="setApplicationVerificationToken", metadata={"alias": "@type"}
     )
     verification_id: Int53
     token: String

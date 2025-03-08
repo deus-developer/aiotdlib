@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DisconnectWebsite(BaseObject):
     """
     Disconnects website from the current user's Telegram account
@@ -20,5 +20,5 @@ class DisconnectWebsite(BaseObject):
     :type website_id: :class:`Int64`
     """
 
-    ID: typing.Literal["disconnectWebsite"] = Field("disconnectWebsite", validation_alias="@type", alias="@type")
+    ID: typing.Literal["disconnectWebsite"] = field(default="disconnectWebsite", metadata={"alias": "@type"})
     website_id: Int64

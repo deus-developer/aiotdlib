@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class HideContactCloseBirthdays(BaseObject):
     """
     Hides the list of contacts that have close birthdays for 24 hours
     """
 
-    ID: typing.Literal["hideContactCloseBirthdays"] = Field(
-        "hideContactCloseBirthdays", validation_alias="@type", alias="@type"
+    ID: typing.Literal["hideContactCloseBirthdays"] = field(
+        default="hideContactCloseBirthdays", metadata={"alias": "@type"}
     )

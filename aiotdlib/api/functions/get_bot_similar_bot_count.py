@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBotSimilarBotCount(BaseObject):
     """
     Returns approximate number of bots similar to the given bot
@@ -22,8 +22,6 @@ class GetBotSimilarBotCount(BaseObject):
     :type return_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getBotSimilarBotCount"] = Field(
-        "getBotSimilarBotCount", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getBotSimilarBotCount"] = field(default="getBotSimilarBotCount", metadata={"alias": "@type"})
     bot_user_id: Int53
-    return_local: Bool = False
+    return_local: Bool = field(default=False)

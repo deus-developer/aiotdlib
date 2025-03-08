@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionNotificationSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetReactionNotificationSettings(BaseObject):
     """
     Changes notification settings for reactions
@@ -24,7 +23,7 @@ class SetReactionNotificationSettings(BaseObject):
     :type notification_settings: :class:`ReactionNotificationSettings`
     """
 
-    ID: typing.Literal["setReactionNotificationSettings"] = Field(
-        "setReactionNotificationSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setReactionNotificationSettings"] = field(
+        default="setReactionNotificationSettings", metadata={"alias": "@type"}
     )
     notification_settings: ReactionNotificationSettings

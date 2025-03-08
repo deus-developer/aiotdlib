@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     OptionValue,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetOption(BaseObject):
     """
     Sets the value of an option. (Check the list of available options on https://core.telegram.org/tdlib/options.) Only writable options can be set. Can be called before authorization
@@ -26,6 +25,6 @@ class SetOption(BaseObject):
     :type value: :class:`OptionValue`, optional
     """
 
-    ID: typing.Literal["setOption"] = Field("setOption", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setOption"] = field(default="setOption", metadata={"alias": "@type"})
     name: String
-    value: typing.Optional[OptionValue] = None
+    value: typing.Optional[OptionValue] = field(default=None)

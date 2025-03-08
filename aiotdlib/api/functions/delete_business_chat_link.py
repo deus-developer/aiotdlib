@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteBusinessChatLink(BaseObject):
     """
     Deletes a business chat link of the current account
@@ -20,7 +20,5 @@ class DeleteBusinessChatLink(BaseObject):
     :type link: :class:`String`
     """
 
-    ID: typing.Literal["deleteBusinessChatLink"] = Field(
-        "deleteBusinessChatLink", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["deleteBusinessChatLink"] = field(default="deleteBusinessChatLink", metadata={"alias": "@type"})
     link: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessages(BaseObject):
     """
     Returns information about messages. If a message is not found, returns null on the corresponding position of the result
@@ -22,6 +22,6 @@ class GetMessages(BaseObject):
     :type message_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["getMessages"] = Field("getMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessages"] = field(default="getMessages", metadata={"alias": "@type"})
     chat_id: Int53
     message_ids: Vector[Int53]

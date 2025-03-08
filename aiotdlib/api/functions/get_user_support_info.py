@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUserSupportInfo(BaseObject):
     """
     Returns support information for the given user; for Telegram support only
@@ -20,5 +20,5 @@ class GetUserSupportInfo(BaseObject):
     :type user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getUserSupportInfo"] = Field("getUserSupportInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getUserSupportInfo"] = field(default="getUserSupportInfo", metadata={"alias": "@type"})
     user_id: Int53

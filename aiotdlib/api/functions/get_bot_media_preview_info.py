@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBotMediaPreviewInfo(BaseObject):
     """
     Returns the list of media previews for the given language and the list of languages for which the bot has dedicated previews
@@ -22,8 +22,6 @@ class GetBotMediaPreviewInfo(BaseObject):
     :type language_code: :class:`String`
     """
 
-    ID: typing.Literal["getBotMediaPreviewInfo"] = Field(
-        "getBotMediaPreviewInfo", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getBotMediaPreviewInfo"] = field(default="getBotMediaPreviewInfo", metadata={"alias": "@type"})
     bot_user_id: Int53
-    language_code: String = ""
+    language_code: String = field(default="")

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditInlineMessageMedia(BaseObject):
     """
     Edits the media content of a message with a text, an animation, an audio, a document, a photo or a video in an inline message sent via a bot; for bots only
@@ -29,9 +28,7 @@ class EditInlineMessageMedia(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["editInlineMessageMedia"] = Field(
-        "editInlineMessageMedia", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["editInlineMessageMedia"] = field(default="editInlineMessageMedia", metadata={"alias": "@type"})
     inline_message_id: String
     input_message_content: InputMessageContent
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

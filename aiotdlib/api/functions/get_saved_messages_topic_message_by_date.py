@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSavedMessagesTopicMessageByDate(BaseObject):
     """
     Returns the last message sent in a Saved Messages topic no later than the specified date
@@ -22,8 +22,8 @@ class GetSavedMessagesTopicMessageByDate(BaseObject):
     :type date: :class:`Int32`
     """
 
-    ID: typing.Literal["getSavedMessagesTopicMessageByDate"] = Field(
-        "getSavedMessagesTopicMessageByDate", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getSavedMessagesTopicMessageByDate"] = field(
+        default="getSavedMessagesTopicMessageByDate", metadata={"alias": "@type"}
     )
     saved_messages_topic_id: Int53
     date: Int32

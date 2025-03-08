@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteAccount(BaseObject):
     """
     Deletes the account of the current user, deleting all information associated with the user from the server. The phone number of the account can be used to create a new account. Can be called before authorization when the current authorization state is authorizationStateWaitPassword
@@ -22,6 +22,6 @@ class DeleteAccount(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["deleteAccount"] = Field("deleteAccount", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteAccount"] = field(default="deleteAccount", metadata={"alias": "@type"})
     reason: String
     password: String

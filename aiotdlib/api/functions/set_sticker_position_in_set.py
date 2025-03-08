@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStickerPositionInSet(BaseObject):
     """
     Changes the position of a sticker in the set to which it belongs. The sticker set must be owned by the current user
@@ -26,8 +25,8 @@ class SetStickerPositionInSet(BaseObject):
     :type position: :class:`Int32`
     """
 
-    ID: typing.Literal["setStickerPositionInSet"] = Field(
-        "setStickerPositionInSet", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setStickerPositionInSet"] = field(
+        default="setStickerPositionInSet", metadata={"alias": "@type"}
     )
     sticker: InputFile
     position: Int32

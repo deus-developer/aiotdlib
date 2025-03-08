@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckAuthenticationCode(BaseObject):
     """
     Checks the authentication code. Works only when the current authorization state is authorizationStateWaitCode
@@ -20,7 +20,7 @@ class CheckAuthenticationCode(BaseObject):
     :type code: :class:`String`
     """
 
-    ID: typing.Literal["checkAuthenticationCode"] = Field(
-        "checkAuthenticationCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkAuthenticationCode"] = field(
+        default="checkAuthenticationCode", metadata={"alias": "@type"}
     )
     code: String

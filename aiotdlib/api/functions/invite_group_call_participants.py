@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class InviteGroupCallParticipants(BaseObject):
     """
     Invites users to an active group call. Sends a service message of type messageInviteVideoChatParticipants for video chats
@@ -22,8 +22,8 @@ class InviteGroupCallParticipants(BaseObject):
     :type user_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["inviteGroupCallParticipants"] = Field(
-        "inviteGroupCallParticipants", validation_alias="@type", alias="@type"
+    ID: typing.Literal["inviteGroupCallParticipants"] = field(
+        default="inviteGroupCallParticipants", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     user_ids: Vector[Int53]

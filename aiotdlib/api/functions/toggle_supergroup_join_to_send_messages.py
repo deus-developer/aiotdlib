@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupJoinToSendMessages(BaseObject):
     """
     Toggles whether joining is mandatory to send messages to a discussion supergroup; requires can_restrict_members administrator right
@@ -22,8 +22,8 @@ class ToggleSupergroupJoinToSendMessages(BaseObject):
     :type join_to_send_messages: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupJoinToSendMessages"] = Field(
-        "toggleSupergroupJoinToSendMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupJoinToSendMessages"] = field(
+        default="toggleSupergroupJoinToSendMessages", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     join_to_send_messages: Bool

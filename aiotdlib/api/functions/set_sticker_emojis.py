@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStickerEmojis(BaseObject):
     """
     Changes the list of emojis corresponding to a sticker. The sticker must belong to a regular or custom emoji sticker set that is owned by the current user
@@ -26,6 +25,6 @@ class SetStickerEmojis(BaseObject):
     :type emojis: :class:`String`
     """
 
-    ID: typing.Literal["setStickerEmojis"] = Field("setStickerEmojis", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setStickerEmojis"] = field(default="setStickerEmojis", metadata={"alias": "@type"})
     sticker: InputFile
     emojis: String

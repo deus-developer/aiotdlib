@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     WebAppOpenParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetWebAppUrl(BaseObject):
     """
     Returns an HTTPS URL of a Web App to open from the side menu, a keyboardButtonTypeWebApp button, or an inlineQueryResultsButtonTypeWebApp button
@@ -28,7 +27,7 @@ class GetWebAppUrl(BaseObject):
     :type parameters: :class:`WebAppOpenParameters`
     """
 
-    ID: typing.Literal["getWebAppUrl"] = Field("getWebAppUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getWebAppUrl"] = field(default="getWebAppUrl", metadata={"alias": "@type"})
     bot_user_id: Int53
     url: String
     parameters: WebAppOpenParameters

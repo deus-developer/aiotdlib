@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupHasHiddenMembers(BaseObject):
     """
     Toggles whether non-administrators can receive only administrators and bots using getSupergroupMembers or searchChatMembers. Can be called only if supergroupFullInfo.can_hide_members == true
@@ -22,8 +22,8 @@ class ToggleSupergroupHasHiddenMembers(BaseObject):
     :type has_hidden_members: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupHasHiddenMembers"] = Field(
-        "toggleSupergroupHasHiddenMembers", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupHasHiddenMembers"] = field(
+        default="toggleSupergroupHasHiddenMembers", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     has_hidden_members: Bool

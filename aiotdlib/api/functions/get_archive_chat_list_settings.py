@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetArchiveChatListSettings(BaseObject):
     """
     Returns settings for automatic moving of chats to and from the Archive chat lists
     """
 
-    ID: typing.Literal["getArchiveChatListSettings"] = Field(
-        "getArchiveChatListSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getArchiveChatListSettings"] = field(
+        default="getArchiveChatListSettings", metadata={"alias": "@type"}
     )

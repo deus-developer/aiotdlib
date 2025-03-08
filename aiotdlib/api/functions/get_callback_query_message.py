@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCallbackQueryMessage(BaseObject):
     """
     Returns information about a message with the callback button that originated a callback query; for bots only
@@ -24,8 +24,8 @@ class GetCallbackQueryMessage(BaseObject):
     :type callback_query_id: :class:`Int64`
     """
 
-    ID: typing.Literal["getCallbackQueryMessage"] = Field(
-        "getCallbackQueryMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getCallbackQueryMessage"] = field(
+        default="getCallbackQueryMessage", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

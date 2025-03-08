@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckAuthenticationPassword(BaseObject):
     """
     Checks the 2-step verification password for correctness. Works only when the current authorization state is authorizationStateWaitPassword
@@ -20,7 +20,7 @@ class CheckAuthenticationPassword(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["checkAuthenticationPassword"] = Field(
-        "checkAuthenticationPassword", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkAuthenticationPassword"] = field(
+        default="checkAuthenticationPassword", metadata={"alias": "@type"}
     )
     password: String

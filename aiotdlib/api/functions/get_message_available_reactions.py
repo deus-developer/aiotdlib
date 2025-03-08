@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageAvailableReactions(BaseObject):
     """
     Returns reactions, which can be added to a message. The list can change after updateActiveEmojiReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message
@@ -24,8 +24,8 @@ class GetMessageAvailableReactions(BaseObject):
     :type row_size: :class:`Int32`
     """
 
-    ID: typing.Literal["getMessageAvailableReactions"] = Field(
-        "getMessageAvailableReactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getMessageAvailableReactions"] = field(
+        default="getMessageAvailableReactions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

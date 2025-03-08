@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBasicGroupFullInfo(BaseObject):
     """
     Returns full information about a basic group by its identifier
@@ -20,7 +20,5 @@ class GetBasicGroupFullInfo(BaseObject):
     :type basic_group_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getBasicGroupFullInfo"] = Field(
-        "getBasicGroupFullInfo", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getBasicGroupFullInfo"] = field(default="getBasicGroupFullInfo", metadata={"alias": "@type"})
     basic_group_id: Int53

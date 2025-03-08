@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportSupergroupSpam(BaseObject):
     """
     Reports messages in a supergroup as spam; requires administrator rights in the supergroup
@@ -22,6 +22,6 @@ class ReportSupergroupSpam(BaseObject):
     :type message_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["reportSupergroupSpam"] = Field("reportSupergroupSpam", validation_alias="@type", alias="@type")
+    ID: typing.Literal["reportSupergroupSpam"] = field(default="reportSupergroupSpam", metadata={"alias": "@type"})
     supergroup_id: Int53
     message_ids: Vector[Int53]

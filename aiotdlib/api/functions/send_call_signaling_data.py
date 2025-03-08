@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendCallSignalingData(BaseObject):
     """
     Sends call signaling data
@@ -22,8 +22,6 @@ class SendCallSignalingData(BaseObject):
     :type data: :class:`Bytes`
     """
 
-    ID: typing.Literal["sendCallSignalingData"] = Field(
-        "sendCallSignalingData", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["sendCallSignalingData"] = field(default="sendCallSignalingData", metadata={"alias": "@type"})
     call_id: Int32
     data: Bytes

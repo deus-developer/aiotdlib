@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendCustomRequest(BaseObject):
     """
     Sends a custom request; for bots only
@@ -22,6 +22,6 @@ class SendCustomRequest(BaseObject):
     :type parameters: :class:`String`
     """
 
-    ID: typing.Literal["sendCustomRequest"] = Field("sendCustomRequest", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendCustomRequest"] = field(default="sendCustomRequest", metadata={"alias": "@type"})
     method: String
     parameters: String

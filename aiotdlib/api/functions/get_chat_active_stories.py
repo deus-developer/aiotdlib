@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatActiveStories(BaseObject):
     """
     Returns the list of active stories posted by the given chat
@@ -20,5 +20,5 @@ class GetChatActiveStories(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatActiveStories"] = Field("getChatActiveStories", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatActiveStories"] = field(default="getChatActiveStories", metadata={"alias": "@type"})
     chat_id: Int53

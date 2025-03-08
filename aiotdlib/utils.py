@@ -7,10 +7,11 @@ import logging
 import os
 import re
 import sys
-from enum import Enum
 from functools import wraps
 from time import perf_counter
-from typing import TYPE_CHECKING, Optional, Union
+from typing import TYPE_CHECKING, Any, Optional, Union
+
+import ujson
 
 from .api import (
     BaseObject,
@@ -19,8 +20,10 @@ from .api import (
     InputFileLocal,
     InputFileRemote,
     InputThumbnail,
+    Int32,
     TDLibObject,
     TDLibObjects,
+    retort,
 )
 from .api.errors import AioTDLibError
 from .api.errors.error import http_code_to_error
@@ -37,8 +40,7 @@ def _read_input(prompt: str = "") -> str:
 
 
 async def ainput(prompt: str = "", secured: bool = False) -> str:
-    if len(prompt):
-        prompt = prompt.strip()
+    prompt = prompt.strip()
 
     if secured:
         stdin = await asyncio.to_thread(getpass.getpass, prompt=prompt, stream=None)
@@ -72,7 +74,7 @@ def strip_phone_number_symbols(phone_number: str) -> str:
     return re.sub(r"(?<!^)|[^\d]+", "", phone_number)
 
 
-def make_input_file(file: Union[str, int]) -> Union[InputFileId, InputFileLocal, InputFileRemote]:
+def make_input_file(file: Union[str, Int32]) -> Union[InputFileId, InputFileLocal, InputFileRemote]:
     if os.path.exists(file):
         return InputFileLocal(path=file)
     elif isinstance(file, int):
@@ -81,7 +83,7 @@ def make_input_file(file: Union[str, int]) -> Union[InputFileId, InputFileLocal,
     return InputFileRemote(id=file)
 
 
-def make_thumbnail(thumbnail: str, width: int = 0, height: int = 0) -> Optional[InputThumbnail]:
+def make_thumbnail(thumbnail: str, width: Int32 = 0, height: Int32 = 0) -> Optional[InputThumbnail]:
     if isinstance(thumbnail, str):
         return InputThumbnail(
             # Sending thumbnails by file_id is currently not supported
@@ -93,33 +95,42 @@ def make_thumbnail(thumbnail: str, width: int = 0, height: int = 0) -> Optional[
     return None
 
 
-def parse_tdlib_object(data: dict) -> TDLibObject:
-    if isinstance(
-        data,
-        (
-            list,
-            tuple,
-        ),
-    ):
+def parse_tdlib_object(data: Any) -> TDLibObject:
+    print("parse_tdlib_object.input:", data)
+
+    if isinstance(data, list):
         return [parse_tdlib_object(x) for x in data]
 
     if not isinstance(data, dict):
         return data
 
-    type_ = data.get("@type")
+    tag = data.get("@type")
+    if tag is None:
+        raise ValueError("Data doesn't contain @type key")
 
-    if not bool(type_):
-        logger.error(f"Data: {data}")
-        return data
+    object_class = TDLibObjects.get(tag)
+    if object_class is None:
+        raise ValueError("Not supported @type")
 
-    type_ = type_.value if isinstance(type_, Enum) else type_
-    object_class = TDLibObjects.get(type_)
+    result = retort.load(data, object_class)
+    print("parse_tdlib_object.output:", result)
+    return result
 
-    if not bool(object_class):
-        logger.error(f"Object class not found for @type={type_}")
-        return data
 
-    return object_class.model_validate(data)
+def dump_tdlib_object(obj: TDLibObject) -> Any:
+    print("dump_tdlib_object.input:", obj)
+    object_class = TDLibObjects.get(obj.ID)
+    if object_class is None:
+        raise ValueError("Not supported @type")
+
+    result = retort.dump(obj, object_class)
+    print("dump_tdlib_object.output:", result)
+    return result
+
+
+def dump_json_tdlib_object(obj: TDLibObject) -> str:
+    value = dump_tdlib_object(obj)
+    return ujson.dumps(value, ensure_ascii=False)
 
 
 class PendingRequest:

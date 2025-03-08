@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     PremiumSource,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPremiumFeatures(BaseObject):
     """
     Returns information about features, available to Premium users
@@ -24,5 +23,5 @@ class GetPremiumFeatures(BaseObject):
     :type source: :class:`PremiumSource`, optional
     """
 
-    ID: typing.Literal["getPremiumFeatures"] = Field("getPremiumFeatures", validation_alias="@type", alias="@type")
-    source: typing.Optional[PremiumSource] = None
+    ID: typing.Literal["getPremiumFeatures"] = field(default="getPremiumFeatures", metadata={"alias": "@type"})
+    source: typing.Optional[PremiumSource] = field(default=None)

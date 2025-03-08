@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TransferChatOwnership(BaseObject):
     """
     Changes the owner of a chat; requires owner privileges in the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session. Available only for supergroups and channel chats
@@ -24,9 +24,7 @@ class TransferChatOwnership(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["transferChatOwnership"] = Field(
-        "transferChatOwnership", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["transferChatOwnership"] = field(default="transferChatOwnership", metadata={"alias": "@type"})
     chat_id: Int53
     user_id: Int53
     password: String

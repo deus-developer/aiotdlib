@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputStoryContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddBotMediaPreview(BaseObject):
     """
     Adds a new media preview to the beginning of the list of media previews of a bot. Returns the added preview after addition is completed server-side. The total number of previews must not exceed getOption("bot_media_preview_count_max") for the given language
@@ -28,7 +27,7 @@ class AddBotMediaPreview(BaseObject):
     :type language_code: :class:`String`
     """
 
-    ID: typing.Literal["addBotMediaPreview"] = Field("addBotMediaPreview", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addBotMediaPreview"] = field(default="addBotMediaPreview", metadata={"alias": "@type"})
     bot_user_id: Int53
     content: InputStoryContent
-    language_code: String = ""
+    language_code: String = field(default="")

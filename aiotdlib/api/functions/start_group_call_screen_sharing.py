@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class StartGroupCallScreenSharing(BaseObject):
     """
     Starts screen sharing in a joined group call. Returns join response payload for tgcalls
@@ -24,8 +24,8 @@ class StartGroupCallScreenSharing(BaseObject):
     :type payload: :class:`String`
     """
 
-    ID: typing.Literal["startGroupCallScreenSharing"] = Field(
-        "startGroupCallScreenSharing", validation_alias="@type", alias="@type"
+    ID: typing.Literal["startGroupCallScreenSharing"] = field(
+        default="startGroupCallScreenSharing", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     audio_source_id: Int32

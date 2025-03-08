@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveMessageReaction(BaseObject):
     """
     Removes a reaction from a message. A chosen reaction can always be removed
@@ -28,9 +27,7 @@ class RemoveMessageReaction(BaseObject):
     :type reaction_type: :class:`ReactionType`
     """
 
-    ID: typing.Literal["removeMessageReaction"] = Field(
-        "removeMessageReaction", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["removeMessageReaction"] = field(default="removeMessageReaction", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     reaction_type: ReactionType

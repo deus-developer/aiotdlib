@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatMessagesByDate(BaseObject):
     """
     Deletes all messages between the specified dates in a chat. Supported only for private chats and basic groups. Messages sent in the last 30 seconds will not be deleted
@@ -26,10 +26,10 @@ class DeleteChatMessagesByDate(BaseObject):
     :type revoke: :class:`Bool`
     """
 
-    ID: typing.Literal["deleteChatMessagesByDate"] = Field(
-        "deleteChatMessagesByDate", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteChatMessagesByDate"] = field(
+        default="deleteChatMessagesByDate", metadata={"alias": "@type"}
     )
     chat_id: Int53
     min_date: Int32
     max_date: Int32
-    revoke: Bool = False
+    revoke: Bool = field(default=False)

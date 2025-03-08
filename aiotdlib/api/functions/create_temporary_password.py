@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateTemporaryPassword(BaseObject):
     """
     Creates a new temporary password for processing payments
@@ -22,8 +22,8 @@ class CreateTemporaryPassword(BaseObject):
     :type valid_for: :class:`Int32`
     """
 
-    ID: typing.Literal["createTemporaryPassword"] = Field(
-        "createTemporaryPassword", validation_alias="@type", alias="@type"
+    ID: typing.Literal["createTemporaryPassword"] = field(
+        default="createTemporaryPassword", metadata={"alias": "@type"}
     )
     password: String
     valid_for: Int32

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     JsonValue,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SaveApplicationLogEvent(BaseObject):
     """
     Saves application log event on the server. Can be called before authorization
@@ -28,9 +27,9 @@ class SaveApplicationLogEvent(BaseObject):
     :type data: :class:`JsonValue`
     """
 
-    ID: typing.Literal["saveApplicationLogEvent"] = Field(
-        "saveApplicationLogEvent", validation_alias="@type", alias="@type"
+    ID: typing.Literal["saveApplicationLogEvent"] = field(
+        default="saveApplicationLogEvent", metadata={"alias": "@type"}
     )
-    type_: String = Field(..., alias="type")
+    type_: String = field(default=MISSING, metadata={"alias": "type"})
     chat_id: Int53
     data: JsonValue

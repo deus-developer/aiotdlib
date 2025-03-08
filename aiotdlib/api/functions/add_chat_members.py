@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddChatMembers(BaseObject):
     """
     Adds multiple new members to a chat; requires can_invite_users member right. Currently, this method is only available for supergroups and channels. This method can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Returns information about members that weren't added
@@ -22,6 +22,6 @@ class AddChatMembers(BaseObject):
     :type user_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["addChatMembers"] = Field("addChatMembers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addChatMembers"] = field(default="addChatMembers", metadata={"alias": "@type"})
     chat_id: Int53
     user_ids: Vector[Int53]

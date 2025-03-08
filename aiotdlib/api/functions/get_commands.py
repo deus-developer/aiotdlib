@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BotCommandScope,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCommands(BaseObject):
     """
     Returns the list of commands supported by the bot for the given user scope and language; for bots only
@@ -26,6 +25,6 @@ class GetCommands(BaseObject):
     :type scope: :class:`BotCommandScope`, optional
     """
 
-    ID: typing.Literal["getCommands"] = Field("getCommands", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getCommands"] = field(default="getCommands", metadata={"alias": "@type"})
     language_code: String
-    scope: typing.Optional[BotCommandScope] = None
+    scope: typing.Optional[BotCommandScope] = field(default=None)

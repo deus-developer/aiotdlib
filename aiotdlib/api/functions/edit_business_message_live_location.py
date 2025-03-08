@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Location,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditBusinessMessageLiveLocation(BaseObject):
     """
     Edits the content of a live location in a message sent on behalf of a business account; for bots only
@@ -39,14 +38,14 @@ class EditBusinessMessageLiveLocation(BaseObject):
     :type location: :class:`Location`, optional
     """
 
-    ID: typing.Literal["editBusinessMessageLiveLocation"] = Field(
-        "editBusinessMessageLiveLocation", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editBusinessMessageLiveLocation"] = field(
+        default="editBusinessMessageLiveLocation", metadata={"alias": "@type"}
     )
     business_connection_id: String
     chat_id: Int53
     message_id: Int53
-    live_period: Int32 = 0
-    heading: Int32 = 0
-    proximity_alert_radius: Int32 = 0
-    reply_markup: typing.Optional[ReplyMarkup] = None
-    location: typing.Optional[Location] = None
+    live_period: Int32 = field(default=0)
+    heading: Int32 = field(default=0)
+    proximity_alert_radius: Int32 = field(default=0)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)
+    location: typing.Optional[Location] = field(default=None)

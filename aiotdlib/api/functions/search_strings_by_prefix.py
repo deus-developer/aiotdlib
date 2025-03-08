@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchStringsByPrefix(BaseObject):
     """
     Searches specified query by word prefixes in the provided strings. Returns 0-based positions of strings that matched. Can be called synchronously
@@ -26,10 +26,8 @@ class SearchStringsByPrefix(BaseObject):
     :type return_none_for_empty_query: :class:`Bool`
     """
 
-    ID: typing.Literal["searchStringsByPrefix"] = Field(
-        "searchStringsByPrefix", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["searchStringsByPrefix"] = field(default="searchStringsByPrefix", metadata={"alias": "@type"})
     strings: Vector[String]
     query: String
     limit: Int32
-    return_none_for_empty_query: Bool = False
+    return_none_for_empty_query: Bool = field(default=False)

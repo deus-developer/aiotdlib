@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClearAllDraftMessages(BaseObject):
     """
     Clears message drafts in all chats
@@ -20,7 +20,5 @@ class ClearAllDraftMessages(BaseObject):
     :type exclude_secret_chats: :class:`Bool`
     """
 
-    ID: typing.Literal["clearAllDraftMessages"] = Field(
-        "clearAllDraftMessages", validation_alias="@type", alias="@type"
-    )
-    exclude_secret_chats: Bool = False
+    ID: typing.Literal["clearAllDraftMessages"] = field(default="clearAllDraftMessages", metadata={"alias": "@type"})
+    exclude_secret_chats: Bool = field(default=False)

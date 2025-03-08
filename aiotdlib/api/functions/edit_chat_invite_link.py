@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditChatInviteLink(BaseObject):
     """
     Edits a non-primary invite link for a chat. Available for basic groups, supergroups, and channels. If the link creates a subscription, then expiration_date, member_limit and creates_join_request must not be used. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
@@ -30,10 +30,10 @@ class EditChatInviteLink(BaseObject):
     :type creates_join_request: :class:`Bool`
     """
 
-    ID: typing.Literal["editChatInviteLink"] = Field("editChatInviteLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editChatInviteLink"] = field(default="editChatInviteLink", metadata={"alias": "@type"})
     chat_id: Int53
     invite_link: String
-    name: String = Field("", max_length=32)
-    expiration_date: Int32 = 0
-    member_limit: Int32 = 0
-    creates_join_request: Bool = False
+    name: String = field(default="", metadata={"max_length": 32})
+    expiration_date: Int32 = field(default=0)
+    member_limit: Int32 = field(default=0)
+    creates_join_request: Bool = field(default=False)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSessionCanAcceptSecretChats(BaseObject):
     """
     Toggles whether a session can accept incoming secret chats
@@ -22,8 +22,8 @@ class ToggleSessionCanAcceptSecretChats(BaseObject):
     :type can_accept_secret_chats: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSessionCanAcceptSecretChats"] = Field(
-        "toggleSessionCanAcceptSecretChats", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSessionCanAcceptSecretChats"] = field(
+        default="toggleSessionCanAcceptSecretChats", metadata={"alias": "@type"}
     )
     session_id: Int64
-    can_accept_secret_chats: Bool = False
+    can_accept_secret_chats: Bool = field(default=False)

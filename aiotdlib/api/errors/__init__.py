@@ -4,3 +4,5 @@ from .error import (
     NotFound,
     Unauthorized,
 )
+
+__all__ = ["AioTDLibError", "BadRequest", "NotFound", "Unauthorized"]

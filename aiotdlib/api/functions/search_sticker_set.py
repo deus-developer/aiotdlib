@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchStickerSet(BaseObject):
     """
     Searches for a sticker set by its name
@@ -22,6 +22,6 @@ class SearchStickerSet(BaseObject):
     :type ignore_cache: :class:`Bool`
     """
 
-    ID: typing.Literal["searchStickerSet"] = Field("searchStickerSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchStickerSet"] = field(default="searchStickerSet", metadata={"alias": "@type"})
     name: String
-    ignore_cache: Bool = False
+    ignore_cache: Bool = field(default=False)

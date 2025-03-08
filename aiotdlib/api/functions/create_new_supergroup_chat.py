@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     ChatLocation,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateNewSupergroupChat(BaseObject):
     """
     Creates a new supergroup or channel and sends a corresponding messageSupergroupChatCreate. Returns the newly created chat
@@ -36,13 +35,13 @@ class CreateNewSupergroupChat(BaseObject):
     :type location: :class:`ChatLocation`, optional
     """
 
-    ID: typing.Literal["createNewSupergroupChat"] = Field(
-        "createNewSupergroupChat", validation_alias="@type", alias="@type"
+    ID: typing.Literal["createNewSupergroupChat"] = field(
+        default="createNewSupergroupChat", metadata={"alias": "@type"}
     )
-    title: String = Field(..., min_length=1, max_length=128)
-    is_forum: Bool = False
-    is_channel: Bool = False
-    description: String = Field("", max_length=255)
-    message_auto_delete_time: Int32 = 0
-    for_import: Bool = False
-    location: typing.Optional[ChatLocation] = None
+    title: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 128})
+    is_forum: Bool = field(default=False)
+    is_channel: Bool = field(default=False)
+    description: String = field(default="", metadata={"max_length": 255})
+    message_auto_delete_time: Int32 = field(default=0)
+    for_import: Bool = field(default=False)
+    location: typing.Optional[ChatLocation] = field(default=None)

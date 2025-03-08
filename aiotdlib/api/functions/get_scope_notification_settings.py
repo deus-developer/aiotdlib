@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     NotificationSettingsScope,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetScopeNotificationSettings(BaseObject):
     """
     Returns the notification settings for chats of a given type
@@ -24,7 +23,7 @@ class GetScopeNotificationSettings(BaseObject):
     :type scope: :class:`NotificationSettingsScope`
     """
 
-    ID: typing.Literal["getScopeNotificationSettings"] = Field(
-        "getScopeNotificationSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getScopeNotificationSettings"] = field(
+        default="getScopeNotificationSettings", metadata={"alias": "@type"}
     )
     scope: NotificationSettingsScope

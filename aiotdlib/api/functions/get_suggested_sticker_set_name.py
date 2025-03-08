@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import MISSING, dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSuggestedStickerSetName(BaseObject):
     """
     Returns a suggested name for a new sticker set with a given title
@@ -20,7 +20,7 @@ class GetSuggestedStickerSetName(BaseObject):
     :type title: :class:`String`
     """
 
-    ID: typing.Literal["getSuggestedStickerSetName"] = Field(
-        "getSuggestedStickerSetName", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getSuggestedStickerSetName"] = field(
+        default="getSuggestedStickerSetName", metadata={"alias": "@type"}
     )
-    title: String = Field(..., min_length=1, max_length=64)
+    title: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 64})

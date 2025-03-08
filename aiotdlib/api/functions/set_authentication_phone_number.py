@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     PhoneNumberAuthenticationSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetAuthenticationPhoneNumber(BaseObject):
     """
     Sets the phone number of the user and sends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitPhoneNumber, or if there is no pending authentication query and the current authorization state is authorizationStateWaitEmailAddress, authorizationStateWaitEmailCode, authorizationStateWaitCode, authorizationStateWaitRegistration, or authorizationStateWaitPassword
@@ -26,8 +25,8 @@ class SetAuthenticationPhoneNumber(BaseObject):
     :type settings: :class:`PhoneNumberAuthenticationSettings`, optional
     """
 
-    ID: typing.Literal["setAuthenticationPhoneNumber"] = Field(
-        "setAuthenticationPhoneNumber", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setAuthenticationPhoneNumber"] = field(
+        default="setAuthenticationPhoneNumber", metadata={"alias": "@type"}
     )
     phone_number: String
-    settings: typing.Optional[PhoneNumberAuthenticationSettings] = None
+    settings: typing.Optional[PhoneNumberAuthenticationSettings] = field(default=None)

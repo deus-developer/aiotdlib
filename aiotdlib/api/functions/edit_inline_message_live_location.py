@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Location,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditInlineMessageLiveLocation(BaseObject):
     """
     Edits the content of a live location in an inline message sent via a bot; for bots only
@@ -35,12 +34,12 @@ class EditInlineMessageLiveLocation(BaseObject):
     :type location: :class:`Location`, optional
     """
 
-    ID: typing.Literal["editInlineMessageLiveLocation"] = Field(
-        "editInlineMessageLiveLocation", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editInlineMessageLiveLocation"] = field(
+        default="editInlineMessageLiveLocation", metadata={"alias": "@type"}
     )
     inline_message_id: String
-    live_period: Int32 = 0
-    heading: Int32 = 0
-    proximity_alert_radius: Int32 = 0
-    reply_markup: typing.Optional[ReplyMarkup] = None
-    location: typing.Optional[Location] = None
+    live_period: Int32 = field(default=0)
+    heading: Int32 = field(default=0)
+    proximity_alert_radius: Int32 = field(default=0)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)
+    location: typing.Optional[Location] = field(default=None)

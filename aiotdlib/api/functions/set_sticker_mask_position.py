@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
     MaskPosition,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetStickerMaskPosition(BaseObject):
     """
     Changes the mask position of a mask sticker. The sticker must belong to a mask sticker set that is owned by the current user
@@ -27,8 +26,6 @@ class SetStickerMaskPosition(BaseObject):
     :type mask_position: :class:`MaskPosition`, optional
     """
 
-    ID: typing.Literal["setStickerMaskPosition"] = Field(
-        "setStickerMaskPosition", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setStickerMaskPosition"] = field(default="setStickerMaskPosition", metadata={"alias": "@type"})
     sticker: InputFile
-    mask_position: typing.Optional[MaskPosition] = None
+    mask_position: typing.Optional[MaskPosition] = field(default=None)

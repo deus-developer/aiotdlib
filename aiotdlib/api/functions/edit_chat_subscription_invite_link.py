@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditChatSubscriptionInviteLink(BaseObject):
     """
     Edits a subscription invite link for a channel chat. Requires can_invite_users right in the chat for own links and owner privileges for other links
@@ -24,9 +24,9 @@ class EditChatSubscriptionInviteLink(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["editChatSubscriptionInviteLink"] = Field(
-        "editChatSubscriptionInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editChatSubscriptionInviteLink"] = field(
+        default="editChatSubscriptionInviteLink", metadata={"alias": "@type"}
     )
     chat_id: Int53
     invite_link: String
-    name: String = Field("", max_length=32)
+    name: String = field(default="", metadata={"max_length": 32})

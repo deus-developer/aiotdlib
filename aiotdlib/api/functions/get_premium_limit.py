@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     PremiumLimitType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPremiumLimit(BaseObject):
     """
     Returns information about a limit, increased for Premium users. Returns a 404 error if the limit is unknown
@@ -24,5 +23,5 @@ class GetPremiumLimit(BaseObject):
     :type limit_type: :class:`PremiumLimitType`
     """
 
-    ID: typing.Literal["getPremiumLimit"] = Field("getPremiumLimit", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getPremiumLimit"] = field(default="getPremiumLimit", metadata={"alias": "@type"})
     limit_type: PremiumLimitType

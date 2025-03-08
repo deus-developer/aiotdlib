@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class WriteGeneratedFilePart(BaseObject):
     """
     Writes a part of a generated file. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct write to the destination file
@@ -24,9 +24,7 @@ class WriteGeneratedFilePart(BaseObject):
     :type data: :class:`Bytes`
     """
 
-    ID: typing.Literal["writeGeneratedFilePart"] = Field(
-        "writeGeneratedFilePart", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["writeGeneratedFilePart"] = field(default="writeGeneratedFilePart", metadata={"alias": "@type"})
     generation_id: Int64
     offset: Int53
     data: Bytes

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatArchivedStories(BaseObject):
     """
     Returns the list of all stories posted by the given chat; requires can_edit_stories right in the chat. The stories are returned in reverse chronological order (i.e., in order of decreasing story_id). For optimal performance, the number of returned stories is chosen by TDLib
@@ -24,9 +24,7 @@ class GetChatArchivedStories(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getChatArchivedStories"] = Field(
-        "getChatArchivedStories", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getChatArchivedStories"] = field(default="getChatArchivedStories", metadata={"alias": "@type"})
     chat_id: Int53
     from_story_id: Int32
     limit: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageViewers(BaseObject):
     """
     Returns viewers of a recent outgoing message in a basic group or a supergroup chat. For video notes and voice notes only users, opened content of the message, are returned. The method can be called if messageProperties.can_get_viewers == true
@@ -22,6 +22,6 @@ class GetMessageViewers(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMessageViewers"] = Field("getMessageViewers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageViewers"] = field(default="getMessageViewers", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

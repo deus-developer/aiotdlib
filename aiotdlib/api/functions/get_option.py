@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetOption(BaseObject):
     """
     Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options "version" and "commit_hash"
@@ -20,5 +20,5 @@ class GetOption(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["getOption"] = Field("getOption", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getOption"] = field(default="getOption", metadata={"alias": "@type"})
     name: String

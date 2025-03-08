@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteStory(BaseObject):
     """
     Deletes a previously sent story. Can be called only if story.can_be_deleted == true
@@ -22,6 +22,6 @@ class DeleteStory(BaseObject):
     :type story_id: :class:`Int32`
     """
 
-    ID: typing.Literal["deleteStory"] = Field("deleteStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteStory"] = field(default="deleteStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32

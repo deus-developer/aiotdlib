@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     ProxyType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TestProxy(BaseObject):
     """
     Sends a simple network request to the Telegram servers via proxy; for testing only. Can be called before authorization
@@ -32,9 +31,9 @@ class TestProxy(BaseObject):
     :type timeout: :class:`Double`
     """
 
-    ID: typing.Literal["testProxy"] = Field("testProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["testProxy"] = field(default="testProxy", metadata={"alias": "@type"})
     server: String
     port: Int32
-    type_: ProxyType = Field(..., alias="type")
+    type_: ProxyType = field(default=MISSING, metadata={"alias": "type"})
     dc_id: Int32
     timeout: Double

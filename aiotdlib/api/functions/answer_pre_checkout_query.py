@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AnswerPreCheckoutQuery(BaseObject):
     """
     Sets the result of a pre-checkout query; for bots only
@@ -22,8 +22,6 @@ class AnswerPreCheckoutQuery(BaseObject):
     :type error_message: :class:`String`
     """
 
-    ID: typing.Literal["answerPreCheckoutQuery"] = Field(
-        "answerPreCheckoutQuery", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["answerPreCheckoutQuery"] = field(default="answerPreCheckoutQuery", metadata={"alias": "@type"})
     pre_checkout_query_id: Int64
     error_message: String

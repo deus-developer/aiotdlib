@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteDefaultBackground(BaseObject):
     """
     Deletes default background for chats
@@ -20,7 +20,7 @@ class DeleteDefaultBackground(BaseObject):
     :type for_dark_theme: :class:`Bool`
     """
 
-    ID: typing.Literal["deleteDefaultBackground"] = Field(
-        "deleteDefaultBackground", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteDefaultBackground"] = field(
+        default="deleteDefaultBackground", metadata={"alias": "@type"}
     )
-    for_dark_theme: Bool = False
+    for_dark_theme: Bool = field(default=False)

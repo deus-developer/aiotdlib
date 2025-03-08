@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStorageStatistics(BaseObject):
     """
     Returns storage usage statistics. Can be called before authorization
@@ -20,5 +20,5 @@ class GetStorageStatistics(BaseObject):
     :type chat_limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getStorageStatistics"] = Field("getStorageStatistics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStorageStatistics"] = field(default="getStorageStatistics", metadata={"alias": "@type"})
     chat_limit: Int32

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LoadChats(BaseObject):
     """
     Loads more chats from a chat list. The loaded chats and their positions in the chat list will be sent through updates. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. Returns a 404 error if all chats have been loaded
@@ -26,6 +25,6 @@ class LoadChats(BaseObject):
     :type chat_list: :class:`ChatList`, optional
     """
 
-    ID: typing.Literal["loadChats"] = Field("loadChats", validation_alias="@type", alias="@type")
+    ID: typing.Literal["loadChats"] = field(default="loadChats", metadata={"alias": "@type"})
     limit: Int32
-    chat_list: typing.Optional[ChatList] = None
+    chat_list: typing.Optional[ChatList] = field(default=None)

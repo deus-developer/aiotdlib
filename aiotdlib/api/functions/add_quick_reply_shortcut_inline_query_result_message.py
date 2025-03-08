@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddQuickReplyShortcutInlineQueryResultMessage(BaseObject):
     """
     Adds a message to a quick reply shortcut via inline bot. If shortcut doesn't exist and there are less than getOption("quick_reply_shortcut_count_max") shortcuts, then a new shortcut is created. The shortcut must not contain more than getOption("quick_reply_shortcut_message_count_max") messages after adding the new message. Returns the added message
@@ -28,11 +28,11 @@ class AddQuickReplyShortcutInlineQueryResultMessage(BaseObject):
     :type hide_via_bot: :class:`Bool`
     """
 
-    ID: typing.Literal["addQuickReplyShortcutInlineQueryResultMessage"] = Field(
-        "addQuickReplyShortcutInlineQueryResultMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["addQuickReplyShortcutInlineQueryResultMessage"] = field(
+        default="addQuickReplyShortcutInlineQueryResultMessage", metadata={"alias": "@type"}
     )
     shortcut_name: String
     query_id: Int64
     result_id: String
-    reply_to_message_id: Int53 = 0
-    hide_via_bot: Bool = False
+    reply_to_message_id: Int53 = field(default=0)
+    hide_via_bot: Bool = field(default=False)

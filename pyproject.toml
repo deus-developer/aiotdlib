@@ -21,6 +21,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
+    "adaptix",
     "pydantic>=2,<3",
     "sortedcontainers>=2.4.0",
     "ujson>=5",

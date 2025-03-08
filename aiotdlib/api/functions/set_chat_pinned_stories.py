@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatPinnedStories(BaseObject):
     """
     Changes the list of pinned stories on a chat page; requires can_edit_stories right in the chat
@@ -22,6 +22,6 @@ class SetChatPinnedStories(BaseObject):
     :type story_ids: :class:`Vector[Int32]`
     """
 
-    ID: typing.Literal["setChatPinnedStories"] = Field("setChatPinnedStories", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatPinnedStories"] = field(default="setChatPinnedStories", metadata={"alias": "@type"})
     chat_id: Int53
     story_ids: Vector[Int32]

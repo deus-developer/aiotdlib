@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveNotification(BaseObject):
     """
     Removes an active notification from notification list. Needs to be called only if the notification is removed by the current user
@@ -22,6 +22,6 @@ class RemoveNotification(BaseObject):
     :type notification_id: :class:`Int32`
     """
 
-    ID: typing.Literal["removeNotification"] = Field("removeNotification", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeNotification"] = field(default="removeNotification", metadata={"alias": "@type"})
     notification_group_id: Int32
     notification_id: Int32

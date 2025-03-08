@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CanBotSendMessages(BaseObject):
     """
     Checks whether the specified bot can send messages to the user. Returns a 404 error if can't and the access can be granted by call to allowBotToSendMessages
@@ -20,5 +20,5 @@ class CanBotSendMessages(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["canBotSendMessages"] = Field("canBotSendMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["canBotSendMessages"] = field(default="canBotSendMessages", metadata={"alias": "@type"})
     bot_user_id: Int53

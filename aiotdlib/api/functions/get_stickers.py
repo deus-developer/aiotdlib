@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStickers(BaseObject):
     """
     Returns stickers from the installed sticker sets that correspond to any of the given emoji or can be found by sticker-specific keywords. If the query is non-empty, then favorite, recently used or trending stickers may also be returned
@@ -30,8 +29,8 @@ class GetStickers(BaseObject):
     :type query: :class:`String`
     """
 
-    ID: typing.Literal["getStickers"] = Field("getStickers", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStickers"] = field(default="getStickers", metadata={"alias": "@type"})
     sticker_type: StickerType
     limit: Int32
     chat_id: Int53
-    query: String = ""
+    query: String = field(default="")

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class UnpinChatMessage(BaseObject):
     """
     Removes a pinned message from a chat; requires can_pin_messages member right if the chat is a basic group or supergroup, or can_edit_messages administrator right if the chat is a channel
@@ -22,6 +22,6 @@ class UnpinChatMessage(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["unpinChatMessage"] = Field("unpinChatMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["unpinChatMessage"] = field(default="unpinChatMessage", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

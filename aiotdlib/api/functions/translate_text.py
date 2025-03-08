@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TranslateText(BaseObject):
     """
     Translates a text to the given language. If the current user is a Telegram Premium user, then text formatting is preserved
@@ -26,6 +25,6 @@ class TranslateText(BaseObject):
     :type to_language_code: :class:`String`
     """
 
-    ID: typing.Literal["translateText"] = Field("translateText", validation_alias="@type", alias="@type")
+    ID: typing.Literal["translateText"] = field(default="translateText", metadata={"alias": "@type"})
     text: FormattedText
     to_language_code: String

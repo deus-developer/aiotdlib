@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddLogMessage(BaseObject):
     """
     Adds a message to TDLib internal log. Can be called synchronously
@@ -22,6 +22,6 @@ class AddLogMessage(BaseObject):
     :type text: :class:`String`
     """
 
-    ID: typing.Literal["addLogMessage"] = Field("addLogMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addLogMessage"] = field(default="addLogMessage", metadata={"alias": "@type"})
     verbosity_level: Int32
     text: String

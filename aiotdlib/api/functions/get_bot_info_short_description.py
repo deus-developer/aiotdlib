@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBotInfoShortDescription(BaseObject):
     """
     Returns the text shown on a bot's profile page and sent together with the link when users share the bot in the given language. Can be called only if userTypeBot.can_be_edited == true
@@ -22,8 +22,8 @@ class GetBotInfoShortDescription(BaseObject):
     :type language_code: :class:`String`
     """
 
-    ID: typing.Literal["getBotInfoShortDescription"] = Field(
-        "getBotInfoShortDescription", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getBotInfoShortDescription"] = field(
+        default="getBotInfoShortDescription", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     language_code: String

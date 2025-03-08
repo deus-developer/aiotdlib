@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatIsMarkedAsUnread(BaseObject):
     """
     Changes the marked as unread state of a chat
@@ -22,8 +22,8 @@ class ToggleChatIsMarkedAsUnread(BaseObject):
     :type is_marked_as_unread: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatIsMarkedAsUnread"] = Field(
-        "toggleChatIsMarkedAsUnread", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleChatIsMarkedAsUnread"] = field(
+        default="toggleChatIsMarkedAsUnread", metadata={"alias": "@type"}
     )
     chat_id: Int53
     is_marked_as_unread: Bool

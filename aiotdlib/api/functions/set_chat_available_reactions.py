@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatAvailableReactions,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatAvailableReactions(BaseObject):
     """
     Changes reactions, available in a chat. Available for basic groups, supergroups, and channels. Requires can_change_info member right
@@ -26,8 +25,8 @@ class SetChatAvailableReactions(BaseObject):
     :type available_reactions: :class:`ChatAvailableReactions`
     """
 
-    ID: typing.Literal["setChatAvailableReactions"] = Field(
-        "setChatAvailableReactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatAvailableReactions"] = field(
+        default="setChatAvailableReactions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     available_reactions: ChatAvailableReactions

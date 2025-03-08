@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatHistory(BaseObject):
     """
     Deletes all messages in the chat. Use chat.can_be_deleted_only_for_self and chat.can_be_deleted_for_all_users fields to find whether and how the method can be applied to the chat
@@ -24,7 +24,7 @@ class DeleteChatHistory(BaseObject):
     :type revoke: :class:`Bool`
     """
 
-    ID: typing.Literal["deleteChatHistory"] = Field("deleteChatHistory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteChatHistory"] = field(default="deleteChatHistory", metadata={"alias": "@type"})
     chat_id: Int53
-    remove_from_chat_list: Bool = False
-    revoke: Bool = False
+    remove_from_chat_list: Bool = field(default=False)
+    revoke: Bool = field(default=False)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetSupergroupUnrestrictBoostCount(BaseObject):
     """
     Changes the number of times the supergroup must be boosted by a user to ignore slow mode and chat permission restrictions; requires can_restrict_members administrator right
@@ -22,8 +22,8 @@ class SetSupergroupUnrestrictBoostCount(BaseObject):
     :type unrestrict_boost_count: :class:`Int32`
     """
 
-    ID: typing.Literal["setSupergroupUnrestrictBoostCount"] = Field(
-        "setSupergroupUnrestrictBoostCount", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setSupergroupUnrestrictBoostCount"] = field(
+        default="setSupergroupUnrestrictBoostCount", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     unrestrict_boost_count: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchFileDownloads(BaseObject):
     """
     Searches for files in the file download list or recently downloaded files from the list
@@ -28,9 +28,9 @@ class SearchFileDownloads(BaseObject):
     :type only_completed: :class:`Bool`
     """
 
-    ID: typing.Literal["searchFileDownloads"] = Field("searchFileDownloads", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchFileDownloads"] = field(default="searchFileDownloads", metadata={"alias": "@type"})
     offset: String
     limit: Int32
-    query: String = ""
-    only_active: Bool = False
-    only_completed: Bool = False
+    query: String = field(default="")
+    only_active: Bool = field(default=False)
+    only_completed: Bool = field(default=False)

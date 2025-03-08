@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBotInfoDescription(BaseObject):
     """
     Sets the text shown in the chat with a bot if the chat is empty. Can be called only if userTypeBot.can_be_edited == true
@@ -24,9 +24,7 @@ class SetBotInfoDescription(BaseObject):
     :type language_code: :class:`String`
     """
 
-    ID: typing.Literal["setBotInfoDescription"] = Field(
-        "setBotInfoDescription", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setBotInfoDescription"] = field(default="setBotInfoDescription", metadata={"alias": "@type"})
     bot_user_id: Int53
     description: String
-    language_code: String = ""
+    language_code: String = field(default="")

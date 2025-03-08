@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSavedNotificationSounds(BaseObject):
     """
     Returns the list of saved notification sounds. If a sound isn't in the list, then default sound needs to be used
     """
 
-    ID: typing.Literal["getSavedNotificationSounds"] = Field(
-        "getSavedNotificationSounds", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getSavedNotificationSounds"] = field(
+        default="getSavedNotificationSounds", metadata={"alias": "@type"}
     )

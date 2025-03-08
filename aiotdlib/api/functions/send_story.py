@@ -6,10 +6,7 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
@@ -18,8 +15,10 @@ from ..types.all import (
     StoryFullId,
     StoryPrivacySettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendStory(BaseObject):
     """
     Sends a new story to a chat; requires can_post_stories right for supergroup and channel chats. Returns a temporary story
@@ -44,13 +43,13 @@ class SendStory(BaseObject):
     :type from_story_full_id: :class:`StoryFullId`, optional
     """
 
-    ID: typing.Literal["sendStory"] = Field("sendStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendStory"] = field(default="sendStory", metadata={"alias": "@type"})
     chat_id: Int53
     content: InputStoryContent
     privacy_settings: StoryPrivacySettings
     active_period: Int32
-    is_posted_to_chat_page: Bool = False
-    protect_content: Bool = False
-    areas: typing.Optional[InputStoryAreas] = None
-    caption: typing.Optional[FormattedText] = None
-    from_story_full_id: typing.Optional[StoryFullId] = None
+    is_posted_to_chat_page: Bool = field(default=False)
+    protect_content: Bool = field(default=False)
+    areas: typing.Optional[InputStoryAreas] = field(default=None)
+    caption: typing.Optional[FormattedText] = field(default=None)
+    from_story_full_id: typing.Optional[StoryFullId] = field(default=None)

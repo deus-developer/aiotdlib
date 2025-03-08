@@ -8,9 +8,10 @@ from __future__ import annotations
 
 import typing
 
-from pydantic import Field
+from dataclasses import dataclass, field, MISSING
 
 from .base import *
+
 {% for entity in entities %}
 {%- if not entity.is_abstract %}
 {{ base_class.class(entity) }}
@@ -44,14 +45,14 @@ from .base import *
 {%- endfor %}
 {% for entity in entities -%}
 {%- if not entity.is_abstract and entity.dependencies %}
-{{ entity.uf_name }}.model_rebuild()
+{#{{ entity.uf_name }}.model_rebuild()#}
 {%- endif %}
 {%- for subclass in entity.subclasses %}
 {%- if subclass.dependencies %}
-{{ subclass.uf_name }}.model_rebuild()
+{#{{ subclass.uf_name }}.model_rebuild()#}
 {%- endif %}
 {%- endfor %}
 {%- for dep in entity.cross_deps %}
-{{ dep.uf_name }}.model_rebuild()
+{#{{ dep.uf_name }}.model_rebuild()#}
 {%- endfor %}
 {%- endfor %}

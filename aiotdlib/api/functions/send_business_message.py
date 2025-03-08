@@ -6,18 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     InputMessageReplyTo,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendBusinessMessage(BaseObject):
     """
     Sends a message on behalf of a business account; for bots only. Returns the message after it was sent
@@ -40,12 +39,12 @@ class SendBusinessMessage(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["sendBusinessMessage"] = Field("sendBusinessMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendBusinessMessage"] = field(default="sendBusinessMessage", metadata={"alias": "@type"})
     business_connection_id: String
     chat_id: Int53
     effect_id: Int64
     input_message_content: InputMessageContent
-    disable_notification: Bool = False
-    protect_content: Bool = False
-    reply_to: typing.Optional[InputMessageReplyTo] = None
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    disable_notification: Bool = field(default=False)
+    protect_content: Bool = field(default=False)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

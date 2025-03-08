@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPhoneNumberInfo(BaseObject):
     """
     Returns information about a phone number by its prefix. Can be called before authorization
@@ -20,5 +20,5 @@ class GetPhoneNumberInfo(BaseObject):
     :type phone_number_prefix: :class:`String`
     """
 
-    ID: typing.Literal["getPhoneNumberInfo"] = Field("getPhoneNumberInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getPhoneNumberInfo"] = field(default="getPhoneNumberInfo", metadata={"alias": "@type"})
     phone_number_prefix: String

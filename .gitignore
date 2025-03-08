@@ -271,5 +271,6 @@ fabric.properties
 *.iml
 .aiotdlib/
 test.py
+docker-compose.yml
 td/
 aiotdlib/tdlib/**

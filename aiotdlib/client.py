@@ -7,7 +7,7 @@ import uuid
 from functools import partial, update_wrapper
 from typing import AsyncIterator, Optional, Union
 
-import pydantic.errors
+from adaptix.load_error import LoadError
 
 from .api import (
     API,
@@ -87,14 +87,20 @@ from .filters import Filters
 from .handlers import FilterCallable, Handler, HandlerCallable
 from .middlewares import MiddlewareCallable
 from .tdjson import TDJsonClient
-from .utils import PendingRequest, ainput, make_input_file, make_thumbnail, parse_tdlib_object
+from .utils import (
+    PendingRequest,
+    ainput,
+    dump_json_tdlib_object,
+    dump_tdlib_object,
+    make_input_file,
+    make_thumbnail,
+    parse_tdlib_object,
+)
 
 RequestResult = typing.TypeVar("RequestResult", bound=BaseObject, covariant=True)
 ExecuteResult = typing.TypeVar("ExecuteResult", bound=BaseObject, covariant=True)
 AuthActions = dict[Optional[str], typing.Callable[[], typing.Coroutine[None, None, None]]]
-ChatInfo = Union[
-    User, UserFullInfo, BasicGroup, BasicGroupFullInfo, Supergroup, SupergroupFullInfo, SecretChat
-]
+ChatInfo = Union[User, UserFullInfo, BasicGroup, BasicGroupFullInfo, Supergroup, SupergroupFullInfo, SecretChat]
 
 
 class Client:
@@ -188,9 +194,7 @@ class Client:
         Note: this method is universal and can be used directly or as decorator
         """
         if callable(function):
-            self.add_event_handler(
-                function, API.Types.UPDATE_NEW_MESSAGE, filters=Filters.bot_command(command)
-            )
+            self.add_event_handler(function, API.Types.UPDATE_NEW_MESSAGE, filters=Filters.bot_command(command))
         else:
             return self.on_event(API.Types.UPDATE_NEW_MESSAGE, filters=Filters.bot_command(command))
 
@@ -212,9 +216,7 @@ class Client:
 
     async def _call_handlers(self, update: TDLibObject):
         tasks = []
-        tasks.extend(
-            self._call_handler(h, update) for h in self._updates_handlers.get(update.ID, [])
-        )
+        tasks.extend(self._call_handler(h, update) for h in self._updates_handlers.get(update.ID, []))
         tasks.extend(self._call_handler(h, update) for h in self._updates_handlers.get("*", []))
         # Running all handlers concurrently and independently
         await asyncio.gather(*tasks, return_exceptions=True)
@@ -246,9 +248,7 @@ class Client:
     async def _handle_pending_request(self, update: TDLibObject):
         request_id = update.EXTRA.get("request_id")
 
-        if isinstance(update, Message) and isinstance(
-            update.sending_state, MessageSendingStatePending
-        ):
+        if isinstance(update, Message) and isinstance(update.sending_state, MessageSendingStatePending):
             # MessageSendingStateFailed will be set as an error to pending request, no need to handle it here
             sending_id = f"{update.chat_id}_{update.id}"
             self.logger.debug(f"Put message to pending messages: {sending_id}")
@@ -274,8 +274,7 @@ class Client:
         if bool(pending_request):
             pending_request.set_update(update)
             self.logger.debug(
-                f"Pending request {request_id} is successfully processed."
-                f"Total pending: {len(self._pending_requests)}"
+                f"Pending request {request_id} is successfully processed.Total pending: {len(self._pending_requests)}"
             )
 
     async def _updates_loop(self):
@@ -285,7 +284,7 @@ class Client:
 
             try:
                 update = parse_tdlib_object(packet)
-            except pydantic.ValidationError as e:
+            except LoadError as e:
                 self.logger.error(f"Unable to parse incoming update: {packet}! {e}", exc_info=True)
                 continue
 
@@ -297,7 +296,7 @@ class Client:
                     raise
                 except Exception as e:
                     self.logger.error(
-                        f"Unable to handle authorization state update {update.model_dump_json()}! {e}",
+                        f"Unable to handle authorization state update {dump_json_tdlib_object(update)}! {e}",
                         exc_info=True,
                     )
                     raise
@@ -348,7 +347,7 @@ class Client:
                 enable=True,
                 server=self.settings.proxy_settings.host,
                 port=self.settings.proxy_settings.port,
-                type=proxy_type,
+                type_=proxy_type,
             )
         )
 
@@ -366,23 +365,11 @@ class Client:
             elif isinstance(v, int):
                 option_value = OptionValueInteger(value=v)
             else:
-                self.logger.warning(
-                    f"Option {k} has unsupported value of type {v.__class__.__name__}: {v}"
-                )
+                self.logger.warning(f"Option {k} has unsupported value of type {v.__class__.__name__}: {v}")
                 continue
 
-            self.logger.info(
-                f"Setting up option {k} = {v if v is not None else '<empty or default>'}"
-            )
-            try:
-                query = SetOption(name=k, value=option_value)
-            except pydantic.ValidationError:
-                self.logger.warning(
-                    f"Option {k} has unsupported value of type {v.__class__.__name__}: {v}"
-                )
-                continue
-
-            await self.send(query)
+            self.logger.info(f"Setting up option {k} = {v if v is not None else '<empty or default>'}")
+            await self.send(SetOption(name=k, value=option_value))
 
     async def _auth_start(self):
         await self.send(GetAuthorizationState())
@@ -468,9 +455,7 @@ class Client:
     async def _register_user(self):
         first_name = await self._auth_get_first_name()
         last_name = await self._auth_get_last_name()
-        self.logger.info(
-            f"Registering new user in telegram as {first_name} {last_name or ''}".strip()
-        )
+        self.logger.info(f"Registering new user in telegram as {first_name} {last_name or ''}".strip())
         await self.send(
             RegisterUser(
                 first_name=first_name,
@@ -614,7 +599,7 @@ class Client:
         if not self._running:
             raise RuntimeError("Client not started")
 
-        query_json = query.model_dump_json(by_alias=True)  # Exclude unset??
+        query_json = dump_tdlib_object(query)
         self.logger.debug(f">>>>> {query.ID} %s", query_json)
         await self.tdjson_client.send(query_json)
 
@@ -653,7 +638,7 @@ class Client:
             if bool(pending_request.update):
                 self.logger.debug(
                     f"<<<<< {pending_request.update.ID} %s",
-                    pending_request.update.model_dump_json(by_alias=True),
+                    dump_json_tdlib_object(pending_request.update),
                 )
 
         return pending_request.update
@@ -662,7 +647,7 @@ class Client:
         if not self._running:
             raise RuntimeError("Client not started")
 
-        result = await self.tdjson_client.execute(query.model_dump(by_alias=True))
+        result = await self.tdjson_client.execute(dump_tdlib_object(query))
         result_object = parse_tdlib_object(result)
 
         if isinstance(result_object, Error):
@@ -694,9 +679,7 @@ class Client:
 
         try:
             self.logger.info("Setting log verbosity level")
-            await self.execute(
-                SetLogVerbosityLevel(new_verbosity_level=self.settings.tdlib_verbosity)
-            )
+            await self.execute(SetLogVerbosityLevel(new_verbosity_level=self.settings.tdlib_verbosity))
             self.logger.info("Setting up proxy")
             await self._setup_proxy()
             self.logger.info("Setting up options")
@@ -769,27 +752,19 @@ class Client:
     async def get_user_full_info(self, user_id: int, *, force_update: bool = False) -> UserFullInfo:
         return await self.cache.get_user_full_info(user_id, force_update=force_update)
 
-    async def get_basic_group(
-        self, basic_group_id: int, *, force_update: bool = False
-    ) -> BasicGroup:
+    async def get_basic_group(self, basic_group_id: int, *, force_update: bool = False) -> BasicGroup:
         return await self.cache.get_basic_group(basic_group_id, force_update=force_update)
 
-    async def get_basic_group_full_info(
-        self, basic_group_id: int, *, force_update: bool = False
-    ) -> BasicGroupFullInfo:
+    async def get_basic_group_full_info(self, basic_group_id: int, *, force_update: bool = False) -> BasicGroupFullInfo:
         return await self.cache.get_basic_group_full_info(basic_group_id, force_update=force_update)
 
     async def get_supergroup(self, supergroup_id: int, *, force_update: bool = False) -> Supergroup:
         return await self.cache.get_supergroup(supergroup_id, force_update=force_update)
 
-    async def get_supergroup_full_info(
-        self, supergroup_id: int, *, force_update: bool = False
-    ) -> SupergroupFullInfo:
+    async def get_supergroup_full_info(self, supergroup_id: int, *, force_update: bool = False) -> SupergroupFullInfo:
         return await self.cache.get_supergroup_full_info(supergroup_id, force_update=force_update)
 
-    async def get_secret_chat(
-        self, secret_chat_id: int, *, force_update: bool = False
-    ) -> SecretChat:
+    async def get_secret_chat(self, secret_chat_id: int, *, force_update: bool = False) -> SecretChat:
         return await self.cache.get_secret_chat(secret_chat_id, force_update=force_update)
 
     async def get_chat_info(
@@ -805,23 +780,15 @@ class Client:
 
         if isinstance(chat.type_, ChatTypeBasicGroup):
             if full:
-                return await self.get_basic_group_full_info(
-                    chat.type_.basic_group_id, force_update=force_update
-                )
+                return await self.get_basic_group_full_info(chat.type_.basic_group_id, force_update=force_update)
             else:
-                return await self.get_basic_group(
-                    chat.type_.basic_group_id, force_update=force_update
-                )
+                return await self.get_basic_group(chat.type_.basic_group_id, force_update=force_update)
 
         if isinstance(chat.type_, ChatTypeSupergroup):
             if full:
-                return await self.get_supergroup_full_info(
-                    chat.type_.supergroup_id, force_update=force_update
-                )
+                return await self.get_supergroup_full_info(chat.type_.supergroup_id, force_update=force_update)
             else:
-                return await self.get_supergroup(
-                    chat.type_.supergroup_id, force_update=force_update
-                )
+                return await self.get_supergroup(chat.type_.supergroup_id, force_update=force_update)
 
         if isinstance(chat.type_, ChatTypeSecret):
             return await self.get_secret_chat(chat.type_.secret_chat_id, force_update=force_update)
@@ -847,9 +814,7 @@ class Client:
             ParseTextEntities(
                 text=text,
                 parse_mode=(
-                    TextParseModeHTML()
-                    if parse_mode == ClientParseMode.HTML
-                    else TextParseModeMarkdown(version=2)
+                    TextParseModeHTML() if parse_mode == ClientParseMode.HTML else TextParseModeMarkdown(version=2)
                 ),
             )
         )
@@ -933,9 +898,7 @@ class Client:
         return await self.api.send_message(
             chat_id=chat_id,
             message_thread_id=0,
-            reply_to=InputMessageReplyToMessage(message_id=reply_to_message_id)
-            if bool(reply_to_message_id)
-            else None,
+            reply_to=InputMessageReplyToMessage(message_id=reply_to_message_id) if bool(reply_to_message_id) else None,
             options=MessageSendOptions(
                 disable_notification=disable_notification,
                 from_background=False,
@@ -1715,9 +1678,7 @@ class Client:
             content=InputMessageAudio(
                 audio=make_input_file(audio),
                 caption=(await self.parse_text(caption)),
-                album_cover_thumbnail=make_thumbnail(
-                    thumbnail, width=thumbnail_width, height=thumbnail_height
-                ),
+                album_cover_thumbnail=make_thumbnail(thumbnail, width=thumbnail_width, height=thumbnail_height),
                 title=title,
                 duration=duration,
                 performer=performer,

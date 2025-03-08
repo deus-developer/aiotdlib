@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateChatInviteLink(BaseObject):
     """
     Creates a new invite link for a chat. Available for basic groups, supergroups, and channels. Requires administrator privileges and can_invite_users right in the chat
@@ -28,9 +28,9 @@ class CreateChatInviteLink(BaseObject):
     :type creates_join_request: :class:`Bool`
     """
 
-    ID: typing.Literal["createChatInviteLink"] = Field("createChatInviteLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createChatInviteLink"] = field(default="createChatInviteLink", metadata={"alias": "@type"})
     chat_id: Int53
-    name: String = Field("", max_length=32)
-    expiration_date: Int32 = 0
-    member_limit: Int32 = 0
-    creates_join_request: Bool = False
+    name: String = field(default="", metadata={"max_length": 32})
+    expiration_date: Int32 = field(default=0)
+    member_limit: Int32 = field(default=0)
+    creates_join_request: Bool = field(default=False)

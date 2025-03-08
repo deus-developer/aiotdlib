@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetWebAppPlaceholder(BaseObject):
     """
     Returns a default placeholder for Web Apps of a bot; this is an offline request. Returns a 404 error if the placeholder isn't known
@@ -20,5 +20,5 @@ class GetWebAppPlaceholder(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getWebAppPlaceholder"] = Field("getWebAppPlaceholder", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getWebAppPlaceholder"] = field(default="getWebAppPlaceholder", metadata={"alias": "@type"})
     bot_user_id: Int53

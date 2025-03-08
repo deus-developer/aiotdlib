@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchChatAffiliateProgram(BaseObject):
     """
     Searches a chat with an affiliate program. Returns the chat if found and the program is active
@@ -22,8 +22,8 @@ class SearchChatAffiliateProgram(BaseObject):
     :type referrer: :class:`String`
     """
 
-    ID: typing.Literal["searchChatAffiliateProgram"] = Field(
-        "searchChatAffiliateProgram", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchChatAffiliateProgram"] = field(
+        default="searchChatAffiliateProgram", metadata={"alias": "@type"}
     )
     username: String
     referrer: String

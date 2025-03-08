@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchContacts(BaseObject):
     """
     Searches for the specified query in the first names, last names and usernames of the known user contacts
@@ -22,6 +22,6 @@ class SearchContacts(BaseObject):
     :type query: :class:`String`
     """
 
-    ID: typing.Literal["searchContacts"] = Field("searchContacts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchContacts"] = field(default="searchContacts", metadata={"alias": "@type"})
     limit: Int32
-    query: String = ""
+    query: String = field(default="")

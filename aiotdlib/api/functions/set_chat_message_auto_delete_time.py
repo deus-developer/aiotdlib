@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatMessageAutoDeleteTime(BaseObject):
     """
     Changes the message auto-delete or self-destruct (for secret chats) time in a chat. Requires change_info administrator right in basic groups, supergroups and channels. Message auto-delete time can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
@@ -22,8 +22,8 @@ class SetChatMessageAutoDeleteTime(BaseObject):
     :type message_auto_delete_time: :class:`Int32`
     """
 
-    ID: typing.Literal["setChatMessageAutoDeleteTime"] = Field(
-        "setChatMessageAutoDeleteTime", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatMessageAutoDeleteTime"] = field(
+        default="setChatMessageAutoDeleteTime", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    message_auto_delete_time: Int32 = 0
+    message_auto_delete_time: Int32 = field(default=0)

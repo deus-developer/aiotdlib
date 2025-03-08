@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarAdAccountUrl(BaseObject):
     """
     Returns a URL for a Telegram Ad platform account that can be used to set up advertisements for the chat paid in the owned Telegram Stars
@@ -24,5 +23,5 @@ class GetStarAdAccountUrl(BaseObject):
     :type owner_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["getStarAdAccountUrl"] = Field("getStarAdAccountUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStarAdAccountUrl"] = field(default="getStarAdAccountUrl", metadata={"alias": "@type"})
     owner_id: MessageSender

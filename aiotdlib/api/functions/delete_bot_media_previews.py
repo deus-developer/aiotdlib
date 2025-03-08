@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteBotMediaPreviews(BaseObject):
     """
     Delete media previews from the list of media previews of a bot
@@ -24,9 +24,7 @@ class DeleteBotMediaPreviews(BaseObject):
     :type file_ids: :class:`Vector[Int32]`
     """
 
-    ID: typing.Literal["deleteBotMediaPreviews"] = Field(
-        "deleteBotMediaPreviews", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["deleteBotMediaPreviews"] = field(default="deleteBotMediaPreviews", metadata={"alias": "@type"})
     bot_user_id: Int53
     language_code: String
     file_ids: Vector[Int32]

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditQuickReplyMessage(BaseObject):
     """
     Asynchronously edits the text, media or caption of a quick reply message. Use quickReplyMessage.can_be_edited to check whether a message can be edited. Media message can be edited only to a media message. The type of message content in an album can't be changed with exception of replacing a photo with a video or vice versa
@@ -28,9 +27,7 @@ class EditQuickReplyMessage(BaseObject):
     :type input_message_content: :class:`InputMessageContent`
     """
 
-    ID: typing.Literal["editQuickReplyMessage"] = Field(
-        "editQuickReplyMessage", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["editQuickReplyMessage"] = field(default="editQuickReplyMessage", metadata={"alias": "@type"})
     shortcut_id: Int32
     message_id: Int53
     input_message_content: InputMessageContent

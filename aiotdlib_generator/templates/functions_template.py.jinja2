@@ -5,11 +5,13 @@
 {{ '# ' + "=" * (notice.__len__() + 6) + " #" }}
 from __future__ import annotations
 
+from dataclasses import dataclass, field, MISSING
+
 import typing
 
-from pydantic import Field
 
 from ..types.base import *
+
 {% if entity.dependencies %}
 from ..types.all import (
     {% for dependency in entity.dependencies %}

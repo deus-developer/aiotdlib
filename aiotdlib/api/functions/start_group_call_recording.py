@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class StartGroupCallRecording(BaseObject):
     """
     Starts recording of an active group call. Requires groupCall.can_be_managed group call flag
@@ -26,10 +26,10 @@ class StartGroupCallRecording(BaseObject):
     :type use_portrait_orientation: :class:`Bool`
     """
 
-    ID: typing.Literal["startGroupCallRecording"] = Field(
-        "startGroupCallRecording", validation_alias="@type", alias="@type"
+    ID: typing.Literal["startGroupCallRecording"] = field(
+        default="startGroupCallRecording", metadata={"alias": "@type"}
     )
     group_call_id: Int32
-    title: String = Field("", max_length=64)
-    record_video: Bool = False
-    use_portrait_orientation: Bool = False
+    title: String = field(default="", metadata={"max_length": 64})
+    record_video: Bool = field(default=False)
+    use_portrait_orientation: Bool = field(default=False)

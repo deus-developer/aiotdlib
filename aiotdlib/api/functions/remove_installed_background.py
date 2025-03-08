@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveInstalledBackground(BaseObject):
     """
     Removes background from the list of installed backgrounds
@@ -20,7 +20,7 @@ class RemoveInstalledBackground(BaseObject):
     :type background_id: :class:`Int64`
     """
 
-    ID: typing.Literal["removeInstalledBackground"] = Field(
-        "removeInstalledBackground", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeInstalledBackground"] = field(
+        default="removeInstalledBackground", metadata={"alias": "@type"}
     )
     background_id: Int64

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPassportAuthorizationForm(BaseObject):
     """
     Returns a Telegram Passport authorization form for sharing data with a service
@@ -26,8 +26,8 @@ class GetPassportAuthorizationForm(BaseObject):
     :type nonce: :class:`String`
     """
 
-    ID: typing.Literal["getPassportAuthorizationForm"] = Field(
-        "getPassportAuthorizationForm", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getPassportAuthorizationForm"] = field(
+        default="getPassportAuthorizationForm", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     scope: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBusinessConnection(BaseObject):
     """
     Returns information about a business connection by its identifier; for bots only
@@ -20,7 +20,5 @@ class GetBusinessConnection(BaseObject):
     :type connection_id: :class:`String`
     """
 
-    ID: typing.Literal["getBusinessConnection"] = Field(
-        "getBusinessConnection", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getBusinessConnection"] = field(default="getBusinessConnection", metadata={"alias": "@type"})
     connection_id: String

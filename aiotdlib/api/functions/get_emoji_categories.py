@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     EmojiCategoryType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetEmojiCategories(BaseObject):
     """
     Returns available emoji categories
@@ -24,5 +23,5 @@ class GetEmojiCategories(BaseObject):
     :type type_: :class:`EmojiCategoryType`, optional
     """
 
-    ID: typing.Literal["getEmojiCategories"] = Field("getEmojiCategories", validation_alias="@type", alias="@type")
-    type_: typing.Optional[EmojiCategoryType] = Field(None, alias="type")
+    ID: typing.Literal["getEmojiCategories"] = field(default="getEmojiCategories", metadata={"alias": "@type"})
+    type_: typing.Optional[EmojiCategoryType] = field(default=None, metadata={"alias": "type"})

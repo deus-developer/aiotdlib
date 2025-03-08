@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClearRecentEmojiStatuses(BaseObject):
     """
     Clears the list of recently used emoji statuses for self status
     """
 
-    ID: typing.Literal["clearRecentEmojiStatuses"] = Field(
-        "clearRecentEmojiStatuses", validation_alias="@type", alias="@type"
+    ID: typing.Literal["clearRecentEmojiStatuses"] = field(
+        default="clearRecentEmojiStatuses", metadata={"alias": "@type"}
     )

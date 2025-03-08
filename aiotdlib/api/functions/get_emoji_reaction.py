@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetEmojiReaction(BaseObject):
     """
     Returns information about an emoji reaction. Returns a 404 error if the reaction is not found
@@ -20,5 +20,5 @@ class GetEmojiReaction(BaseObject):
     :type emoji: :class:`String`
     """
 
-    ID: typing.Literal["getEmojiReaction"] = Field("getEmojiReaction", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getEmojiReaction"] = field(default="getEmojiReaction", metadata={"alias": "@type"})
     emoji: String

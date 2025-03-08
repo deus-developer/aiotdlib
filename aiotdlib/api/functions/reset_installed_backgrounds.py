@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ResetInstalledBackgrounds(BaseObject):
     """
     Resets list of installed backgrounds to its default value
     """
 
-    ID: typing.Literal["resetInstalledBackgrounds"] = Field(
-        "resetInstalledBackgrounds", validation_alias="@type", alias="@type"
+    ID: typing.Literal["resetInstalledBackgrounds"] = field(
+        default="resetInstalledBackgrounds", metadata={"alias": "@type"}
     )

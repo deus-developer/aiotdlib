@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteBusinessConnectedBot(BaseObject):
     """
     Deletes the business bot that is connected to the current user account
@@ -20,7 +20,7 @@ class DeleteBusinessConnectedBot(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteBusinessConnectedBot"] = Field(
-        "deleteBusinessConnectedBot", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteBusinessConnectedBot"] = field(
+        default="deleteBusinessConnectedBot", metadata={"alias": "@type"}
     )
     bot_user_id: Int53

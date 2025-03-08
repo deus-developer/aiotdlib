@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddFileToDownloads(BaseObject):
     """
     Adds a file from a message to the list of file downloads. Download progress and completion of the download will be notified through updateFile updates. If message database is used, the list of file downloads is persistent across application restarts. The downloading is independent of download using downloadFile, i.e. it continues if downloadFile is canceled or is used to download a part of the file
@@ -26,7 +26,7 @@ class AddFileToDownloads(BaseObject):
     :type priority: :class:`Int32`
     """
 
-    ID: typing.Literal["addFileToDownloads"] = Field("addFileToDownloads", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addFileToDownloads"] = field(default="addFileToDownloads", metadata={"alias": "@type"})
     file_id: Int32
     chat_id: Int53
     message_id: Int53

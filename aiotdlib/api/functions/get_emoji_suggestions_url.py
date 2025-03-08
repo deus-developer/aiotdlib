@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetEmojiSuggestionsUrl(BaseObject):
     """
     Returns an HTTP URL which can be used to automatically log in to the translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
@@ -20,7 +20,5 @@ class GetEmojiSuggestionsUrl(BaseObject):
     :type language_code: :class:`String`
     """
 
-    ID: typing.Literal["getEmojiSuggestionsUrl"] = Field(
-        "getEmojiSuggestionsUrl", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getEmojiSuggestionsUrl"] = field(default="getEmojiSuggestionsUrl", metadata={"alias": "@type"})
     language_code: String

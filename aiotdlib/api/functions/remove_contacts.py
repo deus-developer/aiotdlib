@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveContacts(BaseObject):
     """
     Removes users from the contact list
@@ -20,5 +20,5 @@ class RemoveContacts(BaseObject):
     :type user_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["removeContacts"] = Field("removeContacts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeContacts"] = field(default="removeContacts", metadata={"alias": "@type"})
     user_ids: Vector[Int53]

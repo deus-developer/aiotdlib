@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderBotMediaPreviews(BaseObject):
     """
     Changes order of media previews in the list of media previews of a bot
@@ -24,8 +24,8 @@ class ReorderBotMediaPreviews(BaseObject):
     :type file_ids: :class:`Vector[Int32]`
     """
 
-    ID: typing.Literal["reorderBotMediaPreviews"] = Field(
-        "reorderBotMediaPreviews", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reorderBotMediaPreviews"] = field(
+        default="reorderBotMediaPreviews", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     language_code: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OpenChatSimilarChat(BaseObject):
     """
     Informs TDLib that a chat was opened from the list of similar chats. The method is independent of openChat and closeChat methods
@@ -22,6 +22,6 @@ class OpenChatSimilarChat(BaseObject):
     :type opened_chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["openChatSimilarChat"] = Field("openChatSimilarChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["openChatSimilarChat"] = field(default="openChatSimilarChat", metadata={"alias": "@type"})
     chat_id: Int53
     opened_chat_id: Int53

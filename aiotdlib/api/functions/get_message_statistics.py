@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageStatistics(BaseObject):
     """
     Returns detailed statistics about a message. Can be used only if messageProperties.can_get_statistics == true
@@ -24,7 +24,7 @@ class GetMessageStatistics(BaseObject):
     :type is_dark: :class:`Bool`
     """
 
-    ID: typing.Literal["getMessageStatistics"] = Field("getMessageStatistics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageStatistics"] = field(default="getMessageStatistics", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    is_dark: Bool = False
+    is_dark: Bool = field(default=False)

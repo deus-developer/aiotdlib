@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetForumTopicDefaultIcons(BaseObject):
     """
     Returns the list of custom emoji, which can be used as forum topic icon by all users
     """
 
-    ID: typing.Literal["getForumTopicDefaultIcons"] = Field(
-        "getForumTopicDefaultIcons", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getForumTopicDefaultIcons"] = field(
+        default="getForumTopicDefaultIcons", metadata={"alias": "@type"}
     )

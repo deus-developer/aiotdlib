@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CloseStory(BaseObject):
     """
     Informs TDLib that a story is closed by the user
@@ -22,6 +22,6 @@ class CloseStory(BaseObject):
     :type story_id: :class:`Int32`
     """
 
-    ID: typing.Literal["closeStory"] = Field("closeStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["closeStory"] = field(default="closeStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32

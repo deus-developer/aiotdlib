@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ProcessChatFolderNewChats(BaseObject):
     """
     Process new chats added to a shareable chat folder by its owner
@@ -22,8 +22,8 @@ class ProcessChatFolderNewChats(BaseObject):
     :type added_chat_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["processChatFolderNewChats"] = Field(
-        "processChatFolderNewChats", validation_alias="@type", alias="@type"
+    ID: typing.Literal["processChatFolderNewChats"] = field(
+        default="processChatFolderNewChats", metadata={"alias": "@type"}
     )
     chat_folder_id: Int32
     added_chat_ids: Vector[Int53]

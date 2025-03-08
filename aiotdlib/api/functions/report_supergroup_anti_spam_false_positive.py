@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportSupergroupAntiSpamFalsePositive(BaseObject):
     """
     Reports a false deletion of a message by aggressive anti-spam checks; requires administrator rights in the supergroup. Can be called only for messages from chatEventMessageDeleted with can_report_anti_spam_false_positive == true
@@ -22,8 +22,8 @@ class ReportSupergroupAntiSpamFalsePositive(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["reportSupergroupAntiSpamFalsePositive"] = Field(
-        "reportSupergroupAntiSpamFalsePositive", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reportSupergroupAntiSpamFalsePositive"] = field(
+        default="reportSupergroupAntiSpamFalsePositive", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     message_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUpgradedGiftWithdrawalUrl(BaseObject):
     """
     Returns a URL for upgraded gift withdrawal in the TON blockchain as an NFT; requires owner privileges for gifts owned by a chat
@@ -22,8 +22,8 @@ class GetUpgradedGiftWithdrawalUrl(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["getUpgradedGiftWithdrawalUrl"] = Field(
-        "getUpgradedGiftWithdrawalUrl", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getUpgradedGiftWithdrawalUrl"] = field(
+        default="getUpgradedGiftWithdrawalUrl", metadata={"alias": "@type"}
     )
     received_gift_id: String
     password: String

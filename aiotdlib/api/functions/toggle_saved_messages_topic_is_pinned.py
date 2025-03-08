@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSavedMessagesTopicIsPinned(BaseObject):
     """
     Changes the pinned state of a Saved Messages topic. There can be up to getOption("pinned_saved_messages_topic_count_max") pinned topics. The limit can be increased with Telegram Premium
@@ -22,8 +22,8 @@ class ToggleSavedMessagesTopicIsPinned(BaseObject):
     :type is_pinned: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSavedMessagesTopicIsPinned"] = Field(
-        "toggleSavedMessagesTopicIsPinned", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSavedMessagesTopicIsPinned"] = field(
+        default="toggleSavedMessagesTopicIsPinned", metadata={"alias": "@type"}
     )
     saved_messages_topic_id: Int53
-    is_pinned: Bool = False
+    is_pinned: Bool = field(default=False)

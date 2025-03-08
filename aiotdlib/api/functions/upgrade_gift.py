@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class UpgradeGift(BaseObject):
     """
     Upgrades a regular gift
@@ -24,7 +24,7 @@ class UpgradeGift(BaseObject):
     :type keep_original_details: :class:`Bool`
     """
 
-    ID: typing.Literal["upgradeGift"] = Field("upgradeGift", validation_alias="@type", alias="@type")
+    ID: typing.Literal["upgradeGift"] = field(default="upgradeGift", metadata={"alias": "@type"})
     received_gift_id: String
     star_count: Int53
-    keep_original_details: Bool = False
+    keep_original_details: Bool = field(default=False)

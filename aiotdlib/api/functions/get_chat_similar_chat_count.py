@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatSimilarChatCount(BaseObject):
     """
     Returns approximate number of chats similar to the given chat
@@ -22,8 +22,8 @@ class GetChatSimilarChatCount(BaseObject):
     :type return_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatSimilarChatCount"] = Field(
-        "getChatSimilarChatCount", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatSimilarChatCount"] = field(
+        default="getChatSimilarChatCount", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    return_local: Bool = False
+    return_local: Bool = field(default=False)

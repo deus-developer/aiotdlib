@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLoginUrlInfo(BaseObject):
     """
     Returns information about a button of type inlineKeyboardButtonTypeLoginUrl. The method needs to be called when the user presses the button
@@ -24,7 +24,7 @@ class GetLoginUrlInfo(BaseObject):
     :type button_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getLoginUrlInfo"] = Field("getLoginUrlInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getLoginUrlInfo"] = field(default="getLoginUrlInfo", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     button_id: Int53

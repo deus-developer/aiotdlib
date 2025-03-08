@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetContacts(BaseObject):
     """
     Returns all contacts of the user
     """
 
-    ID: typing.Literal["getContacts"] = Field("getContacts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getContacts"] = field(default="getContacts", metadata={"alias": "@type"})

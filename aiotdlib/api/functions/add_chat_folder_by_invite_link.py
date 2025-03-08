@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddChatFolderByInviteLink(BaseObject):
     """
     Adds a chat folder by an invite link
@@ -22,8 +22,8 @@ class AddChatFolderByInviteLink(BaseObject):
     :type chat_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["addChatFolderByInviteLink"] = Field(
-        "addChatFolderByInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["addChatFolderByInviteLink"] = field(
+        default="addChatFolderByInviteLink", metadata={"alias": "@type"}
     )
     invite_link: String
     chat_ids: Vector[Int53]

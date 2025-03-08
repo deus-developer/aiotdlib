@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ClickAnimatedEmojiMessage(BaseObject):
     """
     Informs TDLib that a message with an animated emoji was clicked by the user. Returns a big animated sticker to be played or a 404 error if usual animation needs to be played
@@ -22,8 +22,8 @@ class ClickAnimatedEmojiMessage(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["clickAnimatedEmojiMessage"] = Field(
-        "clickAnimatedEmojiMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["clickAnimatedEmojiMessage"] = field(
+        default="clickAnimatedEmojiMessage", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

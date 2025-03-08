@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecentlyVisitedTMeUrls(BaseObject):
     """
     Returns t.me URLs recently visited by a newly registered user
@@ -20,7 +20,7 @@ class GetRecentlyVisitedTMeUrls(BaseObject):
     :type referrer: :class:`String`
     """
 
-    ID: typing.Literal["getRecentlyVisitedTMeUrls"] = Field(
-        "getRecentlyVisitedTMeUrls", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getRecentlyVisitedTMeUrls"] = field(
+        default="getRecentlyVisitedTMeUrls", metadata={"alias": "@type"}
     )
     referrer: String

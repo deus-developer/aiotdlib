@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageFileType(BaseObject):
     """
     Returns information about a file with messages exported from another application
@@ -20,5 +20,5 @@ class GetMessageFileType(BaseObject):
     :type message_file_head: :class:`String`
     """
 
-    ID: typing.Literal["getMessageFileType"] = Field("getMessageFileType", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageFileType"] = field(default="getMessageFileType", metadata={"alias": "@type"})
     message_file_head: String

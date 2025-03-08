@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatClientData(BaseObject):
     """
     Changes application-specific data associated with a chat
@@ -22,6 +22,6 @@ class SetChatClientData(BaseObject):
     :type client_data: :class:`String`
     """
 
-    ID: typing.Literal["setChatClientData"] = Field("setChatClientData", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatClientData"] = field(default="setChatClientData", metadata={"alias": "@type"})
     chat_id: Int53
     client_data: String

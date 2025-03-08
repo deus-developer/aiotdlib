@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class StartScheduledGroupCall(BaseObject):
     """
     Starts a scheduled group call
@@ -20,7 +20,7 @@ class StartScheduledGroupCall(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["startScheduledGroupCall"] = Field(
-        "startScheduledGroupCall", validation_alias="@type", alias="@type"
+    ID: typing.Literal["startScheduledGroupCall"] = field(
+        default="startScheduledGroupCall", metadata={"alias": "@type"}
     )
     group_call_id: Int32

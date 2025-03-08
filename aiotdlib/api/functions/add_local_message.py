@@ -6,18 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     InputMessageReplyTo,
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddLocalMessage(BaseObject):
     """
     Adds a local message to a chat. The message is persistent across application restarts only if the message database is used. Returns the added message
@@ -34,9 +33,9 @@ class AddLocalMessage(BaseObject):
     :type reply_to: :class:`InputMessageReplyTo`, optional
     """
 
-    ID: typing.Literal["addLocalMessage"] = Field("addLocalMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addLocalMessage"] = field(default="addLocalMessage", metadata={"alias": "@type"})
     chat_id: Int53
     sender_id: MessageSender
     input_message_content: InputMessageContent
-    disable_notification: Bool = False
-    reply_to: typing.Optional[InputMessageReplyTo] = None
+    disable_notification: Bool = field(default=False)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)

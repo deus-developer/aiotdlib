@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteAllRevokedChatInviteLinks(BaseObject):
     """
     Deletes all revoked chat invite links created by a given chat administrator. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
@@ -22,8 +22,8 @@ class DeleteAllRevokedChatInviteLinks(BaseObject):
     :type creator_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteAllRevokedChatInviteLinks"] = Field(
-        "deleteAllRevokedChatInviteLinks", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteAllRevokedChatInviteLinks"] = field(
+        default="deleteAllRevokedChatInviteLinks", metadata={"alias": "@type"}
     )
     chat_id: Int53
     creator_user_id: Int53

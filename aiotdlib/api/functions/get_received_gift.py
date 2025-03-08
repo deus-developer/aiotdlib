@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetReceivedGift(BaseObject):
     """
     Returns information about a received gift
@@ -20,5 +20,5 @@ class GetReceivedGift(BaseObject):
     :type received_gift_id: :class:`String`
     """
 
-    ID: typing.Literal["getReceivedGift"] = Field("getReceivedGift", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getReceivedGift"] = field(default="getReceivedGift", metadata={"alias": "@type"})
     received_gift_id: String

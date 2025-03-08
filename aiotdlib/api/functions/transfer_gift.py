@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TransferGift(BaseObject):
     """
     Sends an upgraded gift to another user or a channel chat
@@ -28,7 +27,7 @@ class TransferGift(BaseObject):
     :type star_count: :class:`Int53`
     """
 
-    ID: typing.Literal["transferGift"] = Field("transferGift", validation_alias="@type", alias="@type")
+    ID: typing.Literal["transferGift"] = field(default="transferGift", metadata={"alias": "@type"})
     received_gift_id: String
     new_owner_id: MessageSender
     star_count: Int53

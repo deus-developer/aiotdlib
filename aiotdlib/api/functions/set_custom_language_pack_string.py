@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     LanguagePackString,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetCustomLanguagePackString(BaseObject):
     """
     Adds, edits or deletes a string in a custom local language pack. Can be called before authorization
@@ -26,8 +25,8 @@ class SetCustomLanguagePackString(BaseObject):
     :type new_string: :class:`LanguagePackString`
     """
 
-    ID: typing.Literal["setCustomLanguagePackString"] = Field(
-        "setCustomLanguagePackString", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setCustomLanguagePackString"] = field(
+        default="setCustomLanguagePackString", metadata={"alias": "@type"}
     )
     language_pack_id: String
     new_string: LanguagePackString

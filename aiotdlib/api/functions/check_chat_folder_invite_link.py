@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckChatFolderInviteLink(BaseObject):
     """
     Checks the validity of an invite link for a chat folder and returns information about the corresponding chat folder
@@ -20,7 +20,7 @@ class CheckChatFolderInviteLink(BaseObject):
     :type invite_link: :class:`String`
     """
 
-    ID: typing.Literal["checkChatFolderInviteLink"] = Field(
-        "checkChatFolderInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkChatFolderInviteLink"] = field(
+        default="checkChatFolderInviteLink", metadata={"alias": "@type"}
     )
     invite_link: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStoryStatistics(BaseObject):
     """
     Returns detailed statistics about a story. Can be used only if story.can_get_statistics == true
@@ -24,7 +24,7 @@ class GetStoryStatistics(BaseObject):
     :type is_dark: :class:`Bool`
     """
 
-    ID: typing.Literal["getStoryStatistics"] = Field("getStoryStatistics", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStoryStatistics"] = field(default="getStoryStatistics", metadata={"alias": "@type"})
     chat_id: Int53
     story_id: Int32
-    is_dark: Bool = False
+    is_dark: Bool = field(default=False)

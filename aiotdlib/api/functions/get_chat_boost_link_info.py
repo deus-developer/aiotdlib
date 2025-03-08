@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatBoostLinkInfo(BaseObject):
     """
     Returns information about a link to boost a chat. Can be called for any internal link of the type internalLinkTypeChatBoost
@@ -20,5 +20,5 @@ class GetChatBoostLinkInfo(BaseObject):
     :type url: :class:`String`
     """
 
-    ID: typing.Literal["getChatBoostLinkInfo"] = Field("getChatBoostLinkInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatBoostLinkInfo"] = field(default="getChatBoostLinkInfo", metadata={"alias": "@type"})
     url: String

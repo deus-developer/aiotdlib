@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatProfileAccentColor(BaseObject):
     """
     Changes accent color and background custom emoji for profile of a supergroup or channel chat. Requires can_change_info administrator right
@@ -24,9 +24,9 @@ class SetChatProfileAccentColor(BaseObject):
     :type profile_background_custom_emoji_id: :class:`Int64`, optional
     """
 
-    ID: typing.Literal["setChatProfileAccentColor"] = Field(
-        "setChatProfileAccentColor", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatProfileAccentColor"] = field(
+        default="setChatProfileAccentColor", metadata={"alias": "@type"}
     )
     chat_id: Int53
     profile_accent_color_id: Int32
-    profile_background_custom_emoji_id: typing.Optional[Int64] = 0
+    profile_background_custom_emoji_id: typing.Optional[Int64] = field(default=0)

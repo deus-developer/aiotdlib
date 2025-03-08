@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupJoinByRequest(BaseObject):
     """
     Toggles whether all users directly joining the supergroup need to be approved by supergroup administrators; requires can_restrict_members administrator right
@@ -22,8 +22,8 @@ class ToggleSupergroupJoinByRequest(BaseObject):
     :type join_by_request: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupJoinByRequest"] = Field(
-        "toggleSupergroupJoinByRequest", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupJoinByRequest"] = field(
+        default="toggleSupergroupJoinByRequest", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     join_by_request: Bool

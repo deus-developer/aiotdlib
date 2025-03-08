@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatSparseMessagePositions(BaseObject):
     """
     Returns sparse positions of messages of the specified type in the chat to be used for shared media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id). Cannot be used in secret chats or with searchMessagesFilterFailedToSend filter without an enabled message database
@@ -32,11 +31,11 @@ class GetChatSparseMessagePositions(BaseObject):
     :type saved_messages_topic_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatSparseMessagePositions"] = Field(
-        "getChatSparseMessagePositions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatSparseMessagePositions"] = field(
+        default="getChatSparseMessagePositions", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    filter_: SearchMessagesFilter = Field(..., alias="filter")
+    filter_: SearchMessagesFilter = field(default=MISSING, metadata={"alias": "filter"})
     from_message_id: Int53
     limit: Int32
-    saved_messages_topic_id: Int53 = 0
+    saved_messages_topic_id: Int53 = field(default=0)

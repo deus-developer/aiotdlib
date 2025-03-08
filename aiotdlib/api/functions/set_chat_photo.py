@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputChatPhoto,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatPhoto(BaseObject):
     """
     Changes the photo of a chat. Supported only for basic groups, supergroups and channels. Requires can_change_info member right
@@ -26,6 +25,6 @@ class SetChatPhoto(BaseObject):
     :type photo: :class:`InputChatPhoto`, optional
     """
 
-    ID: typing.Literal["setChatPhoto"] = Field("setChatPhoto", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatPhoto"] = field(default="setChatPhoto", metadata={"alias": "@type"})
     chat_id: Int53
-    photo: typing.Optional[InputChatPhoto] = None
+    photo: typing.Optional[InputChatPhoto] = field(default=None)

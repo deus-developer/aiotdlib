@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BusinessLocation,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessLocation(BaseObject):
     """
     Changes the business location of the current user. Requires Telegram Business subscription
@@ -24,5 +23,5 @@ class SetBusinessLocation(BaseObject):
     :type location: :class:`BusinessLocation`, optional
     """
 
-    ID: typing.Literal["setBusinessLocation"] = Field("setBusinessLocation", validation_alias="@type", alias="@type")
-    location: typing.Optional[BusinessLocation] = None
+    ID: typing.Literal["setBusinessLocation"] = field(default="setBusinessLocation", metadata={"alias": "@type"})
+    location: typing.Optional[BusinessLocation] = field(default=None)

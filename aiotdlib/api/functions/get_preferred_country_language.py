@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPreferredCountryLanguage(BaseObject):
     """
     Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown
@@ -20,7 +20,7 @@ class GetPreferredCountryLanguage(BaseObject):
     :type country_code: :class:`String`
     """
 
-    ID: typing.Literal["getPreferredCountryLanguage"] = Field(
-        "getPreferredCountryLanguage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getPreferredCountryLanguage"] = field(
+        default="getPreferredCountryLanguage", metadata={"alias": "@type"}
     )
     country_code: String

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputSticker,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddStickerToSet(BaseObject):
     """
     Adds a new sticker to a set
@@ -28,7 +27,7 @@ class AddStickerToSet(BaseObject):
     :type sticker: :class:`InputSticker`
     """
 
-    ID: typing.Literal["addStickerToSet"] = Field("addStickerToSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addStickerToSet"] = field(default="addStickerToSet", metadata={"alias": "@type"})
     user_id: Int53
     name: String
     sticker: InputSticker

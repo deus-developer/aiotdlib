@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LoadQuickReplyShortcutMessages(BaseObject):
     """
     Loads quick reply messages that can be sent by a given quick reply shortcut. The loaded messages will be sent through updateQuickReplyShortcutMessages
@@ -20,7 +20,7 @@ class LoadQuickReplyShortcutMessages(BaseObject):
     :type shortcut_id: :class:`Int32`
     """
 
-    ID: typing.Literal["loadQuickReplyShortcutMessages"] = Field(
-        "loadQuickReplyShortcutMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["loadQuickReplyShortcutMessages"] = field(
+        default="loadQuickReplyShortcutMessages", metadata={"alias": "@type"}
     )
     shortcut_id: Int32

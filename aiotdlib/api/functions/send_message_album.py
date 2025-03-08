@@ -6,18 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
     InputMessageReplyTo,
     MessageSendOptions,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendMessageAlbum(BaseObject):
     """
     Sends 2-10 messages grouped together into an album. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages
@@ -34,9 +33,9 @@ class SendMessageAlbum(BaseObject):
     :type options: :class:`MessageSendOptions`, optional
     """
 
-    ID: typing.Literal["sendMessageAlbum"] = Field("sendMessageAlbum", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendMessageAlbum"] = field(default="sendMessageAlbum", metadata={"alias": "@type"})
     chat_id: Int53
     input_message_contents: Vector[InputMessageContent]
-    message_thread_id: Int53 = 0
-    reply_to: typing.Optional[InputMessageReplyTo] = None
-    options: typing.Optional[MessageSendOptions] = None
+    message_thread_id: Int53 = field(default=0)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)
+    options: typing.Optional[MessageSendOptions] = field(default=None)

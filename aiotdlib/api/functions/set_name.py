@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import MISSING, dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetName(BaseObject):
     """
     Changes the first and last name of the current user
@@ -22,6 +22,6 @@ class SetName(BaseObject):
     :type last_name: :class:`String`
     """
 
-    ID: typing.Literal["setName"] = Field("setName", validation_alias="@type", alias="@type")
-    first_name: String = Field(..., min_length=1, max_length=64)
-    last_name: String = Field("", max_length=64)
+    ID: typing.Literal["setName"] = field(default="setName", metadata={"alias": "@type"})
+    first_name: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 64})
+    last_name: String = field(default="", metadata={"max_length": 64})

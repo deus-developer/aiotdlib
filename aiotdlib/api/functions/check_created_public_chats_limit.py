@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     PublicChatType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckCreatedPublicChatsLimit(BaseObject):
     """
     Checks whether the maximum number of owned public chats has been reached. Returns corresponding error if the limit was reached. The limit can be increased with Telegram Premium
@@ -24,7 +23,7 @@ class CheckCreatedPublicChatsLimit(BaseObject):
     :type type_: :class:`PublicChatType`
     """
 
-    ID: typing.Literal["checkCreatedPublicChatsLimit"] = Field(
-        "checkCreatedPublicChatsLimit", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkCreatedPublicChatsLimit"] = field(
+        default="checkCreatedPublicChatsLimit", metadata={"alias": "@type"}
     )
-    type_: PublicChatType = Field(..., alias="type")
+    type_: PublicChatType = field(default=MISSING, metadata={"alias": "type"})

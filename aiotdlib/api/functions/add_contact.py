@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Contact,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddContact(BaseObject):
     """
     Adds a user to the contact list or edits an existing contact by their user identifier
@@ -26,6 +25,6 @@ class AddContact(BaseObject):
     :type share_phone_number: :class:`Bool`
     """
 
-    ID: typing.Literal["addContact"] = Field("addContact", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addContact"] = field(default="addContact", metadata={"alias": "@type"})
     contact: Contact
-    share_phone_number: Bool = False
+    share_phone_number: Bool = field(default=False)

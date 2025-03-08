@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLocalizationTargetInfo(BaseObject):
     """
     Returns information about the current localization target. This is an offline request if only_local is true. Can be called before authorization
@@ -20,7 +20,7 @@ class GetLocalizationTargetInfo(BaseObject):
     :type only_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getLocalizationTargetInfo"] = Field(
-        "getLocalizationTargetInfo", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getLocalizationTargetInfo"] = field(
+        default="getLocalizationTargetInfo", metadata={"alias": "@type"}
     )
-    only_local: Bool = False
+    only_local: Bool = field(default=False)

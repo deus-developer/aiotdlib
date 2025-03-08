@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatHistory(BaseObject):
     """
     Returns messages in a chat. The messages are returned in reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if only_local is true
@@ -28,9 +28,9 @@ class GetChatHistory(BaseObject):
     :type only_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatHistory"] = Field("getChatHistory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatHistory"] = field(default="getChatHistory", metadata={"alias": "@type"})
     chat_id: Int53
     from_message_id: Int53
     offset: Int32
     limit: Int32
-    only_local: Bool = False
+    only_local: Bool = field(default=False)

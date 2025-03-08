@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteSavedOrderInfo(BaseObject):
     """
     Deletes saved order information
     """
 
-    ID: typing.Literal["deleteSavedOrderInfo"] = Field("deleteSavedOrderInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteSavedOrderInfo"] = field(default="deleteSavedOrderInfo", metadata={"alias": "@type"})

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchSecretMessages(BaseObject):
     """
     Searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance, the number of returned messages is chosen by TDLib
@@ -32,9 +31,9 @@ class SearchSecretMessages(BaseObject):
     :type filter_: :class:`SearchMessagesFilter`, optional
     """
 
-    ID: typing.Literal["searchSecretMessages"] = Field("searchSecretMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchSecretMessages"] = field(default="searchSecretMessages", metadata={"alias": "@type"})
     chat_id: Int53
     offset: String
     limit: Int32
-    query: String = ""
-    filter_: typing.Optional[SearchMessagesFilter] = Field(None, alias="filter")
+    query: String = field(default="")
+    filter_: typing.Optional[SearchMessagesFilter] = field(default=None, metadata={"alias": "filter"})

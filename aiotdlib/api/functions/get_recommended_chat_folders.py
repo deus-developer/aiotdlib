@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetRecommendedChatFolders(BaseObject):
     """
     Returns recommended chat folders for the current user
     """
 
-    ID: typing.Literal["getRecommendedChatFolders"] = Field(
-        "getRecommendedChatFolders", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getRecommendedChatFolders"] = field(
+        default="getRecommendedChatFolders", metadata={"alias": "@type"}
     )

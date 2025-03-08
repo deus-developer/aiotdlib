@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     AffiliateType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ConnectAffiliateProgram(BaseObject):
     """
     Connects an affiliate program to the given affiliate. Returns information about the connected affiliate program
@@ -26,8 +25,8 @@ class ConnectAffiliateProgram(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["connectAffiliateProgram"] = Field(
-        "connectAffiliateProgram", validation_alias="@type", alias="@type"
+    ID: typing.Literal["connectAffiliateProgram"] = field(
+        default="connectAffiliateProgram", metadata={"alias": "@type"}
     )
     affiliate: AffiliateType
     bot_user_id: Int53

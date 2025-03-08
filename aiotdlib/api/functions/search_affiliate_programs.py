@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     AffiliateProgramSortOrder,
     AffiliateType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchAffiliatePrograms(BaseObject):
     """
     Searches affiliate programs that can be connected to the given affiliate
@@ -31,8 +30,8 @@ class SearchAffiliatePrograms(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchAffiliatePrograms"] = Field(
-        "searchAffiliatePrograms", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchAffiliatePrograms"] = field(
+        default="searchAffiliatePrograms", metadata={"alias": "@type"}
     )
     affiliate: AffiliateType
     sort_order: AffiliateProgramSortOrder

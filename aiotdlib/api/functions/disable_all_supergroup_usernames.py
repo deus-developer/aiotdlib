@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DisableAllSupergroupUsernames(BaseObject):
     """
     Disables all active non-editable usernames of a supergroup or channel, requires owner privileges in the supergroup or channel
@@ -20,7 +20,7 @@ class DisableAllSupergroupUsernames(BaseObject):
     :type supergroup_id: :class:`Int53`
     """
 
-    ID: typing.Literal["disableAllSupergroupUsernames"] = Field(
-        "disableAllSupergroupUsernames", validation_alias="@type", alias="@type"
+    ID: typing.Literal["disableAllSupergroupUsernames"] = field(
+        default="disableAllSupergroupUsernames", metadata={"alias": "@type"}
     )
     supergroup_id: Int53

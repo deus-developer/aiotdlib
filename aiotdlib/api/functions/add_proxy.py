@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     ProxyType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddProxy(BaseObject):
     """
     Adds a proxy server for network requests. Can be called before authorization
@@ -30,8 +29,8 @@ class AddProxy(BaseObject):
     :type enable: :class:`Bool`
     """
 
-    ID: typing.Literal["addProxy"] = Field("addProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["addProxy"] = field(default="addProxy", metadata={"alias": "@type"})
     server: String
     port: Int32
-    type_: ProxyType = Field(..., alias="type")
-    enable: Bool = False
+    type_: ProxyType = field(default=MISSING, metadata={"alias": "type"})
+    enable: Bool = field(default=False)

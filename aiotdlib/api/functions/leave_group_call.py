@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LeaveGroupCall(BaseObject):
     """
     Leaves a group call
@@ -20,5 +20,5 @@ class LeaveGroupCall(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["leaveGroupCall"] = Field("leaveGroupCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["leaveGroupCall"] = field(default="leaveGroupCall", metadata={"alias": "@type"})
     group_call_id: Int32

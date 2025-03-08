@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetBankCardInfo(BaseObject):
     """
     Returns information about a bank card
@@ -20,5 +20,5 @@ class GetBankCardInfo(BaseObject):
     :type bank_card_number: :class:`String`
     """
 
-    ID: typing.Literal["getBankCardInfo"] = Field("getBankCardInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getBankCardInfo"] = field(default="getBankCardInfo", metadata={"alias": "@type"})
     bank_card_number: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendWebAppData(BaseObject):
     """
     Sends data received from a keyboardButtonTypeWebApp Web App to a bot
@@ -24,7 +24,7 @@ class SendWebAppData(BaseObject):
     :type data: :class:`String`
     """
 
-    ID: typing.Literal["sendWebAppData"] = Field("sendWebAppData", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendWebAppData"] = field(default="sendWebAppData", metadata={"alias": "@type"})
     bot_user_id: Int53
     button_text: String
     data: String

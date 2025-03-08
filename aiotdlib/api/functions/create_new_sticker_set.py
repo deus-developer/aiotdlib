@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     InputSticker,
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateNewStickerSet(BaseObject):
     """
     Creates a new sticker set. Returns the newly created sticker set
@@ -37,11 +36,11 @@ class CreateNewStickerSet(BaseObject):
     :type name: :class:`String`, optional
     """
 
-    ID: typing.Literal["createNewStickerSet"] = Field("createNewStickerSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createNewStickerSet"] = field(default="createNewStickerSet", metadata={"alias": "@type"})
     user_id: Int53
-    title: String = Field(..., min_length=1, max_length=64)
+    title: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 64})
     sticker_type: StickerType
     stickers: Vector[InputSticker]
-    needs_repainting: Bool = False
-    source: String = ""
-    name: typing.Optional[String] = Field("", max_length=64)
+    needs_repainting: Bool = field(default=False)
+    source: String = field(default="")
+    name: typing.Optional[String] = field(default="", metadata={"max_length": 64})

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     PremiumFeature,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ViewPremiumFeature(BaseObject):
     """
     Informs TDLib that the user viewed detailed information about a Premium feature on the Premium features screen
@@ -24,5 +23,5 @@ class ViewPremiumFeature(BaseObject):
     :type feature: :class:`PremiumFeature`
     """
 
-    ID: typing.Literal["viewPremiumFeature"] = Field("viewPremiumFeature", validation_alias="@type", alias="@type")
+    ID: typing.Literal["viewPremiumFeature"] = field(default="viewPremiumFeature", metadata={"alias": "@type"})
     feature: PremiumFeature

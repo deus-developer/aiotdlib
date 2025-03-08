@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupIsForum(BaseObject):
     """
     Toggles whether the supergroup is a forum; requires owner privileges in the supergroup. Discussion supergroups can't be converted to forums
@@ -22,8 +22,8 @@ class ToggleSupergroupIsForum(BaseObject):
     :type is_forum: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupIsForum"] = Field(
-        "toggleSupergroupIsForum", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupIsForum"] = field(
+        default="toggleSupergroupIsForum", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     is_forum: Bool

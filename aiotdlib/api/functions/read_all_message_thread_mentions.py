@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReadAllMessageThreadMentions(BaseObject):
     """
     Marks all mentions in a forum topic as read
@@ -22,8 +22,8 @@ class ReadAllMessageThreadMentions(BaseObject):
     :type message_thread_id: :class:`Int53`
     """
 
-    ID: typing.Literal["readAllMessageThreadMentions"] = Field(
-        "readAllMessageThreadMentions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["readAllMessageThreadMentions"] = field(
+        default="readAllMessageThreadMentions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_thread_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchUserByPhoneNumber(BaseObject):
     """
     Searches a user by their phone number. Returns a 404 error if the user can't be found
@@ -22,8 +22,8 @@ class SearchUserByPhoneNumber(BaseObject):
     :type only_local: :class:`Bool`
     """
 
-    ID: typing.Literal["searchUserByPhoneNumber"] = Field(
-        "searchUserByPhoneNumber", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchUserByPhoneNumber"] = field(
+        default="searchUserByPhoneNumber", metadata={"alias": "@type"}
     )
     phone_number: String
-    only_local: Bool = False
+    only_local: Bool = field(default=False)

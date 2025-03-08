@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetGroupCallParticipantVolumeLevel(BaseObject):
     """
     Changes volume level of a participant of an active group call. If the current user can manage the group call, then the participant's volume level will be changed for all users with the default volume level
@@ -28,8 +27,8 @@ class SetGroupCallParticipantVolumeLevel(BaseObject):
     :type volume_level: :class:`Int32`
     """
 
-    ID: typing.Literal["setGroupCallParticipantVolumeLevel"] = Field(
-        "setGroupCallParticipantVolumeLevel", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setGroupCallParticipantVolumeLevel"] = field(
+        default="setGroupCallParticipantVolumeLevel", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     participant_id: MessageSender

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetTextEntities(BaseObject):
     """
     Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) found in the text. Can be called synchronously
@@ -20,5 +20,5 @@ class GetTextEntities(BaseObject):
     :type text: :class:`String`
     """
 
-    ID: typing.Literal["getTextEntities"] = Field("getTextEntities", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getTextEntities"] = field(default="getTextEntities", metadata={"alias": "@type"})
     text: String

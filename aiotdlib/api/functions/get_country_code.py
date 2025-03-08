@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCountryCode(BaseObject):
     """
     Uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization
     """
 
-    ID: typing.Literal["getCountryCode"] = Field("getCountryCode", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getCountryCode"] = field(default="getCountryCode", metadata={"alias": "@type"})

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputInvoice,
     OrderInfo,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ValidateOrderInfo(BaseObject):
     """
     Validates the order information provided by a user and returns the available shipping options for a flexible invoice
@@ -29,7 +28,7 @@ class ValidateOrderInfo(BaseObject):
     :type order_info: :class:`OrderInfo`, optional
     """
 
-    ID: typing.Literal["validateOrderInfo"] = Field("validateOrderInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["validateOrderInfo"] = field(default="validateOrderInfo", metadata={"alias": "@type"})
     input_invoice: InputInvoice
-    allow_save: Bool = False
-    order_info: typing.Optional[OrderInfo] = None
+    allow_save: Bool = field(default=False)
+    order_info: typing.Optional[OrderInfo] = field(default=None)

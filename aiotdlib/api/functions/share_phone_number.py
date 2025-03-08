@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SharePhoneNumber(BaseObject):
     """
     Shares the phone number of the current user with a mutual contact. Supposed to be called when the user clicks on chatActionBarSharePhoneNumber
@@ -20,5 +20,5 @@ class SharePhoneNumber(BaseObject):
     :type user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["sharePhoneNumber"] = Field("sharePhoneNumber", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sharePhoneNumber"] = field(default="sharePhoneNumber", metadata={"alias": "@type"})
     user_id: Int53

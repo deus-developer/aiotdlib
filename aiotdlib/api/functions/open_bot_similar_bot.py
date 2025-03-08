@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OpenBotSimilarBot(BaseObject):
     """
     Informs TDLib that a bot was opened from the list of similar bots
@@ -22,6 +22,6 @@ class OpenBotSimilarBot(BaseObject):
     :type opened_bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["openBotSimilarBot"] = Field("openBotSimilarBot", validation_alias="@type", alias="@type")
+    ID: typing.Literal["openBotSimilarBot"] = field(default="openBotSimilarBot", metadata={"alias": "@type"})
     bot_user_id: Int53
     opened_bot_user_id: Int53

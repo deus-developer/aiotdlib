@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPreparedInlineMessage(BaseObject):
     """
     Saves an inline message to be sent by the given user
@@ -22,8 +22,8 @@ class GetPreparedInlineMessage(BaseObject):
     :type prepared_message_id: :class:`String`
     """
 
-    ID: typing.Literal["getPreparedInlineMessage"] = Field(
-        "getPreparedInlineMessage", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getPreparedInlineMessage"] = field(
+        default="getPreparedInlineMessage", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     prepared_message_id: String

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatFolder,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditChatFolder(BaseObject):
     """
     Edits existing chat folder. Returns information about the edited chat folder
@@ -26,6 +25,6 @@ class EditChatFolder(BaseObject):
     :type folder: :class:`ChatFolder`
     """
 
-    ID: typing.Literal["editChatFolder"] = Field("editChatFolder", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editChatFolder"] = field(default="editChatFolder", metadata={"alias": "@type"})
     chat_folder_id: Int32
     folder: ChatFolder

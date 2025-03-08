@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InlineQueryResultsButton,
     InputInlineQueryResult,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AnswerInlineQuery(BaseObject):
     """
     Sets the result of an inline query; for bots only
@@ -35,10 +34,10 @@ class AnswerInlineQuery(BaseObject):
     :type button: :class:`InlineQueryResultsButton`, optional
     """
 
-    ID: typing.Literal["answerInlineQuery"] = Field("answerInlineQuery", validation_alias="@type", alias="@type")
+    ID: typing.Literal["answerInlineQuery"] = field(default="answerInlineQuery", metadata={"alias": "@type"})
     inline_query_id: Int64
     results: Vector[InputInlineQueryResult]
     cache_time: Int32
     next_offset: String
-    is_personal: Bool = False
-    button: typing.Optional[InlineQueryResultsButton] = None
+    is_personal: Bool = field(default=False)
+    button: typing.Optional[InlineQueryResultsButton] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchChatsOnServer(BaseObject):
     """
     Searches for the specified query in the title and username of already known chats via request to the server. Returns chats in the order seen in the main chat list
@@ -22,6 +22,6 @@ class SearchChatsOnServer(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchChatsOnServer"] = Field("searchChatsOnServer", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchChatsOnServer"] = field(default="searchChatsOnServer", metadata={"alias": "@type"})
     query: String
     limit: Int32

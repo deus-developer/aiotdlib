@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetUserFullInfo(BaseObject):
     """
     Returns full information about a user by their identifier
@@ -20,5 +20,5 @@ class GetUserFullInfo(BaseObject):
     :type user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getUserFullInfo"] = Field("getUserFullInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getUserFullInfo"] = field(default="getUserFullInfo", metadata={"alias": "@type"})
     user_id: Int53

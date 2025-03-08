@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ProcessChatJoinRequests(BaseObject):
     """
     Handles all pending join requests for a given link in a chat
@@ -24,9 +24,9 @@ class ProcessChatJoinRequests(BaseObject):
     :type approve: :class:`Bool`
     """
 
-    ID: typing.Literal["processChatJoinRequests"] = Field(
-        "processChatJoinRequests", validation_alias="@type", alias="@type"
+    ID: typing.Literal["processChatJoinRequests"] = field(
+        default="processChatJoinRequests", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    invite_link: String = ""
-    approve: Bool = False
+    invite_link: String = field(default="")
+    approve: Bool = field(default=False)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarWithdrawalUrl(BaseObject):
     """
     Returns a URL for Telegram Star withdrawal
@@ -28,7 +27,7 @@ class GetStarWithdrawalUrl(BaseObject):
     :type password: :class:`String`
     """
 
-    ID: typing.Literal["getStarWithdrawalUrl"] = Field("getStarWithdrawalUrl", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStarWithdrawalUrl"] = field(default="getStarWithdrawalUrl", metadata={"alias": "@type"})
     owner_id: MessageSender
     star_count: Int53
     password: String

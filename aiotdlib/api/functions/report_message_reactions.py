@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportMessageReactions(BaseObject):
     """
     Reports reactions set on a message to the Telegram moderators. Reactions on a message can be reported only if messageProperties.can_report_reactions
@@ -28,9 +27,7 @@ class ReportMessageReactions(BaseObject):
     :type sender_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["reportMessageReactions"] = Field(
-        "reportMessageReactions", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["reportMessageReactions"] = field(default="reportMessageReactions", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     sender_id: MessageSender

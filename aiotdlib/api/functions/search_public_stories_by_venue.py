@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchPublicStoriesByVenue(BaseObject):
     """
     Searches for public stories from the given venue. For optimal performance, the number of returned stories is chosen by TDLib and can be smaller than the specified limit
@@ -26,8 +26,8 @@ class SearchPublicStoriesByVenue(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchPublicStoriesByVenue"] = Field(
-        "searchPublicStoriesByVenue", validation_alias="@type", alias="@type"
+    ID: typing.Literal["searchPublicStoriesByVenue"] = field(
+        default="searchPublicStoriesByVenue", metadata={"alias": "@type"}
     )
     venue_provider: String
     venue_id: String

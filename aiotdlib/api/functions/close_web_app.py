@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CloseWebApp(BaseObject):
     """
     Informs TDLib that a previously opened Web App was closed
@@ -20,5 +20,5 @@ class CloseWebApp(BaseObject):
     :type web_app_launch_id: :class:`Int64`
     """
 
-    ID: typing.Literal["closeWebApp"] = Field("closeWebApp", validation_alias="@type", alias="@type")
+    ID: typing.Literal["closeWebApp"] = field(default="closeWebApp", metadata={"alias": "@type"})
     web_app_launch_id: Int64

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditInlineMessageCaption(BaseObject):
     """
     Edits the caption of an inline message sent via a bot; for bots only
@@ -31,10 +30,10 @@ class EditInlineMessageCaption(BaseObject):
     :type caption: :class:`FormattedText`, optional
     """
 
-    ID: typing.Literal["editInlineMessageCaption"] = Field(
-        "editInlineMessageCaption", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editInlineMessageCaption"] = field(
+        default="editInlineMessageCaption", metadata={"alias": "@type"}
     )
     inline_message_id: String
-    show_caption_above_media: Bool = False
-    reply_markup: typing.Optional[ReplyMarkup] = None
-    caption: typing.Optional[FormattedText] = None
+    show_caption_above_media: Bool = field(default=False)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)
+    caption: typing.Optional[FormattedText] = field(default=None)

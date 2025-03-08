@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class BanChatMember(BaseObject):
     """
     Bans a member in a chat; requires can_restrict_members administrator right. Members can't be banned in private or secret chats. In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first
@@ -30,8 +29,8 @@ class BanChatMember(BaseObject):
     :type revoke_messages: :class:`Bool`
     """
 
-    ID: typing.Literal["banChatMember"] = Field("banChatMember", validation_alias="@type", alias="@type")
+    ID: typing.Literal["banChatMember"] = field(default="banChatMember", metadata={"alias": "@type"})
     chat_id: Int53
     member_id: MessageSender
-    banned_until_date: Int32 = 0
-    revoke_messages: Bool = False
+    banned_until_date: Int32 = field(default=0)
+    revoke_messages: Bool = field(default=False)

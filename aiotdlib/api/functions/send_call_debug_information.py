@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendCallDebugInformation(BaseObject):
     """
     Sends debug information for a call to Telegram servers
@@ -22,8 +22,8 @@ class SendCallDebugInformation(BaseObject):
     :type debug_information: :class:`String`
     """
 
-    ID: typing.Literal["sendCallDebugInformation"] = Field(
-        "sendCallDebugInformation", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendCallDebugInformation"] = field(
+        default="sendCallDebugInformation", metadata={"alias": "@type"}
     )
     call_id: Int32
     debug_information: String

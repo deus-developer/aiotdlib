@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteSavedMessagesTopicMessagesByDate(BaseObject):
     """
     Deletes all messages between the specified dates in a Saved Messages topic. Messages sent in the last 30 seconds will not be deleted
@@ -24,8 +24,8 @@ class DeleteSavedMessagesTopicMessagesByDate(BaseObject):
     :type max_date: :class:`Int32`
     """
 
-    ID: typing.Literal["deleteSavedMessagesTopicMessagesByDate"] = Field(
-        "deleteSavedMessagesTopicMessagesByDate", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteSavedMessagesTopicMessagesByDate"] = field(
+        default="deleteSavedMessagesTopicMessagesByDate", metadata={"alias": "@type"}
     )
     saved_messages_topic_id: Int53
     min_date: Int32

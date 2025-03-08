@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetExternalLink(BaseObject):
     """
     Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link. Use the method getExternalLinkInfo to find whether a prior user confirmation is needed
@@ -22,6 +22,6 @@ class GetExternalLink(BaseObject):
     :type allow_write_access: :class:`Bool`
     """
 
-    ID: typing.Literal["getExternalLink"] = Field("getExternalLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getExternalLink"] = field(default="getExternalLink", metadata={"alias": "@type"})
     link: String
-    allow_write_access: Bool = False
+    allow_write_access: Bool = field(default=False)

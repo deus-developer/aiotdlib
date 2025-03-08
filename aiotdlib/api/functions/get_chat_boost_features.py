@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatBoostFeatures(BaseObject):
     """
     Returns the list of features available for different chat boost levels; this is an offline request
@@ -20,5 +20,5 @@ class GetChatBoostFeatures(BaseObject):
     :type is_channel: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatBoostFeatures"] = Field("getChatBoostFeatures", validation_alias="@type", alias="@type")
-    is_channel: Bool = False
+    ID: typing.Literal["getChatBoostFeatures"] = field(default="getChatBoostFeatures", metadata={"alias": "@type"})
+    is_channel: Bool = field(default=False)

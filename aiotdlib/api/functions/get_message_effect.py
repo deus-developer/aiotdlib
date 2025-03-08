@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageEffect(BaseObject):
     """
     Returns information about a message effect. Returns a 404 error if the effect is not found
@@ -20,5 +20,5 @@ class GetMessageEffect(BaseObject):
     :type effect_id: :class:`Int64`
     """
 
-    ID: typing.Literal["getMessageEffect"] = Field("getMessageEffect", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageEffect"] = field(default="getMessageEffect", metadata={"alias": "@type"})
     effect_id: Int64

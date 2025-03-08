@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatIsTranslatable(BaseObject):
     """
     Changes the translatable state of a chat
@@ -22,8 +22,8 @@ class ToggleChatIsTranslatable(BaseObject):
     :type is_translatable: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatIsTranslatable"] = Field(
-        "toggleChatIsTranslatable", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleChatIsTranslatable"] = field(
+        default="toggleChatIsTranslatable", metadata={"alias": "@type"}
     )
     chat_id: Int53
     is_translatable: Bool

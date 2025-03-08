@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OpenStory(BaseObject):
     """
     Informs TDLib that a story is opened and is being viewed by the user
@@ -22,6 +22,6 @@ class OpenStory(BaseObject):
     :type story_id: :class:`Int32`
     """
 
-    ID: typing.Literal["openStory"] = Field("openStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["openStory"] = field(default="openStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetReceivedGifts(BaseObject):
     """
     Returns gifts received by the given user or chat
@@ -40,13 +39,13 @@ class GetReceivedGifts(BaseObject):
     :type sort_by_price: :class:`Bool`
     """
 
-    ID: typing.Literal["getReceivedGifts"] = Field("getReceivedGifts", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getReceivedGifts"] = field(default="getReceivedGifts", metadata={"alias": "@type"})
     owner_id: MessageSender
     offset: String
     limit: Int32
-    exclude_unsaved: Bool = False
-    exclude_saved: Bool = False
-    exclude_unlimited: Bool = False
-    exclude_limited: Bool = False
-    exclude_upgraded: Bool = False
-    sort_by_price: Bool = False
+    exclude_unsaved: Bool = field(default=False)
+    exclude_saved: Bool = field(default=False)
+    exclude_unlimited: Bool = field(default=False)
+    exclude_limited: Bool = field(default=False)
+    exclude_upgraded: Bool = field(default=False)
+    sort_by_price: Bool = field(default=False)

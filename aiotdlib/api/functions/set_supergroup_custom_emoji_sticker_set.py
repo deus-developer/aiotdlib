@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetSupergroupCustomEmojiStickerSet(BaseObject):
     """
     Changes the custom emoji sticker set of a supergroup; requires can_change_info administrator right. The chat must have at least chatBoostFeatures.min_custom_emoji_sticker_set_boost_level boost level to pass the corresponding color
@@ -22,8 +22,8 @@ class SetSupergroupCustomEmojiStickerSet(BaseObject):
     :type custom_emoji_sticker_set_id: :class:`Int64`
     """
 
-    ID: typing.Literal["setSupergroupCustomEmojiStickerSet"] = Field(
-        "setSupergroupCustomEmojiStickerSet", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setSupergroupCustomEmojiStickerSet"] = field(
+        default="setSupergroupCustomEmojiStickerSet", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     custom_emoji_sticker_set_id: Int64

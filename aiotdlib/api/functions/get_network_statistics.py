@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetNetworkStatistics(BaseObject):
     """
     Returns network data usage statistics. Can be called before authorization
@@ -20,5 +20,5 @@ class GetNetworkStatistics(BaseObject):
     :type only_current: :class:`Bool`
     """
 
-    ID: typing.Literal["getNetworkStatistics"] = Field("getNetworkStatistics", validation_alias="@type", alias="@type")
-    only_current: Bool = False
+    ID: typing.Literal["getNetworkStatistics"] = field(default="getNetworkStatistics", metadata={"alias": "@type"})
+    only_current: Bool = field(default=False)

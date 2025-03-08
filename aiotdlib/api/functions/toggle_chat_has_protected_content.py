@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatHasProtectedContent(BaseObject):
     """
     Changes the ability of users to save, forward, or copy chat content. Supported only for basic groups, supergroups and channels. Requires owner privileges
@@ -22,8 +22,8 @@ class ToggleChatHasProtectedContent(BaseObject):
     :type has_protected_content: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatHasProtectedContent"] = Field(
-        "toggleChatHasProtectedContent", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleChatHasProtectedContent"] = field(
+        default="toggleChatHasProtectedContent", metadata={"alias": "@type"}
     )
     chat_id: Int53
     has_protected_content: Bool

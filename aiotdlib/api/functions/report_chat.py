@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReportChat(BaseObject):
     """
     Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if chat.can_be_reported
@@ -26,8 +26,8 @@ class ReportChat(BaseObject):
     :type text: :class:`String`
     """
 
-    ID: typing.Literal["reportChat"] = Field("reportChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["reportChat"] = field(default="reportChat", metadata={"alias": "@type"})
     chat_id: Int53
     option_id: Bytes
     message_ids: Vector[Int53]
-    text: String = Field("", max_length=1024)
+    text: String = field(default="", metadata={"max_length": 1024})

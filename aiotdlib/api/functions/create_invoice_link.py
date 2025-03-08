@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateInvoiceLink(BaseObject):
     """
     Creates a link for the given invoice; for bots only
@@ -26,6 +25,6 @@ class CreateInvoiceLink(BaseObject):
     :type invoice: :class:`InputMessageContent`
     """
 
-    ID: typing.Literal["createInvoiceLink"] = Field("createInvoiceLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createInvoiceLink"] = field(default="createInvoiceLink", metadata={"alias": "@type"})
     business_connection_id: String
     invoice: InputMessageContent

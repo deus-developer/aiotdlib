@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetAuthenticationEmailAddress(BaseObject):
     """
     Sets the email address of the user and sends an authentication code to the email address. Works only when the current authorization state is authorizationStateWaitEmailAddress
@@ -20,7 +20,7 @@ class SetAuthenticationEmailAddress(BaseObject):
     :type email_address: :class:`String`
     """
 
-    ID: typing.Literal["setAuthenticationEmailAddress"] = Field(
-        "setAuthenticationEmailAddress", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setAuthenticationEmailAddress"] = field(
+        default="setAuthenticationEmailAddress", metadata={"alias": "@type"}
     )
     email_address: String

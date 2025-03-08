@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     EmojiStatus,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetEmojiStatus(BaseObject):
     """
     Changes the emoji status of the current user; for Telegram Premium users only
@@ -24,5 +23,5 @@ class SetEmojiStatus(BaseObject):
     :type emoji_status: :class:`EmojiStatus`, optional
     """
 
-    ID: typing.Literal["setEmojiStatus"] = Field("setEmojiStatus", validation_alias="@type", alias="@type")
-    emoji_status: typing.Optional[EmojiStatus] = None
+    ID: typing.Literal["setEmojiStatus"] = field(default="setEmojiStatus", metadata={"alias": "@type"})
+    emoji_status: typing.Optional[EmojiStatus] = field(default=None)

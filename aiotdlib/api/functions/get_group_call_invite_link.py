@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGroupCallInviteLink(BaseObject):
     """
     Returns invite link to a video chat in a public chat
@@ -22,8 +22,6 @@ class GetGroupCallInviteLink(BaseObject):
     :type can_self_unmute: :class:`Bool`
     """
 
-    ID: typing.Literal["getGroupCallInviteLink"] = Field(
-        "getGroupCallInviteLink", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getGroupCallInviteLink"] = field(default="getGroupCallInviteLink", metadata={"alias": "@type"})
     group_call_id: Int32
-    can_self_unmute: Bool = False
+    can_self_unmute: Bool = field(default=False)

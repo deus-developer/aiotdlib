@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchHashtags(BaseObject):
     """
     Searches for recently used hashtags by their prefix
@@ -22,6 +22,6 @@ class SearchHashtags(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["searchHashtags"] = Field("searchHashtags", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchHashtags"] = field(default="searchHashtags", metadata={"alias": "@type"})
     prefix: String
     limit: Int32

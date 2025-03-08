@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
     StickerFormat,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class UploadStickerFile(BaseObject):
     """
     Uploads a file with a sticker; returns the uploaded file
@@ -29,7 +28,7 @@ class UploadStickerFile(BaseObject):
     :type sticker: :class:`InputFile`
     """
 
-    ID: typing.Literal["uploadStickerFile"] = Field("uploadStickerFile", validation_alias="@type", alias="@type")
+    ID: typing.Literal["uploadStickerFile"] = field(default="uploadStickerFile", metadata={"alias": "@type"})
     user_id: Int53
     sticker_format: StickerFormat
     sticker: InputFile

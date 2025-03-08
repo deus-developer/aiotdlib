@@ -104,9 +104,7 @@ class MergedFilter(BaseObjectFilter):
 
     """
 
-    def __init__(
-        self, base_filter: BaseFilter, and_filter: BaseFilter = None, or_filter: BaseFilter = None
-    ):
+    def __init__(self, base_filter: BaseFilter, and_filter: BaseFilter = None, or_filter: BaseFilter = None):
         self.base_filter = base_filter
 
         if self.base_filter.data_filter:
@@ -114,11 +112,7 @@ class MergedFilter(BaseObjectFilter):
 
         self.and_filter = and_filter
 
-        if (
-            self.and_filter
-            and not isinstance(self.and_filter, bool)
-            and self.and_filter.data_filter
-        ):
+        if self.and_filter and not isinstance(self.and_filter, bool) and self.and_filter.data_filter:
             self.data_filter = True
 
         self.or_filter = or_filter
@@ -164,10 +158,7 @@ class MergedFilter(BaseObjectFilter):
 
     @property
     def name(self) -> str:
-        return (
-            f"<{self.base_filter} {'and' if self.and_filter else 'or'} "
-            f"{self.and_filter or self.or_filter}>"
-        )
+        return f"<{self.base_filter} {'and' if self.and_filter else 'or'} {self.and_filter or self.or_filter}>"
 
     @name.setter
     def name(self, name: str) -> NoReturn:

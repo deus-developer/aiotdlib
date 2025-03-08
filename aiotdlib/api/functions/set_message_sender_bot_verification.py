@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetMessageSenderBotVerification(BaseObject):
     """
     Changes the verification status of a user or a chat by an owned bot
@@ -28,9 +27,9 @@ class SetMessageSenderBotVerification(BaseObject):
     :type custom_description: :class:`String`
     """
 
-    ID: typing.Literal["setMessageSenderBotVerification"] = Field(
-        "setMessageSenderBotVerification", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setMessageSenderBotVerification"] = field(
+        default="setMessageSenderBotVerification", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     verified_id: MessageSender
-    custom_description: String = ""
+    custom_description: String = field(default="")

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSendOptions,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ForwardMessages(BaseObject):
     """
     Forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers passed in message_ids. If a message can't be forwarded, null will be returned instead of the message
@@ -36,11 +35,11 @@ class ForwardMessages(BaseObject):
     :type options: :class:`MessageSendOptions`, optional
     """
 
-    ID: typing.Literal["forwardMessages"] = Field("forwardMessages", validation_alias="@type", alias="@type")
+    ID: typing.Literal["forwardMessages"] = field(default="forwardMessages", metadata={"alias": "@type"})
     chat_id: Int53
     from_chat_id: Int53
     message_ids: Vector[Int53]
-    message_thread_id: Int53 = 0
-    send_copy: Bool = False
-    remove_caption: Bool = False
-    options: typing.Optional[MessageSendOptions] = None
+    message_thread_id: Int53 = field(default=0)
+    send_copy: Bool = field(default=False)
+    remove_caption: Bool = field(default=False)
+    options: typing.Optional[MessageSendOptions] = field(default=None)

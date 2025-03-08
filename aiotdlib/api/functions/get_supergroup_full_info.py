@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSupergroupFullInfo(BaseObject):
     """
     Returns full information about a supergroup or a channel by its identifier, cached for up to 1 minute
@@ -20,7 +20,5 @@ class GetSupergroupFullInfo(BaseObject):
     :type supergroup_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getSupergroupFullInfo"] = Field(
-        "getSupergroupFullInfo", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getSupergroupFullInfo"] = field(default="getSupergroupFullInfo", metadata={"alias": "@type"})
     supergroup_id: Int53

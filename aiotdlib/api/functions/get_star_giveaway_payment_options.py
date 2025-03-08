@@ -6,17 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarGiveawayPaymentOptions(BaseObject):
     """
     Returns available options for Telegram Star giveaway creation
     """
 
-    ID: typing.Literal["getStarGiveawayPaymentOptions"] = Field(
-        "getStarGiveawayPaymentOptions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getStarGiveawayPaymentOptions"] = field(
+        default="getStarGiveawayPaymentOptions", metadata={"alias": "@type"}
     )

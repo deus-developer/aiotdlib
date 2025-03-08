@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetInlineGameScore(BaseObject):
     """
     Updates the game score of the specified user in a game; for bots only
@@ -28,9 +28,9 @@ class SetInlineGameScore(BaseObject):
     :type force: :class:`Bool`
     """
 
-    ID: typing.Literal["setInlineGameScore"] = Field("setInlineGameScore", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setInlineGameScore"] = field(default="setInlineGameScore", metadata={"alias": "@type"})
     inline_message_id: String
     user_id: Int53
     score: Int32
-    edit_message: Bool = False
-    force: Bool = False
+    edit_message: Bool = field(default=False)
+    force: Bool = field(default=False)

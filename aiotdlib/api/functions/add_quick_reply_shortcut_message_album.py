@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AddQuickReplyShortcutMessageAlbum(BaseObject):
     """
     Adds 2-10 messages grouped together into an album to a quick reply shortcut. Currently, only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages
@@ -28,9 +27,9 @@ class AddQuickReplyShortcutMessageAlbum(BaseObject):
     :type reply_to_message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["addQuickReplyShortcutMessageAlbum"] = Field(
-        "addQuickReplyShortcutMessageAlbum", validation_alias="@type", alias="@type"
+    ID: typing.Literal["addQuickReplyShortcutMessageAlbum"] = field(
+        default="addQuickReplyShortcutMessageAlbum", metadata={"alias": "@type"}
     )
     shortcut_name: String
     input_message_contents: Vector[InputMessageContent]
-    reply_to_message_id: Int53 = 0
+    reply_to_message_id: Int53 = field(default=0)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderSupergroupActiveUsernames(BaseObject):
     """
     Changes order of active usernames of a supergroup or channel, requires owner privileges in the supergroup or channel
@@ -22,8 +22,8 @@ class ReorderSupergroupActiveUsernames(BaseObject):
     :type usernames: :class:`Vector[String]`
     """
 
-    ID: typing.Literal["reorderSupergroupActiveUsernames"] = Field(
-        "reorderSupergroupActiveUsernames", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reorderSupergroupActiveUsernames"] = field(
+        default="reorderSupergroupActiveUsernames", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     usernames: Vector[String]

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     WebAppOpenParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMainWebApp(BaseObject):
     """
     Returns information needed to open the main Web App of a bot
@@ -30,8 +29,8 @@ class GetMainWebApp(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMainWebApp"] = Field("getMainWebApp", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMainWebApp"] = field(default="getMainWebApp", metadata={"alias": "@type"})
     bot_user_id: Int53
     start_parameter: String
     parameters: WebAppOpenParameters
-    chat_id: Int53 = 0
+    chat_id: Int53 = field(default=0)

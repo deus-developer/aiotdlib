@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     DraftMessage,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatDraftMessage(BaseObject):
     """
     Changes the draft message in a chat
@@ -28,7 +27,7 @@ class SetChatDraftMessage(BaseObject):
     :type draft_message: :class:`DraftMessage`, optional
     """
 
-    ID: typing.Literal["setChatDraftMessage"] = Field("setChatDraftMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatDraftMessage"] = field(default="setChatDraftMessage", metadata={"alias": "@type"})
     chat_id: Int53
-    message_thread_id: Int53 = 0
-    draft_message: typing.Optional[DraftMessage] = None
+    message_thread_id: Int53 = field(default=0)
+    draft_message: typing.Optional[DraftMessage] = field(default=None)

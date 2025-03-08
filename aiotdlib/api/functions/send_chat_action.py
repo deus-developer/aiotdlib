@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatAction,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendChatAction(BaseObject):
     """
     Sends a notification about user activity in a chat
@@ -30,8 +29,8 @@ class SendChatAction(BaseObject):
     :type action: :class:`ChatAction`, optional
     """
 
-    ID: typing.Literal["sendChatAction"] = Field("sendChatAction", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendChatAction"] = field(default="sendChatAction", metadata={"alias": "@type"})
     chat_id: Int53
     business_connection_id: String
-    message_thread_id: Int53 = 0
-    action: typing.Optional[ChatAction] = None
+    message_thread_id: Int53 = field(default=0)
+    action: typing.Optional[ChatAction] = field(default=None)

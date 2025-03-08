@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ShippingOption,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AnswerShippingQuery(BaseObject):
     """
     Sets the result of a shipping query; for bots only
@@ -28,7 +27,7 @@ class AnswerShippingQuery(BaseObject):
     :type error_message: :class:`String`
     """
 
-    ID: typing.Literal["answerShippingQuery"] = Field("answerShippingQuery", validation_alias="@type", alias="@type")
+    ID: typing.Literal["answerShippingQuery"] = field(default="answerShippingQuery", metadata={"alias": "@type"})
     shipping_query_id: Int64
     shipping_options: Vector[ShippingOption]
     error_message: String

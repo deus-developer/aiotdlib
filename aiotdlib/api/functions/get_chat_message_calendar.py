@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatMessageCalendar(BaseObject):
     """
     Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option "utc_time_offset"
@@ -30,10 +29,8 @@ class GetChatMessageCalendar(BaseObject):
     :type saved_messages_topic_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatMessageCalendar"] = Field(
-        "getChatMessageCalendar", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getChatMessageCalendar"] = field(default="getChatMessageCalendar", metadata={"alias": "@type"})
     chat_id: Int53
-    filter_: SearchMessagesFilter = Field(..., alias="filter")
+    filter_: SearchMessagesFilter = field(default=MISSING, metadata={"alias": "filter"})
     from_message_id: Int53
     saved_messages_topic_id: Int53

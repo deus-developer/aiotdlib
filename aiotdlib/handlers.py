@@ -14,14 +14,8 @@ HandlerCallable = Callable[["Client", SomeUpdate], Awaitable[None]]
 
 
 class Handler(object):
-    def __init__(
-        self, function: HandlerCallable, *, filters: Union[BaseFilter, FilterCallable] = None
-    ):
-        if (
-            filters is not None
-            and not isinstance(filters, BaseFilter)
-            and not asyncio.iscoroutinefunction(function)
-        ):
+    def __init__(self, function: HandlerCallable, *, filters: Union[BaseFilter, FilterCallable] = None):
+        if filters is not None and not isinstance(filters, BaseFilter) and not asyncio.iscoroutinefunction(function):
             raise ValueError("filters should be an instance of BaseFilter!")
 
         self.function: HandlerCallable = function

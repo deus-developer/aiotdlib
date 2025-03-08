@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TranslateMessageText(BaseObject):
     """
     Extracts text or caption of the given message and translates it to the given language. If the current user is a Telegram Premium user, then text formatting is preserved
@@ -24,7 +24,7 @@ class TranslateMessageText(BaseObject):
     :type to_language_code: :class:`String`
     """
 
-    ID: typing.Literal["translateMessageText"] = Field("translateMessageText", validation_alias="@type", alias="@type")
+    ID: typing.Literal["translateMessageText"] = field(default="translateMessageText", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     to_language_code: String

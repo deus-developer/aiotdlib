@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputChatPhoto,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetUserPersonalProfilePhoto(BaseObject):
     """
     Changes a personal profile photo of a contact user
@@ -26,8 +25,8 @@ class SetUserPersonalProfilePhoto(BaseObject):
     :type photo: :class:`InputChatPhoto`, optional
     """
 
-    ID: typing.Literal["setUserPersonalProfilePhoto"] = Field(
-        "setUserPersonalProfilePhoto", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setUserPersonalProfilePhoto"] = field(
+        default="setUserPersonalProfilePhoto", metadata={"alias": "@type"}
     )
     user_id: Int53
-    photo: typing.Optional[InputChatPhoto] = None
+    photo: typing.Optional[InputChatPhoto] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class BlockMessageSenderFromReplies(BaseObject):
     """
     Blocks an original sender of a message in the Replies chat
@@ -26,10 +26,10 @@ class BlockMessageSenderFromReplies(BaseObject):
     :type report_spam: :class:`Bool`
     """
 
-    ID: typing.Literal["blockMessageSenderFromReplies"] = Field(
-        "blockMessageSenderFromReplies", validation_alias="@type", alias="@type"
+    ID: typing.Literal["blockMessageSenderFromReplies"] = field(
+        default="blockMessageSenderFromReplies", metadata={"alias": "@type"}
     )
     message_id: Int53
-    delete_message: Bool = False
-    delete_all_messages: Bool = False
-    report_spam: Bool = False
+    delete_message: Bool = field(default=False)
+    delete_all_messages: Bool = field(default=False)
+    report_spam: Bool = field(default=False)

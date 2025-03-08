@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetWebPageInstantView(BaseObject):
     """
     Returns an instant view version of a web page if available. Returns a 404 error if the web page has no instant view page
@@ -22,8 +22,6 @@ class GetWebPageInstantView(BaseObject):
     :type force_full: :class:`Bool`
     """
 
-    ID: typing.Literal["getWebPageInstantView"] = Field(
-        "getWebPageInstantView", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getWebPageInstantView"] = field(default="getWebPageInstantView", metadata={"alias": "@type"})
     url: String
-    force_full: Bool = False
+    force_full: Bool = field(default=False)

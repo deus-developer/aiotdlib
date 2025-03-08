@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteProfilePhoto(BaseObject):
     """
     Deletes a profile photo
@@ -20,5 +20,5 @@ class DeleteProfilePhoto(BaseObject):
     :type profile_photo_id: :class:`Int64`
     """
 
-    ID: typing.Literal["deleteProfilePhoto"] = Field("deleteProfilePhoto", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteProfilePhoto"] = field(default="deleteProfilePhoto", metadata={"alias": "@type"})
     profile_photo_id: Int64

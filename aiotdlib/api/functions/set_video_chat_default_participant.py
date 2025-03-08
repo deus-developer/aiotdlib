@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetVideoChatDefaultParticipant(BaseObject):
     """
     Changes default participant identifier, on whose behalf a video chat in the chat will be joined
@@ -26,8 +25,8 @@ class SetVideoChatDefaultParticipant(BaseObject):
     :type default_participant_id: :class:`MessageSender`
     """
 
-    ID: typing.Literal["setVideoChatDefaultParticipant"] = Field(
-        "setVideoChatDefaultParticipant", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setVideoChatDefaultParticipant"] = field(
+        default="setVideoChatDefaultParticipant", metadata={"alias": "@type"}
     )
     chat_id: Int53
     default_participant_id: MessageSender

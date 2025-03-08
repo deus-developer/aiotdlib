@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChat(BaseObject):
     """
     Deletes a chat along with all messages in the corresponding chat for all chat members. For group chats this will release the usernames and remove all members. Use the field chat.can_be_deleted_for_all_users to find whether the method can be applied to the chat
@@ -20,5 +20,5 @@ class DeleteChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteChat"] = Field("deleteChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteChat"] = field(default="deleteChat", metadata={"alias": "@type"})
     chat_id: Int53

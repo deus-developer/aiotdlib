@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveSavedNotificationSound(BaseObject):
     """
     Removes a notification sound from the list of saved notification sounds
@@ -20,7 +20,7 @@ class RemoveSavedNotificationSound(BaseObject):
     :type notification_sound_id: :class:`Int64`
     """
 
-    ID: typing.Literal["removeSavedNotificationSound"] = Field(
-        "removeSavedNotificationSound", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeSavedNotificationSound"] = field(
+        default="removeSavedNotificationSound", metadata={"alias": "@type"}
     )
     notification_sound_id: Int64

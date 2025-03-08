@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderBotActiveUsernames(BaseObject):
     """
     Changes order of active usernames of a bot. Can be called only if userTypeBot.can_be_edited == true
@@ -22,8 +22,8 @@ class ReorderBotActiveUsernames(BaseObject):
     :type usernames: :class:`Vector[String]`
     """
 
-    ID: typing.Literal["reorderBotActiveUsernames"] = Field(
-        "reorderBotActiveUsernames", validation_alias="@type", alias="@type"
+    ID: typing.Literal["reorderBotActiveUsernames"] = field(
+        default="reorderBotActiveUsernames", metadata={"alias": "@type"}
     )
     bot_user_id: Int53
     usernames: Vector[String]

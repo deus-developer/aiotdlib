@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteForumTopic(BaseObject):
     """
     Deletes all messages in a forum topic; requires can_delete_messages administrator right in the supergroup unless the user is creator of the topic, the topic has no messages from other users and has at most 11 messages
@@ -22,6 +22,6 @@ class DeleteForumTopic(BaseObject):
     :type message_thread_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteForumTopic"] = Field("deleteForumTopic", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteForumTopic"] = field(default="deleteForumTopic", metadata={"alias": "@type"})
     chat_id: Int53
     message_thread_id: Int53

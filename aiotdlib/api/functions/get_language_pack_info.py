@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLanguagePackInfo(BaseObject):
     """
     Returns information about a language pack. Returned language pack identifier may be different from a provided one. Can be called before authorization
@@ -20,5 +20,5 @@ class GetLanguagePackInfo(BaseObject):
     :type language_pack_id: :class:`String`
     """
 
-    ID: typing.Literal["getLanguagePackInfo"] = Field("getLanguagePackInfo", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getLanguagePackInfo"] = field(default="getLanguagePackInfo", metadata={"alias": "@type"})
     language_pack_id: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPushReceiverId(BaseObject):
     """
     Returns a globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously
@@ -20,5 +20,5 @@ class GetPushReceiverId(BaseObject):
     :type payload: :class:`String`
     """
 
-    ID: typing.Literal["getPushReceiverId"] = Field("getPushReceiverId", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getPushReceiverId"] = field(default="getPushReceiverId", metadata={"alias": "@type"})
     payload: String

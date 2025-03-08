@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SearchUserByToken(BaseObject):
     """
     Searches a user by a token from the user's link
@@ -20,5 +20,5 @@ class SearchUserByToken(BaseObject):
     :type token: :class:`String`
     """
 
-    ID: typing.Literal["searchUserByToken"] = Field("searchUserByToken", validation_alias="@type", alias="@type")
+    ID: typing.Literal["searchUserByToken"] = field(default="searchUserByToken", metadata={"alias": "@type"})
     token: String

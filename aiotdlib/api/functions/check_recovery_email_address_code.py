@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckRecoveryEmailAddressCode(BaseObject):
     """
     Checks the 2-step verification recovery email address verification code
@@ -20,7 +20,7 @@ class CheckRecoveryEmailAddressCode(BaseObject):
     :type code: :class:`String`
     """
 
-    ID: typing.Literal["checkRecoveryEmailAddressCode"] = Field(
-        "checkRecoveryEmailAddressCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["checkRecoveryEmailAddressCode"] = field(
+        default="checkRecoveryEmailAddressCode", metadata={"alias": "@type"}
     )
     code: String

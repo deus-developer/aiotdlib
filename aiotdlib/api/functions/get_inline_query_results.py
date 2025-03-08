@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Location,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetInlineQueryResults(BaseObject):
     """
     Sends an inline query to a bot and returns its results. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires
@@ -32,11 +31,9 @@ class GetInlineQueryResults(BaseObject):
     :type user_location: :class:`Location`, optional
     """
 
-    ID: typing.Literal["getInlineQueryResults"] = Field(
-        "getInlineQueryResults", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getInlineQueryResults"] = field(default="getInlineQueryResults", metadata={"alias": "@type"})
     bot_user_id: Int53
     chat_id: Int53
     query: String
     offset: String
-    user_location: typing.Optional[Location] = None
+    user_location: typing.Optional[Location] = field(default=None)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatFolder,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateChatFolder(BaseObject):
     """
     Creates new chat folder. Returns information about the created chat folder. There can be up to getOption("chat_folder_count_max") chat folders, but the limit can be increased with Telegram Premium
@@ -24,5 +23,5 @@ class CreateChatFolder(BaseObject):
     :type folder: :class:`ChatFolder`
     """
 
-    ID: typing.Literal["createChatFolder"] = Field("createChatFolder", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createChatFolder"] = field(default="createChatFolder", metadata={"alias": "@type"})
     folder: ChatFolder

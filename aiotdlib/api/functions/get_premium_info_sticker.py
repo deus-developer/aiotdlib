@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPremiumInfoSticker(BaseObject):
     """
     Returns the sticker to be used as representation of the Telegram Premium subscription
@@ -20,7 +20,5 @@ class GetPremiumInfoSticker(BaseObject):
     :type month_count: :class:`Int32`
     """
 
-    ID: typing.Literal["getPremiumInfoSticker"] = Field(
-        "getPremiumInfoSticker", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getPremiumInfoSticker"] = field(default="getPremiumInfoSticker", metadata={"alias": "@type"})
     month_count: Int32

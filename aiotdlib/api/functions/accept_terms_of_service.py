@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AcceptTermsOfService(BaseObject):
     """
     Accepts Telegram terms of services
@@ -20,5 +20,5 @@ class AcceptTermsOfService(BaseObject):
     :type terms_of_service_id: :class:`String`
     """
 
-    ID: typing.Literal["acceptTermsOfService"] = Field("acceptTermsOfService", validation_alias="@type", alias="@type")
+    ID: typing.Literal["acceptTermsOfService"] = field(default="acceptTermsOfService", metadata={"alias": "@type"})
     terms_of_service_id: String

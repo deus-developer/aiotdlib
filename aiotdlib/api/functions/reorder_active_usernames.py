@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReorderActiveUsernames(BaseObject):
     """
     Changes order of active usernames of the current user
@@ -20,7 +20,5 @@ class ReorderActiveUsernames(BaseObject):
     :type usernames: :class:`Vector[String]`
     """
 
-    ID: typing.Literal["reorderActiveUsernames"] = Field(
-        "reorderActiveUsernames", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["reorderActiveUsernames"] = field(default="reorderActiveUsernames", metadata={"alias": "@type"})
     usernames: Vector[String]

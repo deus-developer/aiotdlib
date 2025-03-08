@@ -6,18 +6,17 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
     InputStoryAreas,
     InputStoryContent,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditStory(BaseObject):
     """
     Changes content and caption of a story. Can be called only if story.can_be_edited == true
@@ -34,9 +33,9 @@ class EditStory(BaseObject):
     :type caption: :class:`FormattedText`, optional
     """
 
-    ID: typing.Literal["editStory"] = Field("editStory", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editStory"] = field(default="editStory", metadata={"alias": "@type"})
     story_sender_chat_id: Int53
     story_id: Int32
-    content: typing.Optional[InputStoryContent] = None
-    areas: typing.Optional[InputStoryAreas] = None
-    caption: typing.Optional[FormattedText] = None
+    content: typing.Optional[InputStoryContent] = field(default=None)
+    areas: typing.Optional[InputStoryAreas] = field(default=None)
+    caption: typing.Optional[FormattedText] = field(default=None)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class BoostChat(BaseObject):
     """
     Boosts a chat and returns the list of available chat boost slots for the current user after the boost
@@ -22,6 +22,6 @@ class BoostChat(BaseObject):
     :type slot_ids: :class:`Vector[Int32]`
     """
 
-    ID: typing.Literal["boostChat"] = Field("boostChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["boostChat"] = field(default="boostChat", metadata={"alias": "@type"})
     chat_id: Int53
     slot_ids: Vector[Int32]

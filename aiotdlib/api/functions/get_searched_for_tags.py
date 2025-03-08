@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSearchedForTags(BaseObject):
     """
     Returns recently searched for hashtags or cashtags by their prefix
@@ -22,6 +22,6 @@ class GetSearchedForTags(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getSearchedForTags"] = Field("getSearchedForTags", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getSearchedForTags"] = field(default="getSearchedForTags", metadata={"alias": "@type"})
     tag_prefix: String
     limit: Int32

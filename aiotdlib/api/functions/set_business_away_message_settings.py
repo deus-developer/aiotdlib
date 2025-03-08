@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BusinessAwayMessageSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessAwayMessageSettings(BaseObject):
     """
     Changes the business away message settings of the current user. Requires Telegram Business subscription
@@ -24,7 +23,7 @@ class SetBusinessAwayMessageSettings(BaseObject):
     :type away_message_settings: :class:`BusinessAwayMessageSettings`, optional
     """
 
-    ID: typing.Literal["setBusinessAwayMessageSettings"] = Field(
-        "setBusinessAwayMessageSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setBusinessAwayMessageSettings"] = field(
+        default="setBusinessAwayMessageSettings", metadata={"alias": "@type"}
     )
-    away_message_settings: typing.Optional[BusinessAwayMessageSettings] = None
+    away_message_settings: typing.Optional[BusinessAwayMessageSettings] = field(default=None)

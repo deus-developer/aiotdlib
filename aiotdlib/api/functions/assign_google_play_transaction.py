@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StorePaymentPurpose,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AssignGooglePlayTransaction(BaseObject):
     """
     Informs server about a purchase through Google Play. For official applications only
@@ -30,8 +29,8 @@ class AssignGooglePlayTransaction(BaseObject):
     :type purpose: :class:`StorePaymentPurpose`
     """
 
-    ID: typing.Literal["assignGooglePlayTransaction"] = Field(
-        "assignGooglePlayTransaction", validation_alias="@type", alias="@type"
+    ID: typing.Literal["assignGooglePlayTransaction"] = field(
+        default="assignGooglePlayTransaction", metadata={"alias": "@type"}
     )
     package_name: String
     store_product_id: String

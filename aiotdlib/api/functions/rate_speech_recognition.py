@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RateSpeechRecognition(BaseObject):
     """
     Rates recognized speech in a video note or a voice note message
@@ -24,9 +24,7 @@ class RateSpeechRecognition(BaseObject):
     :type is_good: :class:`Bool`
     """
 
-    ID: typing.Literal["rateSpeechRecognition"] = Field(
-        "rateSpeechRecognition", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["rateSpeechRecognition"] = field(default="rateSpeechRecognition", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    is_good: Bool = False
+    is_good: Bool = field(default=False)

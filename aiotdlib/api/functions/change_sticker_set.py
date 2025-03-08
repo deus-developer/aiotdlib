@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ChangeStickerSet(BaseObject):
     """
     Installs/uninstalls or activates/archives a sticker set
@@ -24,7 +24,7 @@ class ChangeStickerSet(BaseObject):
     :type is_archived: :class:`Bool`
     """
 
-    ID: typing.Literal["changeStickerSet"] = Field("changeStickerSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["changeStickerSet"] = field(default="changeStickerSet", metadata={"alias": "@type"})
     set_id: Int64
     is_installed: Bool
     is_archived: Bool

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageThread(BaseObject):
     """
     Returns information about a message thread. Can be used only if messageProperties.can_get_message_thread == true
@@ -22,6 +22,6 @@ class GetMessageThread(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getMessageThread"] = Field("getMessageThread", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getMessageThread"] = field(default="getMessageThread", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

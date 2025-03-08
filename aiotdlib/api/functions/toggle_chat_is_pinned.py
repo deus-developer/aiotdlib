@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatIsPinned(BaseObject):
     """
     Changes the pinned state of a chat. There can be up to getOption("pinned_chat_count_max")/getOption("pinned_archived_chat_count_max") pinned non-secret chats and the same number of secret chats in the main/archive chat list. The limit can be increased with Telegram Premium
@@ -28,7 +27,7 @@ class ToggleChatIsPinned(BaseObject):
     :type is_pinned: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatIsPinned"] = Field("toggleChatIsPinned", validation_alias="@type", alias="@type")
+    ID: typing.Literal["toggleChatIsPinned"] = field(default="toggleChatIsPinned", metadata={"alias": "@type"})
     chat_list: ChatList
     chat_id: Int53
-    is_pinned: Bool = False
+    is_pinned: Bool = field(default=False)

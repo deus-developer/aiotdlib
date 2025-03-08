@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatAccentColor(BaseObject):
     """
     Changes accent color and background custom emoji of a channel chat. Requires can_change_info administrator right
@@ -24,7 +24,7 @@ class SetChatAccentColor(BaseObject):
     :type background_custom_emoji_id: :class:`Int64`, optional
     """
 
-    ID: typing.Literal["setChatAccentColor"] = Field("setChatAccentColor", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatAccentColor"] = field(default="setChatAccentColor", metadata={"alias": "@type"})
     chat_id: Int53
     accent_color_id: Int32
-    background_custom_emoji_id: typing.Optional[Int64] = 0
+    background_custom_emoji_id: typing.Optional[Int64] = field(default=0)

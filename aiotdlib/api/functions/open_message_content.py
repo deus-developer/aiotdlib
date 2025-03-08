@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class OpenMessageContent(BaseObject):
     """
     Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed
@@ -22,6 +22,6 @@ class OpenMessageContent(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["openMessageContent"] = Field("openMessageContent", validation_alias="@type", alias="@type")
+    ID: typing.Literal["openMessageContent"] = field(default="openMessageContent", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

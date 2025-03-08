@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DiscardCall(BaseObject):
     """
     Discards a call
@@ -28,9 +28,9 @@ class DiscardCall(BaseObject):
     :type is_video: :class:`Bool`
     """
 
-    ID: typing.Literal["discardCall"] = Field("discardCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["discardCall"] = field(default="discardCall", metadata={"alias": "@type"})
     call_id: Int32
     duration: Int32
     connection_id: Int64
-    is_disconnected: Bool = False
-    is_video: Bool = False
+    is_disconnected: Bool = field(default=False)
+    is_video: Bool = field(default=False)

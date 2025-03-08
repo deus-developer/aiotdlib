@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CheckChatUsername(BaseObject):
     """
     Checks whether a username can be set for a chat
@@ -22,6 +22,6 @@ class CheckChatUsername(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["checkChatUsername"] = Field("checkChatUsername", validation_alias="@type", alias="@type")
+    ID: typing.Literal["checkChatUsername"] = field(default="checkChatUsername", metadata={"alias": "@type"})
     username: String
-    chat_id: Int53 = 0
+    chat_id: Int53 = field(default=0)

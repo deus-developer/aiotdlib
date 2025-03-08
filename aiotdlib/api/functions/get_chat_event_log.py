@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatEventLogFilters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatEventLog(BaseObject):
     """
     Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i.e., in order of decreasing event_id)
@@ -34,10 +33,10 @@ class GetChatEventLog(BaseObject):
     :type filters: :class:`ChatEventLogFilters`, optional
     """
 
-    ID: typing.Literal["getChatEventLog"] = Field("getChatEventLog", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatEventLog"] = field(default="getChatEventLog", metadata={"alias": "@type"})
     chat_id: Int53
     query: String
     from_event_id: Int64
     limit: Int32
     user_ids: Vector[Int53]
-    filters: typing.Optional[ChatEventLogFilters] = None
+    filters: typing.Optional[ChatEventLogFilters] = field(default=None)

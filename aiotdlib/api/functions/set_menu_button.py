@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BotMenuButton,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetMenuButton(BaseObject):
     """
     Sets menu button for the given user or for all users; for bots only
@@ -26,6 +25,6 @@ class SetMenuButton(BaseObject):
     :type menu_button: :class:`BotMenuButton`
     """
 
-    ID: typing.Literal["setMenuButton"] = Field("setMenuButton", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setMenuButton"] = field(default="setMenuButton", metadata={"alias": "@type"})
     user_id: Int53
     menu_button: BotMenuButton

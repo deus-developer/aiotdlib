@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendEmailAddressVerificationCode(BaseObject):
     """
     Sends a code to verify an email address to be added to a user's Telegram Passport
@@ -20,7 +20,7 @@ class SendEmailAddressVerificationCode(BaseObject):
     :type email_address: :class:`String`
     """
 
-    ID: typing.Literal["sendEmailAddressVerificationCode"] = Field(
-        "sendEmailAddressVerificationCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["sendEmailAddressVerificationCode"] = field(
+        default="sendEmailAddressVerificationCode", metadata={"alias": "@type"}
     )
     email_address: String

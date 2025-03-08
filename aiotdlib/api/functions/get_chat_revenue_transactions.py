@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatRevenueTransactions(BaseObject):
     """
     Returns the list of revenue transactions for a chat. Currently, this method can be used only for channels if supergroupFullInfo.can_get_revenue_statistics == true or bots if userFullInfo.bot_info.can_get_revenue_statistics == true
@@ -24,8 +24,8 @@ class GetChatRevenueTransactions(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getChatRevenueTransactions"] = Field(
-        "getChatRevenueTransactions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatRevenueTransactions"] = field(
+        default="getChatRevenueTransactions", metadata={"alias": "@type"}
     )
     chat_id: Int53
     offset: Int32

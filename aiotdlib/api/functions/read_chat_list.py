@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReadChatList(BaseObject):
     """
     Traverse all chats in a chat list and marks all messages in the chats as read
@@ -24,5 +23,5 @@ class ReadChatList(BaseObject):
     :type chat_list: :class:`ChatList`
     """
 
-    ID: typing.Literal["readChatList"] = Field("readChatList", validation_alias="@type", alias="@type")
+    ID: typing.Literal["readChatList"] = field(default="readChatList", metadata={"alias": "@type"})
     chat_list: ChatList

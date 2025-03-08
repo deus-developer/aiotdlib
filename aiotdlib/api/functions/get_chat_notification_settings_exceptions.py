@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     NotificationSettingsScope,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatNotificationSettingsExceptions(BaseObject):
     """
     Returns the list of chats with non-default notification settings for new messages
@@ -26,8 +25,8 @@ class GetChatNotificationSettingsExceptions(BaseObject):
     :type scope: :class:`NotificationSettingsScope`, optional
     """
 
-    ID: typing.Literal["getChatNotificationSettingsExceptions"] = Field(
-        "getChatNotificationSettingsExceptions", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatNotificationSettingsExceptions"] = field(
+        default="getChatNotificationSettingsExceptions", metadata={"alias": "@type"}
     )
-    compare_sound: Bool = False
-    scope: typing.Optional[NotificationSettingsScope] = None
+    compare_sound: Bool = field(default=False)
+    scope: typing.Optional[NotificationSettingsScope] = field(default=None)

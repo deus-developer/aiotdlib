@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RevokeGroupCallInviteLink(BaseObject):
     """
     Revokes invite link for a group call. Requires groupCall.can_be_managed group call flag
@@ -20,7 +20,7 @@ class RevokeGroupCallInviteLink(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["revokeGroupCallInviteLink"] = Field(
-        "revokeGroupCallInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["revokeGroupCallInviteLink"] = field(
+        default="revokeGroupCallInviteLink", metadata={"alias": "@type"}
     )
     group_call_id: Int32

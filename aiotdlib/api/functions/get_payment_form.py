@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputInvoice,
     ThemeParameters,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetPaymentForm(BaseObject):
     """
     Returns an invoice payment form. This method must be called when the user presses inline button of the type inlineKeyboardButtonTypeBuy, or wants to buy access to media in a messagePaidMedia message
@@ -27,6 +26,6 @@ class GetPaymentForm(BaseObject):
     :type theme: :class:`ThemeParameters`, optional
     """
 
-    ID: typing.Literal["getPaymentForm"] = Field("getPaymentForm", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getPaymentForm"] = field(default="getPaymentForm", metadata={"alias": "@type"})
     input_invoice: InputInvoice
-    theme: typing.Optional[ThemeParameters] = None
+    theme: typing.Optional[ThemeParameters] = field(default=None)

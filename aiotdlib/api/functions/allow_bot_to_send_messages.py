@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AllowBotToSendMessages(BaseObject):
     """
     Allows the specified bot to send messages to the user
@@ -20,7 +20,5 @@ class AllowBotToSendMessages(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["allowBotToSendMessages"] = Field(
-        "allowBotToSendMessages", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["allowBotToSendMessages"] = field(default="allowBotToSendMessages", metadata={"alias": "@type"})
     bot_user_id: Int53

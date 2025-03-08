@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetAnimatedEmoji(BaseObject):
     """
     Returns an animated emoji corresponding to a given emoji. Returns a 404 error if the emoji has no animated emoji
@@ -20,5 +20,5 @@ class GetAnimatedEmoji(BaseObject):
     :type emoji: :class:`String`
     """
 
-    ID: typing.Literal["getAnimatedEmoji"] = Field("getAnimatedEmoji", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getAnimatedEmoji"] = field(default="getAnimatedEmoji", metadata={"alias": "@type"})
     emoji: String

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGameHighScores(BaseObject):
     """
     Returns the high scores for a game and some part of the high score table in the range of the specified user; for bots only
@@ -24,7 +24,7 @@ class GetGameHighScores(BaseObject):
     :type user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getGameHighScores"] = Field("getGameHighScores", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getGameHighScores"] = field(default="getGameHighScores", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
     user_id: Int53

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputCredentials,
     InputInvoice,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendPaymentForm(BaseObject):
     """
     Sends a filled-out payment form to the bot for final verification
@@ -35,10 +34,10 @@ class SendPaymentForm(BaseObject):
     :type credentials: :class:`InputCredentials`, optional
     """
 
-    ID: typing.Literal["sendPaymentForm"] = Field("sendPaymentForm", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendPaymentForm"] = field(default="sendPaymentForm", metadata={"alias": "@type"})
     input_invoice: InputInvoice
     payment_form_id: Int64
     order_info_id: String
     shipping_option_id: String
     tip_amount: Int53
-    credentials: typing.Optional[InputCredentials] = None
+    credentials: typing.Optional[InputCredentials] = field(default=None)

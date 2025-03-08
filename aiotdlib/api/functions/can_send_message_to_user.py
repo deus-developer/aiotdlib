@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CanSendMessageToUser(BaseObject):
     """
     Check whether the current user can message another user or try to create a chat with them
@@ -22,6 +22,6 @@ class CanSendMessageToUser(BaseObject):
     :type only_local: :class:`Bool`
     """
 
-    ID: typing.Literal["canSendMessageToUser"] = Field("canSendMessageToUser", validation_alias="@type", alias="@type")
+    ID: typing.Literal["canSendMessageToUser"] = field(default="canSendMessageToUser", metadata={"alias": "@type"})
     user_id: Int53
-    only_local: Bool = False
+    only_local: Bool = field(default=False)

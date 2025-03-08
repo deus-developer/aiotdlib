@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetMessageThreadHistory(BaseObject):
     """
     Returns messages in a message thread of a message. Can be used only if messageProperties.can_get_message_thread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib
@@ -28,8 +28,8 @@ class GetMessageThreadHistory(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getMessageThreadHistory"] = Field(
-        "getMessageThreadHistory", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getMessageThreadHistory"] = field(
+        default="getMessageThreadHistory", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_id: Int53

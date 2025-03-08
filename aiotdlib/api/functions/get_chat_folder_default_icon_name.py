@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatFolder,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatFolderDefaultIconName(BaseObject):
     """
     Returns default icon name for a folder. Can be called synchronously
@@ -24,7 +23,7 @@ class GetChatFolderDefaultIconName(BaseObject):
     :type folder: :class:`ChatFolder`
     """
 
-    ID: typing.Literal["getChatFolderDefaultIconName"] = Field(
-        "getChatFolderDefaultIconName", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getChatFolderDefaultIconName"] = field(
+        default="getChatFolderDefaultIconName", metadata={"alias": "@type"}
     )
     folder: ChatFolder

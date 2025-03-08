@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ParseMarkdown(BaseObject):
     """
     Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously
@@ -24,5 +23,5 @@ class ParseMarkdown(BaseObject):
     :type text: :class:`FormattedText`
     """
 
-    ID: typing.Literal["parseMarkdown"] = Field("parseMarkdown", validation_alias="@type", alias="@type")
+    ID: typing.Literal["parseMarkdown"] = field(default="parseMarkdown", metadata={"alias": "@type"})
     text: FormattedText

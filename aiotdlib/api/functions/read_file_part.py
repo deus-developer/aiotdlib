@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReadFilePart(BaseObject):
     """
     Reads a part of a file from the TDLib file cache and returns read bytes. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct read from the file
@@ -24,7 +24,7 @@ class ReadFilePart(BaseObject):
     :type count: :class:`Int53`
     """
 
-    ID: typing.Literal["readFilePart"] = Field("readFilePart", validation_alias="@type", alias="@type")
+    ID: typing.Literal["readFilePart"] = field(default="readFilePart", metadata={"alias": "@type"})
     file_id: Int32
     offset: Int53
     count: Int53

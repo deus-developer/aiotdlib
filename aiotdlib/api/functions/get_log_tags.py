@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetLogTags(BaseObject):
     """
     Returns the list of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously
     """
 
-    ID: typing.Literal["getLogTags"] = Field("getLogTags", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getLogTags"] = field(default="getLogTags", metadata={"alias": "@type"})

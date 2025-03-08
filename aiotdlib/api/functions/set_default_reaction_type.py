@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReactionType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetDefaultReactionType(BaseObject):
     """
     Changes type of default reaction for the current user
@@ -24,7 +23,5 @@ class SetDefaultReactionType(BaseObject):
     :type reaction_type: :class:`ReactionType`
     """
 
-    ID: typing.Literal["setDefaultReactionType"] = Field(
-        "setDefaultReactionType", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setDefaultReactionType"] = field(default="setDefaultReactionType", metadata={"alias": "@type"})
     reaction_type: ReactionType

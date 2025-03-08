@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     LanguagePackInfo,
     LanguagePackString,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetCustomLanguagePack(BaseObject):
     """
     Adds or changes a custom local language pack to the current localization target
@@ -27,8 +26,6 @@ class SetCustomLanguagePack(BaseObject):
     :type strings: :class:`Vector[LanguagePackString]`
     """
 
-    ID: typing.Literal["setCustomLanguagePack"] = Field(
-        "setCustomLanguagePack", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setCustomLanguagePack"] = field(default="setCustomLanguagePack", metadata={"alias": "@type"})
     info: LanguagePackInfo
     strings: Vector[LanguagePackString]

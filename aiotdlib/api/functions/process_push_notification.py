@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ProcessPushNotification(BaseObject):
     """
     Handles a push notification. Returns error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization
@@ -20,7 +20,7 @@ class ProcessPushNotification(BaseObject):
     :type payload: :class:`String`
     """
 
-    ID: typing.Literal["processPushNotification"] = Field(
-        "processPushNotification", validation_alias="@type", alias="@type"
+    ID: typing.Literal["processPushNotification"] = field(
+        default="processPushNotification", metadata={"alias": "@type"}
     )
     payload: String

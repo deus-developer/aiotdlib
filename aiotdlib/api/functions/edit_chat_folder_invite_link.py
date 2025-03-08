@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditChatFolderInviteLink(BaseObject):
     """
     Edits an invite link for a chat folder
@@ -26,10 +26,10 @@ class EditChatFolderInviteLink(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["editChatFolderInviteLink"] = Field(
-        "editChatFolderInviteLink", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editChatFolderInviteLink"] = field(
+        default="editChatFolderInviteLink", metadata={"alias": "@type"}
     )
     chat_folder_id: Int32
     invite_link: String
     chat_ids: Vector[Int53]
-    name: String = Field("", max_length=32)
+    name: String = field(default="", metadata={"max_length": 32})

@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     FormattedText,
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendGift(BaseObject):
     """
     Sends a gift to another user or channel chat. May return an error with a message "STARGIFT_USAGE_LIMITED" if the gift was sold out
@@ -33,9 +32,9 @@ class SendGift(BaseObject):
     :type pay_for_upgrade: :class:`Bool`
     """
 
-    ID: typing.Literal["sendGift"] = Field("sendGift", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendGift"] = field(default="sendGift", metadata={"alias": "@type"})
     gift_id: Int64
     owner_id: MessageSender
     text: FormattedText
-    is_private: Bool = False
-    pay_for_upgrade: Bool = False
+    is_private: Bool = field(default=False)
+    pay_for_upgrade: Bool = field(default=False)

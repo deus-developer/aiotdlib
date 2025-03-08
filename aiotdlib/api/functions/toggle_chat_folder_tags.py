@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatFolderTags(BaseObject):
     """
     Toggles whether chat folder tags are enabled
@@ -20,5 +20,5 @@ class ToggleChatFolderTags(BaseObject):
     :type are_tags_enabled: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatFolderTags"] = Field("toggleChatFolderTags", validation_alias="@type", alias="@type")
-    are_tags_enabled: Bool = False
+    ID: typing.Literal["toggleChatFolderTags"] = field(default="toggleChatFolderTags", metadata={"alias": "@type"})
+    are_tags_enabled: Bool = field(default=False)

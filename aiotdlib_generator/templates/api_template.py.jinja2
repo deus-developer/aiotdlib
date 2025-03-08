@@ -4,6 +4,9 @@
 {{ '# ' + " " * (notice.__len__() + 6) + " #"}}
 {{ '# ' + "=" * (notice.__len__() + 6) + " #"}}
 
+import typing
+from dataclasses import field, MISSING
+
 from .functions import *
 from .types import *
 
@@ -32,7 +35,7 @@ class API:
     async def {{ entity.snake_name }}{% if entity.parameters %}(
             self,
             {% for parameter in entity.parameters %}
-            {{ parameter.name }}: {% if parameter.nullable %}{{ parameter.optional_type }}{% else %}{{ parameter.type }}{% endif %}{% if parameter.default_value %} = {{ parameter.default_value }}{% endif %},
+            {{ parameter.name }}: {% if parameter.nullable %}{{ parameter.optional_type }}{% else %}{{ parameter.type }}{% endif %}{% if parameter.default_factory %} = MISSING{% elif parameter.default_value %} = {{ parameter.default_value }}{% endif %},
             {% endfor %}
             *,
             request_id: str = None,
@@ -42,7 +45,7 @@ class API:
         {{ entity.doc }}
         {% if entity.parameters -%}
         {% for parameter in entity.parameters %}
-        :param {{ parameter.name }}: {{ parameter.doc }}{% if parameter.nullable %}, defaults to None{% endif %}
+        :param {{ parameter.name }}: {{ parameter.doc }}{% if parameter.nullable %}, defaults to None{% endif %}{% if parameter.default_factory %}, defaults to {{ parameter.default_factory }}(){% endif %}
         :type {{ parameter.name }}: {{ parameter.doc_type }}{% if parameter.nullable %}, optional{% endif %}
         {%- endfor %}
         :param request_id: custom request ID. By default random UUID4 will be generated, defaults to None
@@ -54,12 +57,15 @@ class API:
         :rtype: :class:`aiotdlib.api.types.{{ entity.return_type_str }}`
         {% endif -%}
         {% endif -%}
-        """
+        """{% if entity.parameters %}{% for parameter in entity.parameters %}{% if parameter.default_factory %}
+        # Set default values from default_factory if needed
+        if {{ parameter.name }} is MISSING:
+            {{ parameter.name }} = {{ parameter.default_factory }}(){% endif %}{% endfor %}{% endif %}
 
         return await self.client.request(
             {% if entity.parameters %}{{ entity.uf_name }}(
                 {% for parameter in entity.parameters %}
-                {{ parameter.name.rstrip('_') }}={{ parameter.name }},
+                {{ parameter.name }}={{ parameter.name }},
                 {% endfor %}
             ){% else %}{{ entity.uf_name }}(){% endif %},
             request_id=request_id,

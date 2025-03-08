@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     AffiliateType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DisconnectAffiliateProgram(BaseObject):
     """
     Disconnects an affiliate program from the given affiliate and immediately deactivates its referral link. Returns updated information about the disconnected affiliate program
@@ -26,8 +25,8 @@ class DisconnectAffiliateProgram(BaseObject):
     :type url: :class:`String`
     """
 
-    ID: typing.Literal["disconnectAffiliateProgram"] = Field(
-        "disconnectAffiliateProgram", validation_alias="@type", alias="@type"
+    ID: typing.Literal["disconnectAffiliateProgram"] = field(
+        default="disconnectAffiliateProgram", metadata={"alias": "@type"}
     )
     affiliate: AffiliateType
     url: String

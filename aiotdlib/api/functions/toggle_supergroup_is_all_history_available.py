@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleSupergroupIsAllHistoryAvailable(BaseObject):
     """
     Toggles whether the message history of a supergroup is available to new members; requires can_change_info member right
@@ -22,8 +22,8 @@ class ToggleSupergroupIsAllHistoryAvailable(BaseObject):
     :type is_all_history_available: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleSupergroupIsAllHistoryAvailable"] = Field(
-        "toggleSupergroupIsAllHistoryAvailable", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleSupergroupIsAllHistoryAvailable"] = field(
+        default="toggleSupergroupIsAllHistoryAvailable", metadata={"alias": "@type"}
     )
     supergroup_id: Int53
     is_all_history_available: Bool

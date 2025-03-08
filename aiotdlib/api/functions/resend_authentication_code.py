@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ResendCodeReason,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ResendAuthenticationCode(BaseObject):
     """
     Resends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitCode, the next_code_type of the result is not null and the server-specified timeout has passed, or when the current authorization state is authorizationStateWaitEmailCode
@@ -24,7 +23,7 @@ class ResendAuthenticationCode(BaseObject):
     :type reason: :class:`ResendCodeReason`, optional
     """
 
-    ID: typing.Literal["resendAuthenticationCode"] = Field(
-        "resendAuthenticationCode", validation_alias="@type", alias="@type"
+    ID: typing.Literal["resendAuthenticationCode"] = field(
+        default="resendAuthenticationCode", metadata={"alias": "@type"}
     )
-    reason: typing.Optional[ResendCodeReason] = None
+    reason: typing.Optional[ResendCodeReason] = field(default=None)

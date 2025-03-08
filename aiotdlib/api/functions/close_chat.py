@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CloseChat(BaseObject):
     """
     Informs TDLib that the chat is closed by the user. Many useful activities depend on the chat being opened or closed
@@ -20,5 +20,5 @@ class CloseChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["closeChat"] = Field("closeChat", validation_alias="@type", alias="@type")
+    ID: typing.Literal["closeChat"] = field(default="closeChat", metadata={"alias": "@type"})
     chat_id: Int53

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AnswerCustomQuery(BaseObject):
     """
     Answers a custom query; for bots only
@@ -22,6 +22,6 @@ class AnswerCustomQuery(BaseObject):
     :type data: :class:`String`
     """
 
-    ID: typing.Literal["answerCustomQuery"] = Field("answerCustomQuery", validation_alias="@type", alias="@type")
+    ID: typing.Literal["answerCustomQuery"] = field(default="answerCustomQuery", metadata={"alias": "@type"})
     custom_query_id: Int64
     data: String

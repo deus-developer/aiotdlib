@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveAllFilesFromDownloads(BaseObject):
     """
     Removes all files from the file download list
@@ -24,9 +24,9 @@ class RemoveAllFilesFromDownloads(BaseObject):
     :type delete_from_cache: :class:`Bool`
     """
 
-    ID: typing.Literal["removeAllFilesFromDownloads"] = Field(
-        "removeAllFilesFromDownloads", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeAllFilesFromDownloads"] = field(
+        default="removeAllFilesFromDownloads", metadata={"alias": "@type"}
     )
-    only_active: Bool = False
-    only_completed: Bool = False
-    delete_from_cache: Bool = False
+    only_active: Bool = field(default=False)
+    only_completed: Bool = field(default=False)
+    delete_from_cache: Bool = field(default=False)

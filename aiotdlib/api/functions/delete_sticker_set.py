@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteStickerSet(BaseObject):
     """
     Completely deletes a sticker set
@@ -20,5 +20,5 @@ class DeleteStickerSet(BaseObject):
     :type name: :class:`String`
     """
 
-    ID: typing.Literal["deleteStickerSet"] = Field("deleteStickerSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["deleteStickerSet"] = field(default="deleteStickerSet", metadata={"alias": "@type"})
     name: String

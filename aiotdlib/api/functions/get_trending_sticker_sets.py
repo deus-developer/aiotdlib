@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetTrendingStickerSets(BaseObject):
     """
     Returns a list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib
@@ -28,9 +27,7 @@ class GetTrendingStickerSets(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getTrendingStickerSets"] = Field(
-        "getTrendingStickerSets", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getTrendingStickerSets"] = field(default="getTrendingStickerSets", metadata={"alias": "@type"})
     sticker_type: StickerType
     offset: Int32
     limit: Int32

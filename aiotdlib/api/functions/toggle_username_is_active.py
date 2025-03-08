@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleUsernameIsActive(BaseObject):
     """
     Changes active state for a username of the current user. The editable username can't be disabled. May return an error with a message "USERNAMES_ACTIVE_TOO_MUCH" if the maximum number of active usernames has been reached
@@ -22,8 +22,6 @@ class ToggleUsernameIsActive(BaseObject):
     :type is_active: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleUsernameIsActive"] = Field(
-        "toggleUsernameIsActive", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["toggleUsernameIsActive"] = field(default="toggleUsernameIsActive", metadata={"alias": "@type"})
     username: String
-    is_active: Bool = False
+    is_active: Bool = field(default=False)

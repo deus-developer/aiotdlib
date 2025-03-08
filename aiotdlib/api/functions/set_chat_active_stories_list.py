@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StoryList,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatActiveStoriesList(BaseObject):
     """
     Changes story list in which stories from the chat are shown
@@ -26,8 +25,8 @@ class SetChatActiveStoriesList(BaseObject):
     :type story_list: :class:`StoryList`
     """
 
-    ID: typing.Literal["setChatActiveStoriesList"] = Field(
-        "setChatActiveStoriesList", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setChatActiveStoriesList"] = field(
+        default="setChatActiveStoriesList", metadata={"alias": "@type"}
     )
     chat_id: Int53
     story_list: StoryList

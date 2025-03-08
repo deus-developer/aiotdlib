@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class LoadGroupCallParticipants(BaseObject):
     """
     Loads more participants of a group call. The loaded participants will be received through updates. Use the field groupCall.loaded_all_participants to check whether all participants have already been loaded
@@ -22,8 +22,8 @@ class LoadGroupCallParticipants(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["loadGroupCallParticipants"] = Field(
-        "loadGroupCallParticipants", validation_alias="@type", alias="@type"
+    ID: typing.Literal["loadGroupCallParticipants"] = field(
+        default="loadGroupCallParticipants", metadata={"alias": "@type"}
     )
     group_call_id: Int32
     limit: Int32

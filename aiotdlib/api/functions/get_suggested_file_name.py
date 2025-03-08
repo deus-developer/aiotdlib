@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSuggestedFileName(BaseObject):
     """
     Returns suggested name for saving a file in a given directory
@@ -22,6 +22,6 @@ class GetSuggestedFileName(BaseObject):
     :type directory: :class:`String`
     """
 
-    ID: typing.Literal["getSuggestedFileName"] = Field("getSuggestedFileName", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getSuggestedFileName"] = field(default="getSuggestedFileName", metadata={"alias": "@type"})
     file_id: Int32
     directory: String

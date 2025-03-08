@@ -6,15 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetCountries(BaseObject):
     """
     Returns information about existing countries. Can be called before authorization
     """
 
-    ID: typing.Literal["getCountries"] = Field("getCountries", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getCountries"] = field(default="getCountries", metadata={"alias": "@type"})

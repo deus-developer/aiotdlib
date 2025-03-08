@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteChatReplyMarkup(BaseObject):
     """
     Deletes the default reply markup from a chat. Must be called after a one-time keyboard or a replyMarkupForceReply reply markup has been used. An updateChatReplyMarkup update will be sent if the reply markup is changed
@@ -22,8 +22,6 @@ class DeleteChatReplyMarkup(BaseObject):
     :type message_id: :class:`Int53`
     """
 
-    ID: typing.Literal["deleteChatReplyMarkup"] = Field(
-        "deleteChatReplyMarkup", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["deleteChatReplyMarkup"] = field(default="deleteChatReplyMarkup", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     StickerType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetArchivedStickerSets(BaseObject):
     """
     Returns a list of archived sticker sets
@@ -28,9 +27,7 @@ class GetArchivedStickerSets(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getArchivedStickerSets"] = Field(
-        "getArchivedStickerSets", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getArchivedStickerSets"] = field(default="getArchivedStickerSets", metadata={"alias": "@type"})
     sticker_type: StickerType
     offset_sticker_set_id: Int64
     limit: Int32

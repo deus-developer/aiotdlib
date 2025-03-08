@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     CallProtocol,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class AcceptCall(BaseObject):
     """
     Accepts an incoming call
@@ -26,6 +25,6 @@ class AcceptCall(BaseObject):
     :type protocol: :class:`CallProtocol`
     """
 
-    ID: typing.Literal["acceptCall"] = Field("acceptCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["acceptCall"] = field(default="acceptCall", metadata={"alias": "@type"})
     call_id: Int32
     protocol: CallProtocol

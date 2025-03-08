@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import MISSING, dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetGroupCallTitle(BaseObject):
     """
     Sets group call title. Requires groupCall.can_be_managed group call flag
@@ -22,6 +22,6 @@ class SetGroupCallTitle(BaseObject):
     :type title: :class:`String`
     """
 
-    ID: typing.Literal["setGroupCallTitle"] = Field("setGroupCallTitle", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setGroupCallTitle"] = field(default="setGroupCallTitle", metadata={"alias": "@type"})
     group_call_id: Int32
-    title: String = Field(..., min_length=1, max_length=64)
+    title: String = field(default=MISSING, metadata={"min_length": 1, "max_length": 64})

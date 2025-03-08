@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditBusinessMessageReplyMarkup(BaseObject):
     """
     Edits the reply markup of a message sent on behalf of a business account; for bots only
@@ -30,10 +29,10 @@ class EditBusinessMessageReplyMarkup(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["editBusinessMessageReplyMarkup"] = Field(
-        "editBusinessMessageReplyMarkup", validation_alias="@type", alias="@type"
+    ID: typing.Literal["editBusinessMessageReplyMarkup"] = field(
+        default="editBusinessMessageReplyMarkup", metadata={"alias": "@type"}
     )
     business_connection_id: String
     chat_id: Int53
     message_id: Int53
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

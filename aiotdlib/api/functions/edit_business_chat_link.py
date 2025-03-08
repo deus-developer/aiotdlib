@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputBusinessChatLink,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditBusinessChatLink(BaseObject):
     """
     Edits a business chat link of the current account. Requires Telegram Business subscription. Returns the edited link
@@ -26,6 +25,6 @@ class EditBusinessChatLink(BaseObject):
     :type link_info: :class:`InputBusinessChatLink`
     """
 
-    ID: typing.Literal["editBusinessChatLink"] = Field("editBusinessChatLink", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editBusinessChatLink"] = field(default="editBusinessChatLink", metadata={"alias": "@type"})
     link: String
     link_info: InputBusinessChatLink

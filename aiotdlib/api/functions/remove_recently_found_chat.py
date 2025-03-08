@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveRecentlyFoundChat(BaseObject):
     """
     Removes a chat from the list of recently found chats
@@ -20,7 +20,7 @@ class RemoveRecentlyFoundChat(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["removeRecentlyFoundChat"] = Field(
-        "removeRecentlyFoundChat", validation_alias="@type", alias="@type"
+    ID: typing.Literal["removeRecentlyFoundChat"] = field(
+        default="removeRecentlyFoundChat", metadata={"alias": "@type"}
     )
     chat_id: Int53

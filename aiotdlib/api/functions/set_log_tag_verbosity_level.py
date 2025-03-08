@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetLogTagVerbosityLevel(BaseObject):
     """
     Sets the verbosity level for a specified TDLib internal log tag. Can be called synchronously
@@ -22,8 +22,8 @@ class SetLogTagVerbosityLevel(BaseObject):
     :type new_verbosity_level: :class:`Int32`
     """
 
-    ID: typing.Literal["setLogTagVerbosityLevel"] = Field(
-        "setLogTagVerbosityLevel", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setLogTagVerbosityLevel"] = field(
+        default="setLogTagVerbosityLevel", metadata={"alias": "@type"}
     )
     tag: String
     new_verbosity_level: Int32

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetSavedMessagesTopicHistory(BaseObject):
     """
     Returns messages in a Saved Messages topic. The messages are returned in reverse chronological order (i.e., in order of decreasing message_id)
@@ -26,8 +26,8 @@ class GetSavedMessagesTopicHistory(BaseObject):
     :type limit: :class:`Int32`
     """
 
-    ID: typing.Literal["getSavedMessagesTopicHistory"] = Field(
-        "getSavedMessagesTopicHistory", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getSavedMessagesTopicHistory"] = field(
+        default="getSavedMessagesTopicHistory", metadata={"alias": "@type"}
     )
     saved_messages_topic_id: Int53
     from_message_id: Int53

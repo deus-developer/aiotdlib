@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputChatPhoto,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SuggestUserProfilePhoto(BaseObject):
     """
     Suggests a profile photo to another regular user with common messages
@@ -26,8 +25,8 @@ class SuggestUserProfilePhoto(BaseObject):
     :type photo: :class:`InputChatPhoto`
     """
 
-    ID: typing.Literal["suggestUserProfilePhoto"] = Field(
-        "suggestUserProfilePhoto", validation_alias="@type", alias="@type"
+    ID: typing.Literal["suggestUserProfilePhoto"] = field(
+        default="suggestUserProfilePhoto", metadata={"alias": "@type"}
     )
     user_id: Int53
     photo: InputChatPhoto

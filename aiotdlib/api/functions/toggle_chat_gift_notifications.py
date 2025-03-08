@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ToggleChatGiftNotifications(BaseObject):
     """
     Toggles whether notifications for new gifts received by a channel chat are sent to the current user; requires can_post_messages administrator right in the chat
@@ -22,8 +22,8 @@ class ToggleChatGiftNotifications(BaseObject):
     :type are_enabled: :class:`Bool`
     """
 
-    ID: typing.Literal["toggleChatGiftNotifications"] = Field(
-        "toggleChatGiftNotifications", validation_alias="@type", alias="@type"
+    ID: typing.Literal["toggleChatGiftNotifications"] = field(
+        default="toggleChatGiftNotifications", metadata={"alias": "@type"}
     )
     chat_id: Int53
-    are_enabled: Bool = False
+    are_enabled: Bool = field(default=False)

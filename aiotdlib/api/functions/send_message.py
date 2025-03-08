@@ -6,10 +6,7 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputMessageContent,
@@ -17,8 +14,10 @@ from ..types.all import (
     MessageSendOptions,
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendMessage(BaseObject):
     """
     Sends a message. Returns the sent message
@@ -37,10 +36,10 @@ class SendMessage(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["sendMessage"] = Field("sendMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendMessage"] = field(default="sendMessage", metadata={"alias": "@type"})
     chat_id: Int53
     input_message_content: InputMessageContent
-    message_thread_id: Int53 = 0
-    reply_to: typing.Optional[InputMessageReplyTo] = None
-    options: typing.Optional[MessageSendOptions] = None
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    message_thread_id: Int53 = field(default=0)
+    reply_to: typing.Optional[InputMessageReplyTo] = field(default=None)
+    options: typing.Optional[MessageSendOptions] = field(default=None)
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

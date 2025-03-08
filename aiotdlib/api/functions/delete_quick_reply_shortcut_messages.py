@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class DeleteQuickReplyShortcutMessages(BaseObject):
     """
     Deletes specified quick reply messages
@@ -22,8 +22,8 @@ class DeleteQuickReplyShortcutMessages(BaseObject):
     :type message_ids: :class:`Vector[Int53]`
     """
 
-    ID: typing.Literal["deleteQuickReplyShortcutMessages"] = Field(
-        "deleteQuickReplyShortcutMessages", validation_alias="@type", alias="@type"
+    ID: typing.Literal["deleteQuickReplyShortcutMessages"] = field(
+        default="deleteQuickReplyShortcutMessages", metadata={"alias": "@type"}
     )
     shortcut_id: Int32
     message_ids: Vector[Int53]

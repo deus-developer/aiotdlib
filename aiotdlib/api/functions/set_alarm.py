@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetAlarm(BaseObject):
     """
     Succeeds after a specified amount of time has passed. Can be called before initialization
@@ -20,5 +20,5 @@ class SetAlarm(BaseObject):
     :type seconds: :class:`Double`
     """
 
-    ID: typing.Literal["setAlarm"] = Field("setAlarm", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setAlarm"] = field(default="setAlarm", metadata={"alias": "@type"})
     seconds: Double

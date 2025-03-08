@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatDiscussionGroup(BaseObject):
     """
     Changes the discussion group of a channel chat; requires can_change_info administrator right in the channel if it is specified
@@ -22,8 +22,6 @@ class SetChatDiscussionGroup(BaseObject):
     :type discussion_chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["setChatDiscussionGroup"] = Field(
-        "setChatDiscussionGroup", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["setChatDiscussionGroup"] = field(default="setChatDiscussionGroup", metadata={"alias": "@type"})
     chat_id: Int53
     discussion_chat_id: Int53

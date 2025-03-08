@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SendCallLog(BaseObject):
     """
     Sends log file for a call to Telegram servers
@@ -26,6 +25,6 @@ class SendCallLog(BaseObject):
     :type log_file: :class:`InputFile`
     """
 
-    ID: typing.Literal["sendCallLog"] = Field("sendCallLog", validation_alias="@type", alias="@type")
+    ID: typing.Literal["sendCallLog"] = field(default="sendCallLog", metadata={"alias": "@type"})
     call_id: Int32
     log_file: InputFile

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EditForumTopic(BaseObject):
     """
     Edits title and icon of a topic in a forum supergroup chat; requires can_manage_topics right in the supergroup unless the user is creator of the topic
@@ -28,9 +28,9 @@ class EditForumTopic(BaseObject):
     :type name: :class:`String`, optional
     """
 
-    ID: typing.Literal["editForumTopic"] = Field("editForumTopic", validation_alias="@type", alias="@type")
+    ID: typing.Literal["editForumTopic"] = field(default="editForumTopic", metadata={"alias": "@type"})
     chat_id: Int53
     message_thread_id: Int53
     icon_custom_emoji_id: Int64
-    edit_icon_custom_emoji: Bool = False
-    name: typing.Optional[String] = Field("", max_length=128)
+    edit_icon_custom_emoji: Bool = field(default=False)
+    name: typing.Optional[String] = field(default="", metadata={"max_length": 128})

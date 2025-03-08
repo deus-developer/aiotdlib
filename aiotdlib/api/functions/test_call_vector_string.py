@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class TestCallVectorString(BaseObject):
     """
     Returns the received vector of strings; for testing only. This is an offline method. Can be called before authorization
@@ -20,5 +20,5 @@ class TestCallVectorString(BaseObject):
     :type x: :class:`Vector[String]`
     """
 
-    ID: typing.Literal["testCallVectorString"] = Field("testCallVectorString", validation_alias="@type", alias="@type")
+    ID: typing.Literal["testCallVectorString"] = field(default="testCallVectorString", metadata={"alias": "@type"})
     x: Vector[String]

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatInviteLinks(BaseObject):
     """
     Returns invite links for a chat created by specified administrator. Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
@@ -30,10 +30,10 @@ class GetChatInviteLinks(BaseObject):
     :type is_revoked: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatInviteLinks"] = Field("getChatInviteLinks", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatInviteLinks"] = field(default="getChatInviteLinks", metadata={"alias": "@type"})
     chat_id: Int53
     creator_user_id: Int53
     offset_date: Int32
     offset_invite_link: String
     limit: Int32
-    is_revoked: Bool = False
+    is_revoked: Bool = field(default=False)

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveChatActionBar(BaseObject):
     """
     Removes a chat action bar without any other action
@@ -20,5 +20,5 @@ class RemoveChatActionBar(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["removeChatActionBar"] = Field("removeChatActionBar", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeChatActionBar"] = field(default="removeChatActionBar", metadata={"alias": "@type"})
     chat_id: Int53

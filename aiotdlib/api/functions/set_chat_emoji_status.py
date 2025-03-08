@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     EmojiStatus,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetChatEmojiStatus(BaseObject):
     """
     Changes the emoji status of a chat. Use chatBoostLevelFeatures.can_set_emoji_status to check whether an emoji status can be set. Requires can_change_info administrator right
@@ -26,6 +25,6 @@ class SetChatEmojiStatus(BaseObject):
     :type emoji_status: :class:`EmojiStatus`, optional
     """
 
-    ID: typing.Literal["setChatEmojiStatus"] = Field("setChatEmojiStatus", validation_alias="@type", alias="@type")
+    ID: typing.Literal["setChatEmojiStatus"] = field(default="setChatEmojiStatus", metadata={"alias": "@type"})
     chat_id: Int53
-    emoji_status: typing.Optional[EmojiStatus] = None
+    emoji_status: typing.Optional[EmojiStatus] = field(default=None)

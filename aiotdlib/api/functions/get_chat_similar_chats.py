@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatSimilarChats(BaseObject):
     """
     Returns a list of chats similar to the given chat
@@ -20,5 +20,5 @@ class GetChatSimilarChats(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getChatSimilarChats"] = Field("getChatSimilarChats", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatSimilarChats"] = field(default="getChatSimilarChats", metadata={"alias": "@type"})
     chat_id: Int53

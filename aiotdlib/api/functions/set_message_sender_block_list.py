@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BlockList,
     MessageSender,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetMessageSenderBlockList(BaseObject):
     """
     Changes the block list of a message sender. Currently, only users and supergroup chats can be blocked
@@ -27,8 +26,8 @@ class SetMessageSenderBlockList(BaseObject):
     :type block_list: :class:`BlockList`, optional
     """
 
-    ID: typing.Literal["setMessageSenderBlockList"] = Field(
-        "setMessageSenderBlockList", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setMessageSenderBlockList"] = field(
+        default="setMessageSenderBlockList", metadata={"alias": "@type"}
     )
     sender_id: MessageSender
-    block_list: typing.Optional[BlockList] = None
+    block_list: typing.Optional[BlockList] = field(default=None)

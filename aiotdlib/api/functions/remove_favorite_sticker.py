@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveFavoriteSticker(BaseObject):
     """
     Removes a sticker from the list of favorite stickers
@@ -24,7 +23,5 @@ class RemoveFavoriteSticker(BaseObject):
     :type sticker: :class:`InputFile`
     """
 
-    ID: typing.Literal["removeFavoriteSticker"] = Field(
-        "removeFavoriteSticker", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["removeFavoriteSticker"] = field(default="removeFavoriteSticker", metadata={"alias": "@type"})
     sticker: InputFile

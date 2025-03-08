@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReuseStarSubscription(BaseObject):
     """
     Reuses an active Telegram Star subscription to a channel chat and joins the chat again
@@ -20,7 +20,5 @@ class ReuseStarSubscription(BaseObject):
     :type subscription_id: :class:`String`
     """
 
-    ID: typing.Literal["reuseStarSubscription"] = Field(
-        "reuseStarSubscription", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["reuseStarSubscription"] = field(default="reuseStarSubscription", metadata={"alias": "@type"})
     subscription_id: String

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     Contact,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ChangeImportedContacts(BaseObject):
     """
     Changes imported contacts using the list of contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. Query result depends on the result of the previous query, so only one query is possible at the same time
@@ -24,7 +23,5 @@ class ChangeImportedContacts(BaseObject):
     :type contacts: :class:`Vector[Contact]`
     """
 
-    ID: typing.Literal["changeImportedContacts"] = Field(
-        "changeImportedContacts", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["changeImportedContacts"] = field(default="changeImportedContacts", metadata={"alias": "@type"})
     contacts: Vector[Contact]

@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStatisticalGraph(BaseObject):
     """
     Loads an asynchronous or a zoomed in statistical graph
@@ -24,7 +24,7 @@ class GetStatisticalGraph(BaseObject):
     :type x: :class:`Int53`
     """
 
-    ID: typing.Literal["getStatisticalGraph"] = Field("getStatisticalGraph", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStatisticalGraph"] = field(default="getStatisticalGraph", metadata={"alias": "@type"})
     chat_id: Int53
     token: String
     x: Int53

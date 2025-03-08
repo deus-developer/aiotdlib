@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     SearchMessagesFilter,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetChatMessageCount(BaseObject):
     """
     Returns approximate number of messages of the specified type in the chat
@@ -30,8 +29,8 @@ class GetChatMessageCount(BaseObject):
     :type return_local: :class:`Bool`
     """
 
-    ID: typing.Literal["getChatMessageCount"] = Field("getChatMessageCount", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getChatMessageCount"] = field(default="getChatMessageCount", metadata={"alias": "@type"})
     chat_id: Int53
-    filter_: SearchMessagesFilter = Field(..., alias="filter")
-    saved_messages_topic_id: Int53 = 0
-    return_local: Bool = False
+    filter_: SearchMessagesFilter = field(default=MISSING, metadata={"alias": "filter"})
+    saved_messages_topic_id: Int53 = field(default=0)
+    return_local: Bool = field(default=False)

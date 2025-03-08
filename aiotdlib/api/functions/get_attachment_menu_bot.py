@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetAttachmentMenuBot(BaseObject):
     """
     Returns information about a bot that can be added to attachment or side menu
@@ -20,5 +20,5 @@ class GetAttachmentMenuBot(BaseObject):
     :type bot_user_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getAttachmentMenuBot"] = Field("getAttachmentMenuBot", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getAttachmentMenuBot"] = field(default="getAttachmentMenuBot", metadata={"alias": "@type"})
     bot_user_id: Int53

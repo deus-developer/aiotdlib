@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetGiftUpgradePreview(BaseObject):
     """
     Returns examples of possible upgraded gifts for a regular gift
@@ -20,7 +20,5 @@ class GetGiftUpgradePreview(BaseObject):
     :type gift_id: :class:`Int64`
     """
 
-    ID: typing.Literal["getGiftUpgradePreview"] = Field(
-        "getGiftUpgradePreview", validation_alias="@type", alias="@type"
-    )
+    ID: typing.Literal["getGiftUpgradePreview"] = field(default="getGiftUpgradePreview", metadata={"alias": "@type"})
     gift_id: Int64

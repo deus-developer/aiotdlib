@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import MISSING, dataclass, field
 
 from ..types.all import (
     InternalLinkType,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetInternalLink(BaseObject):
     """
     Returns an HTTPS or a tg: link with the given type. Can be called before authorization
@@ -26,6 +25,6 @@ class GetInternalLink(BaseObject):
     :type is_http: :class:`Bool`
     """
 
-    ID: typing.Literal["getInternalLink"] = Field("getInternalLink", validation_alias="@type", alias="@type")
-    type_: InternalLinkType = Field(..., alias="type")
-    is_http: Bool = False
+    ID: typing.Literal["getInternalLink"] = field(default="getInternalLink", metadata={"alias": "@type"})
+    type_: InternalLinkType = field(default=MISSING, metadata={"alias": "type"})
+    is_http: Bool = field(default=False)

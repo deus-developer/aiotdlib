@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ReplyMarkup,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class StopBusinessPoll(BaseObject):
     """
     Stops a poll sent on behalf of a business account; for bots only
@@ -30,8 +29,8 @@ class StopBusinessPoll(BaseObject):
     :type reply_markup: :class:`ReplyMarkup`, optional
     """
 
-    ID: typing.Literal["stopBusinessPoll"] = Field("stopBusinessPoll", validation_alias="@type", alias="@type")
+    ID: typing.Literal["stopBusinessPoll"] = field(default="stopBusinessPoll", metadata={"alias": "@type"})
     business_connection_id: String
     chat_id: Int53
     message_id: Int53
-    reply_markup: typing.Optional[ReplyMarkup] = None
+    reply_markup: typing.Optional[ReplyMarkup] = field(default=None)

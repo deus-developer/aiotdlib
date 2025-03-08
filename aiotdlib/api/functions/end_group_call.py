@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class EndGroupCall(BaseObject):
     """
     Ends a group call. Requires groupCall.can_be_managed
@@ -20,5 +20,5 @@ class EndGroupCall(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["endGroupCall"] = Field("endGroupCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["endGroupCall"] = field(default="endGroupCall", metadata={"alias": "@type"})
     group_call_id: Int32

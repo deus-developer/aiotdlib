@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveSavedAnimation(BaseObject):
     """
     Removes an animation from the list of saved animations
@@ -24,5 +23,5 @@ class RemoveSavedAnimation(BaseObject):
     :type animation: :class:`InputFile`
     """
 
-    ID: typing.Literal["removeSavedAnimation"] = Field("removeSavedAnimation", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeSavedAnimation"] = field(default="removeSavedAnimation", metadata={"alias": "@type"})
     animation: InputFile

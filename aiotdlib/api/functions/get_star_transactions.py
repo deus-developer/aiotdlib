@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     MessageSender,
     StarTransactionDirection,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetStarTransactions(BaseObject):
     """
     Returns the list of Telegram Star transactions for the specified owner
@@ -33,9 +32,9 @@ class GetStarTransactions(BaseObject):
     :type direction: :class:`StarTransactionDirection`, optional
     """
 
-    ID: typing.Literal["getStarTransactions"] = Field("getStarTransactions", validation_alias="@type", alias="@type")
+    ID: typing.Literal["getStarTransactions"] = field(default="getStarTransactions", metadata={"alias": "@type"})
     owner_id: MessageSender
     offset: String
     limit: Int32
-    subscription_id: String = ""
-    direction: typing.Optional[StarTransactionDirection] = None
+    subscription_id: String = field(default="")
+    direction: typing.Optional[StarTransactionDirection] = field(default=None)

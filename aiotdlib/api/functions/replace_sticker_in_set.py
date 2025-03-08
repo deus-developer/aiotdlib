@@ -6,17 +6,16 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
     InputSticker,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class ReplaceStickerInSet(BaseObject):
     """
     Replaces existing sticker in a set. The function is equivalent to removeStickerFromSet, then addStickerToSet, then setStickerPositionInSet
@@ -31,7 +30,7 @@ class ReplaceStickerInSet(BaseObject):
     :type new_sticker: :class:`InputSticker`
     """
 
-    ID: typing.Literal["replaceStickerInSet"] = Field("replaceStickerInSet", validation_alias="@type", alias="@type")
+    ID: typing.Literal["replaceStickerInSet"] = field(default="replaceStickerInSet", metadata={"alias": "@type"})
     user_id: Int53
     name: String
     old_sticker: InputFile

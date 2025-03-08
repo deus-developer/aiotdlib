@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     ChatNotificationSettings,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetForumTopicNotificationSettings(BaseObject):
     """
     Changes the notification settings of a forum topic
@@ -28,8 +27,8 @@ class SetForumTopicNotificationSettings(BaseObject):
     :type notification_settings: :class:`ChatNotificationSettings`
     """
 
-    ID: typing.Literal["setForumTopicNotificationSettings"] = Field(
-        "setForumTopicNotificationSettings", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setForumTopicNotificationSettings"] = field(
+        default="setForumTopicNotificationSettings", metadata={"alias": "@type"}
     )
     chat_id: Int53
     message_thread_id: Int53

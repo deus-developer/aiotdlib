@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class GetVideoChatAvailableParticipants(BaseObject):
     """
     Returns the list of participant identifiers, on whose behalf a video chat in the chat can be joined
@@ -20,7 +20,7 @@ class GetVideoChatAvailableParticipants(BaseObject):
     :type chat_id: :class:`Int53`
     """
 
-    ID: typing.Literal["getVideoChatAvailableParticipants"] = Field(
-        "getVideoChatAvailableParticipants", validation_alias="@type", alias="@type"
+    ID: typing.Literal["getVideoChatAvailableParticipants"] = field(
+        default="getVideoChatAvailableParticipants", metadata={"alias": "@type"}
     )
     chat_id: Int53

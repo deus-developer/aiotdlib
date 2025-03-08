@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     BusinessOpeningHours,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetBusinessOpeningHours(BaseObject):
     """
     Changes the business opening hours of the current user. Requires Telegram Business subscription
@@ -24,7 +23,7 @@ class SetBusinessOpeningHours(BaseObject):
     :type opening_hours: :class:`BusinessOpeningHours`, optional
     """
 
-    ID: typing.Literal["setBusinessOpeningHours"] = Field(
-        "setBusinessOpeningHours", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setBusinessOpeningHours"] = field(
+        default="setBusinessOpeningHours", metadata={"alias": "@type"}
     )
-    opening_hours: typing.Optional[BusinessOpeningHours] = None
+    opening_hours: typing.Optional[BusinessOpeningHours] = field(default=None)

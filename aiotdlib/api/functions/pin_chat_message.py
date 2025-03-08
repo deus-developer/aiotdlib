@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class PinChatMessage(BaseObject):
     """
     Pins a message in a chat. A message can be pinned only if messageProperties.can_be_pinned
@@ -26,8 +26,8 @@ class PinChatMessage(BaseObject):
     :type only_for_self: :class:`Bool`
     """
 
-    ID: typing.Literal["pinChatMessage"] = Field("pinChatMessage", validation_alias="@type", alias="@type")
+    ID: typing.Literal["pinChatMessage"] = field(default="pinChatMessage", metadata={"alias": "@type"})
     chat_id: Int53
     message_id: Int53
-    disable_notification: Bool = False
-    only_for_self: Bool = False
+    disable_notification: Bool = field(default=False)
+    only_for_self: Bool = field(default=False)

@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     InputFile,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveRecentSticker(BaseObject):
     """
     Removes a sticker from the list of recently used stickers
@@ -26,6 +25,6 @@ class RemoveRecentSticker(BaseObject):
     :type is_attached: :class:`Bool`
     """
 
-    ID: typing.Literal["removeRecentSticker"] = Field("removeRecentSticker", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeRecentSticker"] = field(default="removeRecentSticker", metadata={"alias": "@type"})
     sticker: InputFile
-    is_attached: Bool = False
+    is_attached: Bool = field(default=False)

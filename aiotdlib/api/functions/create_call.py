@@ -6,16 +6,15 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
-
-from ..types.base import *
+from dataclasses import dataclass, field
 
 from ..types.all import (
     CallProtocol,
 )
+from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class CreateCall(BaseObject):
     """
     Creates a new call
@@ -30,8 +29,8 @@ class CreateCall(BaseObject):
     :type group_call_id: :class:`Int32`
     """
 
-    ID: typing.Literal["createCall"] = Field("createCall", validation_alias="@type", alias="@type")
+    ID: typing.Literal["createCall"] = field(default="createCall", metadata={"alias": "@type"})
     user_id: Int53
     protocol: CallProtocol
-    is_video: Bool = False
-    group_call_id: Int32 = 0
+    is_video: Bool = field(default=False)
+    group_call_id: Int32 = field(default=0)

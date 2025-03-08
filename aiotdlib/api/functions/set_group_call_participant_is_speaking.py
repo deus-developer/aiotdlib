@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class SetGroupCallParticipantIsSpeaking(BaseObject):
     """
     Informs TDLib that speaking state of a participant of an active group has changed
@@ -24,9 +24,9 @@ class SetGroupCallParticipantIsSpeaking(BaseObject):
     :type is_speaking: :class:`Bool`
     """
 
-    ID: typing.Literal["setGroupCallParticipantIsSpeaking"] = Field(
-        "setGroupCallParticipantIsSpeaking", validation_alias="@type", alias="@type"
+    ID: typing.Literal["setGroupCallParticipantIsSpeaking"] = field(
+        default="setGroupCallParticipantIsSpeaking", metadata={"alias": "@type"}
     )
     group_call_id: Int32
-    audio_source: Int32 = 0
-    is_speaking: Bool = False
+    audio_source: Int32 = field(default=0)
+    is_speaking: Bool = field(default=False)

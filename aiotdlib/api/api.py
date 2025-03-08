@@ -4,6 +4,9 @@
 #                                                                                 #
 # =============================================================================== #
 
+import typing
+from dataclasses import MISSING
+
 from .functions import *
 from .types import *
 
@@ -3236,7 +3239,7 @@ class API:
                 chat_id=chat_id,
                 message_id=message_id,
                 star_count=star_count,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -3276,7 +3279,7 @@ class API:
             AddProxy(
                 server=server,
                 port=port,
-                type=type_,
+                type_=type_,
                 enable=enable,
             ),
             request_id=request_id,
@@ -4471,7 +4474,7 @@ class API:
 
         return await self.client.request(
             CheckCreatedPublicChatsLimit(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -5483,7 +5486,7 @@ class API:
     async def create_new_basic_group_chat(
         self,
         title: String,
-        user_ids: Vector[Int53] = [],
+        user_ids: Vector[Int53] = MISSING,
         message_auto_delete_time: Int32 = 0,
         *,
         request_id: str = None,
@@ -5494,7 +5497,7 @@ class API:
 
         :param title: Title of the new basic group; 1-128 characters
         :type title: :class:`String`
-        :param user_ids: Identifiers of users to be added to the basic group; may be empty to create a basic group without other members
+        :param user_ids: Identifiers of users to be added to the basic group; may be empty to create a basic group without other members, defaults to list()
         :type user_ids: :class:`Vector[Int53]`
         :param message_auto_delete_time: Message auto-delete time value, in seconds; must be from 0 up to 365 * 86400 and be divisible by 86400. If 0, then messages aren't deleted automatically
         :type message_auto_delete_time: :class:`Int32`
@@ -5506,6 +5509,9 @@ class API:
         :return: response from TDLib
         :rtype: :class:`aiotdlib.api.types.CreatedBasicGroupChat`
         """
+        # Set default values from default_factory if needed
+        if user_ids is MISSING:
+            user_ids = list()
 
         return await self.client.request(
             CreateNewBasicGroupChat(
@@ -6402,7 +6408,7 @@ class API:
 
         return await self.client.request(
             DeletePassportElement(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -7868,7 +7874,7 @@ class API:
                 proxy_id=proxy_id,
                 server=server,
                 port=port,
-                type=type_,
+                type_=type_,
                 enable=enable,
             ),
             request_id=request_id,
@@ -8559,7 +8565,7 @@ class API:
         return await self.client.request(
             GetBackgroundUrl(
                 name=name,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -9909,7 +9915,7 @@ class API:
         return await self.client.request(
             GetChatMessageCalendar(
                 chat_id=chat_id,
-                filter=filter_,
+                filter_=filter_,
                 from_message_id=from_message_id,
                 saved_messages_topic_id=saved_messages_topic_id,
             ),
@@ -9950,7 +9956,7 @@ class API:
         return await self.client.request(
             GetChatMessageCount(
                 chat_id=chat_id,
-                filter=filter_,
+                filter_=filter_,
                 saved_messages_topic_id=saved_messages_topic_id,
                 return_local=return_local,
             ),
@@ -9995,7 +10001,7 @@ class API:
             GetChatMessagePosition(
                 chat_id=chat_id,
                 message_id=message_id,
-                filter=filter_,
+                filter_=filter_,
                 message_thread_id=message_thread_id,
                 saved_messages_topic_id=saved_messages_topic_id,
             ),
@@ -10293,7 +10299,7 @@ class API:
         return await self.client.request(
             GetChatSparseMessagePositions(
                 chat_id=chat_id,
-                filter=filter_,
+                filter_=filter_,
                 from_message_id=from_message_id,
                 limit=limit,
                 saved_messages_topic_id=saved_messages_topic_id,
@@ -10503,7 +10509,7 @@ class API:
 
         return await self.client.request(
             GetCollectibleItemInfo(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -10695,7 +10701,7 @@ class API:
 
         return await self.client.request(
             GetCreatedPublicChats(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -10923,7 +10929,7 @@ class API:
 
         return await self.client.request(
             GetEmojiCategories(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -11714,7 +11720,7 @@ class API:
 
         return await self.client.request(
             GetInternalLink(
-                type=type_,
+                type_=type_,
                 is_http=is_http,
             ),
             request_id=request_id,
@@ -11788,7 +11794,7 @@ class API:
 
         return await self.client.request(
             GetJsonValue(
-                json=json_,
+                json_=json_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -11797,7 +11803,7 @@ class API:
     async def get_keyword_emojis(
         self,
         text: String,
-        input_language_codes: Vector[String] = [],
+        input_language_codes: Vector[String] = MISSING,
         *,
         request_id: str = None,
         request_timeout: int = None,
@@ -11807,7 +11813,7 @@ class API:
 
         :param text: Text to search for
         :type text: :class:`String`
-        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown
+        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown, defaults to list()
         :type input_language_codes: :class:`Vector[String]`
         :param request_id: custom request ID. By default random UUID4 will be generated, defaults to None
         :type request_id: :class:`str`
@@ -11817,6 +11823,9 @@ class API:
         :return: response from TDLib
         :rtype: :class:`aiotdlib.api.types.Emojis`
         """
+        # Set default values from default_factory if needed
+        if input_language_codes is MISSING:
+            input_language_codes = list()
 
         return await self.client.request(
             GetKeywordEmojis(
@@ -13035,7 +13044,7 @@ class API:
 
         return await self.client.request(
             GetPassportElement(
-                type=type_,
+                type_=type_,
                 password=password,
             ),
             request_id=request_id,
@@ -14809,7 +14818,7 @@ class API:
                 supergroup_id=supergroup_id,
                 offset=offset,
                 limit=limit,
-                filter=filter_,
+                filter_=filter_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -16090,9 +16099,9 @@ class API:
         count: Int32,
         immunity_delay: Int32,
         chat_limit: Int32,
-        file_types: Vector[FileType] = [],
-        chat_ids: Vector[Int53] = [],
-        exclude_chat_ids: Vector[Int53] = [],
+        file_types: Vector[FileType] = MISSING,
+        chat_ids: Vector[Int53] = MISSING,
+        exclude_chat_ids: Vector[Int53] = MISSING,
         return_deleted_file_statistics: Bool = False,
         *,
         request_id: str = None,
@@ -16111,11 +16120,11 @@ class API:
         :type immunity_delay: :class:`Int32`
         :param chat_limit: Same as in getStorageStatistics. Affects only returned statistics
         :type chat_limit: :class:`Int32`
-        :param file_types: If non-empty, only files with the given types are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted
+        :param file_types: If non-empty, only files with the given types are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted, defaults to list()
         :type file_types: :class:`Vector[FileType]`
-        :param chat_ids: If non-empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
+        :param chat_ids: If non-empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos), defaults to list()
         :type chat_ids: :class:`Vector[Int53]`
-        :param exclude_chat_ids: If non-empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
+        :param exclude_chat_ids: If non-empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos), defaults to list()
         :type exclude_chat_ids: :class:`Vector[Int53]`
         :param return_deleted_file_statistics: Pass true if statistics about the files that were deleted must be returned instead of the whole storage usage statistics. Affects only returned statistics
         :type return_deleted_file_statistics: :class:`Bool`
@@ -16127,6 +16136,15 @@ class API:
         :return: response from TDLib
         :rtype: :class:`aiotdlib.api.types.StorageStatistics`
         """
+        # Set default values from default_factory if needed
+        if file_types is MISSING:
+            file_types = list()
+        # Set default values from default_factory if needed
+        if chat_ids is MISSING:
+            chat_ids = list()
+        # Set default values from default_factory if needed
+        if exclude_chat_ids is MISSING:
+            exclude_chat_ids = list()
 
         return await self.client.request(
             OptimizeStorage(
@@ -18367,7 +18385,7 @@ class API:
 
         return await self.client.request(
             SaveApplicationLogEvent(
-                type=type_,
+                type_=type_,
                 chat_id=chat_id,
                 data=data,
             ),
@@ -18578,7 +18596,7 @@ class API:
                 chat_id=chat_id,
                 query=query,
                 limit=limit,
-                filter=filter_,
+                filter_=filter_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -18639,7 +18657,7 @@ class API:
                 message_thread_id=message_thread_id,
                 saved_messages_topic_id=saved_messages_topic_id,
                 sender_id=sender_id,
-                filter=filter_,
+                filter_=filter_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -18760,7 +18778,7 @@ class API:
     async def search_emojis(
         self,
         text: String,
-        input_language_codes: Vector[String] = [],
+        input_language_codes: Vector[String] = MISSING,
         *,
         request_id: str = None,
         request_timeout: int = None,
@@ -18770,7 +18788,7 @@ class API:
 
         :param text: Text to search for
         :type text: :class:`String`
-        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown
+        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown, defaults to list()
         :type input_language_codes: :class:`Vector[String]`
         :param request_id: custom request ID. By default random UUID4 will be generated, defaults to None
         :type request_id: :class:`str`
@@ -18780,6 +18798,9 @@ class API:
         :return: response from TDLib
         :rtype: :class:`aiotdlib.api.types.EmojiKeywords`
         """
+        # Set default values from default_factory if needed
+        if input_language_codes is MISSING:
+            input_language_codes = list()
 
         return await self.client.request(
             SearchEmojis(
@@ -18950,7 +18971,7 @@ class API:
                 min_date=min_date,
                 max_date=max_date,
                 chat_list=chat_list,
-                filter=filter_,
+                filter_=filter_,
                 chat_type_filter=chat_type_filter,
             ),
             request_id=request_id,
@@ -19336,7 +19357,7 @@ class API:
                 offset=offset,
                 limit=limit,
                 query=query,
-                filter=filter_,
+                filter_=filter_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -19405,7 +19426,7 @@ class API:
         offset: Int32,
         limit: Int32,
         query: String = "",
-        input_language_codes: Vector[String] = [],
+        input_language_codes: Vector[String] = MISSING,
         *,
         request_id: str = None,
         request_timeout: int = None,
@@ -19423,7 +19444,7 @@ class API:
         :type limit: :class:`Int32`
         :param query: Query to search for; may be empty to search for emoji only
         :type query: :class:`String`
-        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown
+        :param input_language_codes: List of possible IETF language tags of the user's input language; may be empty if unknown, defaults to list()
         :type input_language_codes: :class:`Vector[String]`
         :param request_id: custom request ID. By default random UUID4 will be generated, defaults to None
         :type request_id: :class:`str`
@@ -19433,6 +19454,9 @@ class API:
         :return: response from TDLib
         :rtype: :class:`aiotdlib.api.types.Stickers`
         """
+        # Set default values from default_factory if needed
+        if input_language_codes is MISSING:
+            input_language_codes = list()
 
         return await self.client.request(
             SearchStickers(
@@ -20285,7 +20309,7 @@ class API:
         return await self.client.request(
             SendPhoneNumberCode(
                 phone_number=phone_number,
-                type=type_,
+                type_=type_,
                 settings=settings,
             ),
             request_id=request_id,
@@ -20701,7 +20725,7 @@ class API:
         return await self.client.request(
             SetAutoDownloadSettings(
                 settings=settings,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -21337,7 +21361,7 @@ class API:
                 dark_theme_dimming=dark_theme_dimming,
                 only_for_self=only_for_self,
                 background=background,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -22078,7 +22102,7 @@ class API:
             SetDefaultBackground(
                 for_dark_theme=for_dark_theme,
                 background=background,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -22840,7 +22864,7 @@ class API:
 
         return await self.client.request(
             SetNetworkType(
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -22935,7 +22959,7 @@ class API:
             SetPaidMessageReactionType(
                 chat_id=chat_id,
                 message_id=message_id,
-                type=type_,
+                type_=type_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -23547,7 +23571,7 @@ class API:
         user_id: Int53,
         name: String,
         thumbnail: typing.Optional[InputFile] = None,
-        format: typing.Optional[StickerFormat] = None,
+        format_: typing.Optional[StickerFormat] = None,
         *,
         request_id: str = None,
         request_timeout: int = None,
@@ -23561,8 +23585,8 @@ class API:
         :type name: :class:`String`
         :param thumbnail: Thumbnail to set; pass null to remove the sticker set thumbnail, defaults to None
         :type thumbnail: :class:`InputFile`, optional
-        :param format: Format of the thumbnail; pass null if thumbnail is removed, defaults to None
-        :type format: :class:`StickerFormat`, optional
+        :param format_: Format of the thumbnail; pass null if thumbnail is removed, defaults to None
+        :type format_: :class:`StickerFormat`, optional
         :param request_id: custom request ID. By default random UUID4 will be generated, defaults to None
         :type request_id: :class:`str`
         :param request_timeout: amounts of seconds to wait of response, (:class:`TimeoutError`) will be raised if request lasts more than `request_timeout` seconds, defaults to None
@@ -23577,7 +23601,7 @@ class API:
                 user_id=user_id,
                 name=name,
                 thumbnail=thumbnail,
-                format=format,
+                format_=format_,
             ),
             request_id=request_id,
             request_timeout=request_timeout,
@@ -24668,7 +24692,7 @@ class API:
             TestProxy(
                 server=server,
                 port=port,
-                type=type_,
+                type_=type_,
                 dc_id=dc_id,
                 timeout=timeout,
             ),

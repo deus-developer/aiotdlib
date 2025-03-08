@@ -6,12 +6,12 @@
 from __future__ import annotations
 
 import typing
-
-from pydantic import Field
+from dataclasses import dataclass, field
 
 from ..types.base import *
 
 
+@dataclass(slots=True, kw_only=True)
 class RemoveProxy(BaseObject):
     """
     Removes a proxy server. Can be called before authorization
@@ -20,5 +20,5 @@ class RemoveProxy(BaseObject):
     :type proxy_id: :class:`Int32`
     """
 
-    ID: typing.Literal["removeProxy"] = Field("removeProxy", validation_alias="@type", alias="@type")
+    ID: typing.Literal["removeProxy"] = field(default="removeProxy", metadata={"alias": "@type"})
     proxy_id: Int32
